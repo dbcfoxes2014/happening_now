@@ -3,16 +3,12 @@ class HomeController < ApplicationController
   	@user = current_user
   end
 
-  def video 
+  def video
 
   end
 
   def popular
     @media = []
-    Instagram.configure do |config|
-      config.client_id = ENV['CLIENT_ID']
-      config.client_secret = ENV['CLIENT_SECRET']
-    end
 
     for item in Instagram.media_popular
       @media << item
@@ -22,10 +18,6 @@ class HomeController < ApplicationController
   def search
     @media = []
     @search_content = params[:search_data]
-    Instagram.configure do |config|
-      config.client_id = ENV[CLIENT_ID]
-      config.client_secret = ENV[CLIENT_SECRET]
-    end
 
     for item in Instagram.tag_recent_media(@search_content)
       @media << item
