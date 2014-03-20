@@ -9,8 +9,8 @@ class HomeController < ApplicationController
   def popular
     @media = []
     Instagram.configure do |config|
-      config.client_id = "cf46fbec21fe4f848d9ddb0ace6d0978"
-      config.client_secret = "5ab67228feb3463fa6df817770260245"
+      config.client_id = ENV[CLIENT_ID]
+      config.client_secret = ENV[CLIENT_SECRET]
     end
 
     for item in Instagram.media_popular
@@ -22,8 +22,8 @@ class HomeController < ApplicationController
     @media = []
     @search_content = params[:search_data]
     Instagram.configure do |config|
-      config.client_id = "cf46fbec21fe4f848d9ddb0ace6d0978"
-      config.client_secret = "5ab67228feb3463fa6df817770260245"
+      config.client_id = ENV[CLIENT_ID]
+      config.client_secret = ENV[CLIENT_SECRET]
     end
 
     for item in Instagram.tag_recent_media(@search_content)
