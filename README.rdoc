@@ -1,4 +1,4 @@
-== README
+== README     [![Coverage Status](https://coveralls.io/repos/dbcfoxes2014/free_candy/badge.png)](https://coveralls.io/r/dbcfoxes2014/free_candy)
 
 This README would normally document whatever steps are necessary to get the
 application up and running.
