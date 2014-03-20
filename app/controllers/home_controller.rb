@@ -20,7 +20,15 @@ class HomeController < ApplicationController
     @search_content = params[:search_data]
 
     for item in Instagram.tag_recent_media(@search_content)
-      @media << item
+      if params[:commit] == "Search Photos"
+        @media << item.images.standard_resolution.url
+      elsif params[:commit] == "Search Videos"
+        if item.videos
+          @media << item.videos.standard_resolution.url
+        end
+      else
+        @media << item
+      end
     end
   end
 

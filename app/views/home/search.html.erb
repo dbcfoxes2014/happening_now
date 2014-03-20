@@ -1,7 +1,13 @@
 <h1>Search results for '#<%=@search_content%>'</h1>
 
+<<<<<<< HEAD
 <div class="container">
 	<% @media.each_with_index do |media,index| %>
 		<a href="<%=media.images.standard_resolution.url%>"><img class="fancybox " title="Are we going to have titles for these?" src="<%=media.images.standard_resolution.url%>" height="260" width="260" ></a>
 	<% end %>
 </div>
+=======
+<% @media.each do |media| %>
+  <img src="<%=media%>">
+<% end %>
+>>>>>>> a9aa3391b9d715229636fc8002abec2e8eaccf5c
