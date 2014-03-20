@@ -1,43 +1,5 @@
-<!-- => {"attribution"=>nil,
- "tags"=>[],
- "location"=>{"latitude"=>41.176027538, "longitude"=>28.99451392},
- "comments"=>
-  {"count"=>75,
-   "data"=>
-    [{"created_time"=>"1395339364",
-      "text"=>"@infidelist <U+1F64C><U+1F499><U+1F64C><U+2728><U+1F3B6>perfect",
-      "from"=>
-       {"username"=>"aysesivil",
-        "profile_picture"=>
-         "http://images.ak.instagram.com/profiles/profile_195883670_75sq_1382011934.jpg",
-        "id"=>"195883670",
-        "full_name"=>"İstanbul/ Turkey"},
-      "id"=>"680478365109133530"},
+<h1>Search results for '#<%=@search_content%>'</h1>
 
-     {"created_time"=>"1395339463",
-      "text"=>"Amazing <U+1F44F><U+1F44F>",
-      "from"=>
-       {"username"=>"sofiawyens",
-        "profile_picture"=>
-         "http://images.ak.instagram.com/profiles/profile_33911573_75sq_1390422743.jpg",
-        "id"=>"33911573",
-        "full_name"=>"Sofia Eriksson ♡"},
-      "id"=>"680479196881559812"},
-
-     {"created_time"=>"1395339475",
-      "text"=>"<U+1F60D><U+1F60D><U+1F60D><U+1F60D><U+1F60D>",
-      "from"=>
-       {"username"=>"goldie_berlin",
-        "profile_picture"=>
-         "http://images.ak.instagram.com/profiles/profile_165640_75sq_1380875972.jpg",
-        "id"=>"165640",
-        "full_name"=>"! Sylvia"},
-      "id"=>"680479297687462156"},
-
-     {"created_time"=>"1395339500",
-      "text"=>"brillant",
-      "from"=>
-       {"username"=>"freeland_new",
-        "profile_picture"=>
-:
- -->
+<% @media.each do |media| %>
+  <img src="<%=media.images.standard_resolution.url%>">
+<% end %>
