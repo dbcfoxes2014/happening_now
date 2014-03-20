@@ -29,6 +29,15 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'devise'
 
+gem 'instagram'
+
+gem 'snappy'
+
+gem 'google-api-client'
+
+gem 'pry'
+gem 'pry-nav'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
