@@ -35,12 +35,17 @@ gem 'snappy'
 
 gem 'google-api-client'
 
-gem 'pry'
-gem 'pry-nav'
-
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
+end
+
+group :development, :test do
+  gem 'pry'
+  gem 'pry-nav'
+  gem "rspec-rails", "~> 2.0"
+  gem "capybara", "~> 2.2.1"
+  gem "database_cleaner"
 end
 
 # Use ActiveModel has_secure_password
