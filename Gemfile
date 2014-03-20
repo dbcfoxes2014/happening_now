@@ -40,6 +40,10 @@ gem 'snappy'
 
 gem 'google-api-client'
 
+gem 'fancybox2-rails', '~> 0.2.8'
+
+gem 'videojs_rails'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

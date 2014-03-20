@@ -12,6 +12,8 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require fancybox
+//= require video
 //= require bootstrap.min
 //= require turbolinks
 //= require_tree .
