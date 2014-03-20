@@ -1,1 +1,6 @@
 <h1>Free Candy</h1>
+
+<%= form_for search_path, method: :get do |f| %>
+  <%= f.text_field :search, placeholder: "Search by tag or keyword" %>
+  <%= f.submit "Search" %>
+<%end%>
