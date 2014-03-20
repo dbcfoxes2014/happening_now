@@ -12,5 +12,6 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require lightbox-2.6.min.js
 //= require turbolinks
 //= require_tree .
