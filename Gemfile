@@ -29,6 +29,8 @@ gem 'jbuilder', '~> 1.2'
 
 gem 'devise'
 
+gem 'sprockets', '2.11.0'
+
 gem 'instagram'
 
 gem 'snappy'
@@ -39,6 +41,9 @@ group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
 end
+
+gem 'rails_autolink'
+gem 'rinku'
 
 group :development, :test do
   gem 'pry'

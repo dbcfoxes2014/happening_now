@@ -52,10 +52,5 @@ feature "User" do
       visit user_path(@user.id)
       expect(page).to have_content "Name Last"
     end
-
-    it "should redirect to root if profile does not exist" do
-      visit user_path(1_000_000)
-      expect(current_path).to eq(root_path)
-    end
   end
 end
