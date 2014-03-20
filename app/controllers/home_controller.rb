@@ -1,10 +1,11 @@
 class HomeController < ApplicationController
-
   def index
   	@user = current_user
   end
 
-  puts $IG_CLIENT
+  def video 
+
+  end
 
   def popular
     @media = []
