@@ -4,4 +4,7 @@ class User < ActiveRecord::Base
   validates :first_name, :last_name, :presence => true
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
+
+  has_many :slide_shows
+  has_many :videos
 end
