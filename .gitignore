@@ -16,5 +16,9 @@
 /tmp
 
 
+
 #Ignore Secret keys
 instagram.yml
+
+.DS_Store
+
