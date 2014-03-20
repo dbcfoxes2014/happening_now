@@ -1,15 +1,20 @@
 <h1>Search results for '#<%=@search_content%>'</h1>
 
-<div class="container">
-	<% @media.each_with_index do |media, index| %>
-		<% if media[-4..-1] == ".mp4" %>
-		<div id="wrapper">
-		    <div class="video-thumbnail">
-	         <img width="260" height="260" src='assets/dog.jpg'>
-			</div>
+<% @media.each do |media| %>
+  <% if media.type == "image" %>
+    <img src="<%=media.images.standard_resolution.url%>">
+  <% elsif media.type == "video" %>
+	<div id="wrapper">
+	    <div class="video-thumbnail">
+	    	<img width="260" height="260" src='<%= media.thumbnail.url %>'>
 		</div>
-		<% else %>
-			<a href=<%=media%>><img class="fancybox" title="are we going to have titles for these?" src="<%=media%>" height="260" width="260"></a>
-		<% end %>
-	<% end %>
-</div>
+	</div>
+
+
+
+
+
+  <% end %>
+<% end %>
+
+
