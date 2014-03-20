@@ -11,6 +11,7 @@
  *= require bootstrap.min
  *= require_self
  *= require fancybox
+ *= require video-js
  *= require_tree .
  */
 
