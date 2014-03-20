@@ -22,8 +22,6 @@ class HomeController < ApplicationController
     for item in Instagram.tag_recent_media(@search_content)
       @media << item
     end
-
-
   end
 
   def show
