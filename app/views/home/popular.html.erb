@@ -1,5 +1,9 @@
 <h1>Popular</h1>
 
 <% @media.each do |media| %>
-	<img src="<%=media.images.standard_resolution.url%>">
+  <% if media.type == "image" %>
+    <img src="<%=media.images.standard_resolution.url%>">
+  <% elsif media.type == "video" %>
+    <%= "media.standard_resolution.url" %>
+  <% end %>
 <% end %>
