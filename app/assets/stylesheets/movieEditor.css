@@ -52,6 +52,29 @@
   z-index:400;
   border-right:1px solid red;
 }
+#editorTimeRuler{
+  width: 100%;
+  height: 30px;
+  background: #1C1B1B;
+  margin-left: 200px;
+  padding-top: 10px;
+}
+.timelineTickTall{
+  display:inline-block;
+  height: 15px;
+  border-left: 1px solid #FFF;
+  /*margin-right: 2px;*/
+}
+.timelineTickShort{
+  display:inline-block;
+  height: 5px;
+  border-left: 1px solid #FFF;
+  /*margin-right: 2px;*/
+}
+#editorTimeRulerHeader{
+  width: 100%;
+  height: 20px;
+}
 #editorTimeSlider{
   width:20px;
   height:20px;
@@ -63,11 +86,10 @@
 #editorTimeCurrent{
   width:100px;
   height:30px;
-  position: relative;
-  top:10px;
-  left:10px;
+  float:left;
   background: #1C1B1B;
   padding: 5px 0 0 10px;
+  margin: 10px 0 0 10px;
 }
 #moviePallet{
   width:250px;
