@@ -12,7 +12,7 @@ FreeCandy::Application.routes.draw do
 
   match 'search', to: 'home#search', via: :post
   match 'popular', to: 'home#popular', via: :get
-  # get '/home/search' => 'home#search', as: :search
+  match 'display', to: 'home#display', via: :get
   get '/home/show' => 'home#show', as: :home
 
 
