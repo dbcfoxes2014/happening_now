@@ -28,17 +28,22 @@ $(document).ready(function() {
 	});
 
 	$(document).on('click', '.selection_checkbox', function() {
+		route = undefined;
+		if($(this).is(':checked'))
+			route = 'save_media_to_session';
+		else 
+		    route = 'remove_media_from_session';
+
 		var save_url = $(this).attr('id');
 		$.ajax({
 	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-	        url: 'save_media_to_session',
+	        url: route,
 	        data: 'media_url=' + save_url,
 		    type: "post",
 			dataType: "json",
 
 	        success: function(serverResponse){
-	          console.log("good");    
-		    }
+	        }
 		});
 	});
 });
