@@ -5,11 +5,6 @@ class HomeController < ApplicationController
     @user = current_user
   end
 
-
-  def video
-    @url = session[:url]
-  end
-
   def popular
     @media = []
 
@@ -29,16 +24,12 @@ class HomeController < ApplicationController
           @media << item
         end
       elsif params[:commit] == "Search Videos"
-        if item.type == "videos"
+        if item.type == "video"
           @media << item
         end
       else
         @media << item
       end
     end
-  end
-
-  def save_video_url
-    session[:url] = params[:url]
   end
 end

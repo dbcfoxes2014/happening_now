@@ -3,7 +3,7 @@ $(document).ready(function() {
 	$("a[href$='.mp4'], a[href$='.jpg'],a[href$='.png'],a[href$='.gif']").attr('rel', 'gallery').fancybox();//makes every image link on the site fancy
 		
 	$(".video-thumbnail").on('click',function(){
-	  // var save_url = $(this).attr('id');
+	  var save_url = $(this).attr('id');
 			$.fancybox({
 			    'width'             : '75%',
 			    'height'            : '75%',
