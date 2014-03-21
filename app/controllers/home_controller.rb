@@ -32,4 +32,12 @@ class HomeController < ApplicationController
 
     render :display
   end
+
+  def save_media
+    # binding.pry
+    session[:media_url] ||= []
+    session[:media_url].push(params[:media_url])
+    p session[:media_url].first
+    p "--------------------- dan new here -----------"
+  end
 end
