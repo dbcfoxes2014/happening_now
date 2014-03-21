@@ -26,7 +26,7 @@ describe User do
   		first_name: 'Jack', last_name: 'Dubnicek',
   			email: 'j@d.com')
   	user = User.new(
-  		first_name: 'John', last_name: 'Donner'
+  		first_name: 'John', last_name: 'Donner',
   			email: 'j@d.com')
   	expect(user).to have(1).errors_on(:email)
   end
