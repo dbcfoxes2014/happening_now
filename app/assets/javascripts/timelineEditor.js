@@ -3,6 +3,52 @@ $(function(){
     var clipID = 0;
     var timelineLength = 60.0;
 
+    var RenderTime = function(currentTime){
+        var miliSec = String(currentTime - Math.floor(currentTime)).slice(2,5);
+        var totalSec = Math.round(currentTime);
+        var minutes = parseInt( totalSec / 60 ) % 60;
+        var seconds = totalSec % 60;
+
+        return (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds)+":"+miliSec;
+    };
+
+    var RenderVideo = function(){
+      console.log("sending ajax request on render");
+      //ask for a slot to render in
+      $.ajax({
+        type: "GET",
+        url: "/editor/renderIO",
+        //context: document.body,
+        data: {query: 'slotAvaliable'}
+      }).done(function(responce) {
+        //tell the avaliable slot what urls we need to copy
+        $.ajax({
+          type: "POST",
+          url: "/editor/renderIO",
+          data: {
+            command: 'grabVideos',
+            urls: [
+            'testURL1',
+            'testURL2'
+            ]
+          }
+        }).done(function(responce){
+          //tell the slot to start the render now the URL's are copied
+          $.ajax({
+            type: "POST",
+            url: "/editor/renderIO",
+            data: {
+              command: 'startRender'
+            }
+          }).done(function(responce){
+            //tell the user the render is done (we need background jobs)
+            alert('Your render is done!');
+          });
+        });
+        console.log("AJAX responce done: "+responce.status+responce.slot);
+      });
+    };
+    RenderVideo();
     var Track = function(e){
       this.clips = new Array();
     };
@@ -85,10 +131,13 @@ $(function(){
         {
           //alert('Return back');
           $("#editorTimeSlider,#editorTimeBar").animate({"left": "190px"}, 600);
+          $('#editorTimeCurrent').text(RenderTime(0.0)+"000ms");
         }
         else if(ui.position.left>1000)
         {
             $("#editorTimeSlider,#editorTimeBar").animate({"left": "1000px"}, 600);
+            var currentTime=(1000/1000) * timelineLength;
+            $('#editorTimeCurrent').text(RenderTime(currentTime)+"000ms");
         }
       },
       drag: function(event,ui){
@@ -96,13 +145,7 @@ $(function(){
           top: 50.0, left: ui.position.left
         });
         var currentTime=(ui.position.left/1000) * timelineLength;
-        var miliSec = String(currentTime - Math.floor(currentTime)).slice(2,5);
-        var totalSec = Math.round(currentTime);
-        var minutes = parseInt( totalSec / 60 ) % 60;
-        var seconds = totalSec % 60;
-
-        var result = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds)+":"+miliSec;
-        $('#editorTimeCurrent').text(result+"ms");
+        $('#editorTimeCurrent').text(RenderTime(currentTime)+"ms");
       }
     });
     new Clip("My Url","My Thumb",1.0,2.0);

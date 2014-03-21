@@ -2,6 +2,8 @@ FreeCandy::Application.routes.draw do
   devise_for :users
   resources :users, :only => :show
   get 'editor/home', :to => 'editor#home'
+  get 'editor/renderIO', :to => 'editor#renderStatus'
+  post 'editor/renderIO', :to => 'editor#renderCommand'
   resources :dan
   match 'video', to: 'home#video', via: :get
 
