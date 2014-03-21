@@ -1,20 +1,11 @@
 <h1>Search results for '#<%=@search_content%>'</h1>
 
-<% @media.each do |media| %>
-  <% if media.type == "image" %>
-    <img src="<%=media.images.standard_resolution.url%>">
-  <% elsif media.type == "video" %>
-	<div id="wrapper">
-	    <div class="video-thumbnail">
-	    	<img width="260" height="260" src='<%= media.thumbnail.url %>'>
-		</div>
-	</div>
-
-
-
-
-
-  <% end %>
-<% end %>
-
-
+<div class="container">
+	<% @media.each do |media| %>
+	  <% if media.type == "image" %>
+		<a href=<%=media.images.standard_resolution.url%>><img class="fancybox" src="<%=media.images.standard_resolution.url%>" height="260" width="260"></a>
+	  <% elsif media.type == "video" %>
+		    <img class="video-thumbnail" width="260" height="260" src='assets/dog.jpg' id='<%=media.videos.standard_resolution.url%>'>
+	  <% end %>
+	<% end %>
+</div>
