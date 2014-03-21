@@ -1,7 +1,8 @@
 $(document).ready(function() {
 
 	$("a[href$='.mp4'], a[href$='.jpg'],a[href$='.png'],a[href$='.gif']").attr('rel', 'gallery').fancybox();//makes every image link on the site fancy
-		
+	$('.selection_checkbox').hide();
+
 	$(document).on('click', ".video_thumbnail", function(){
 	  var save_url = $(this).attr('id');
 			$.fancybox({
@@ -38,11 +39,12 @@ $(document).ready(function() {
 //		label.style.cssText = 'position:absolute;top:' + position.top + ';left:' + position.left + ';width:200px;height:200px;-moz-border-radius:100px;border:1px  solid #ddd;-moz-box-shadow: 0px 0px 8px  #fff;';
 		
 		$('.target').append(checkbox);
-//		$('.target').append(label);
+		$('.target').append(label);
 	});
 
 	$(document).on('mouseout', ".video_thumbnail", function(){
 	  	console.log("off");
+
 
 	});
 	

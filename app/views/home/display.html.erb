@@ -1,12 +1,19 @@
 <div class="container">
 	<h1> <%= @message %> </h1>
-	<% @media.each do |media| %>
-	  <% if media.type == "image" %>
-	    <a href="<%=media.images.standard_resolution.url%>"><img class="fancybox" src="<%=media.images.standard_resolution.url%>" height="260" width="260"></a>
-	  <% elsif media.type == "video" %>
-	        <img id="<%=media.videos.standard_resolution.url%>" src="assets/play_icon.png" class="video_thumbnail" width="260" height="260" border="0" style="background:URL(assets/dog.jpg) center center black;" />
-	  <% end %>
+	<% @media.each_with_index do |media, index| %>
+		<% if media.type == "image" %>
+			<a href="<%=media.images.standard_resolution.url%>"><img class="fancybox" src="<%=media.images.standard_resolution.url%>" height="260" width="260"></a>
+		<% elsif media.type == "video" %>
+				<img id="<%=media.videos.standard_resolution.url%>" src="assets/play_icon.png" class="video_thumbnail" width="260" height="260" border="0" style="background:URL(assets/dog.jpg) center center black;" />
+		<% end %>
 	<% end %>
 </div>
 
-<div class="target"> </div>
+
+
+
+<div class="target">
+	<% @media.length.times do |index| %>
+		<input class="selection_checkbox" type="checkbox" id="checkbox_<%=index%>">
+	<% end %>
+ </div>
