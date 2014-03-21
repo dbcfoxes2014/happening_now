@@ -20,6 +20,8 @@
   match 'popular', to: 'home#popular', via: :get
   match 'display', to: 'home#display', via: :get
   get '/home/show' => 'home#show', as: :home
+  match 'next', to: 'home#next', via: :get
+  match 'back', to: 'home#back', via: :get
 
 
 end

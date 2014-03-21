@@ -28,8 +28,17 @@ class HomeController < ApplicationController
       @media = grab_select_media(@search_content, "video")
     else
       @media = grab_all_media(@search_content)  
-    end    
-
+    end 
+    @next = @media.last.id 
+    # binding.pry
     render :display
+  end
+
+  def next
+    @media = Instagram.tag_recent_media(@tag)
+  end
+
+  def back
+
   end
 end
