@@ -14,7 +14,7 @@ class HomeController < ApplicationController
     end
 
     render :display
-    
+    # render :template => 'home/display.html.erb'
   end
 
   def search
