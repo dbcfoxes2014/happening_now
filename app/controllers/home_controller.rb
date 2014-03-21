@@ -1,10 +1,13 @@
 class HomeController < ApplicationController
+  respond_to :json
+
   def index
-  	@user = current_user
+    @user = current_user
   end
 
-  def video
 
+  def video
+    @url = session[:url]
   end
 
   def popular
@@ -26,7 +29,7 @@ class HomeController < ApplicationController
           @media << item
         end
       elsif params[:commit] == "Search Videos"
-        if item.videos
+        if item.type == "videos"
           @media << item
         end
       else
@@ -35,7 +38,7 @@ class HomeController < ApplicationController
     end
   end
 
-  def show
-
+  def save_video_url
+    session[:url] = params[:url]
   end
 end
