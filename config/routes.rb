@@ -20,12 +20,12 @@
   match 'popular', to: 'home#popular', via: :get
   match 'display', to: 'home#display', via: :get
   get '/home/show' => 'home#show', as: :home
-<<<<<<< HEAD
+
   match 'next', to: 'home#next', via: :get
   match 'back', to: 'home#back', via: :get
 
-=======
+
   post "/save_media_to_session" => "home#save_media", :as => :save_media_to_session
->>>>>>> 28e482858f2defd12f82dfefe6866efff1c93f6f
+
 
 end
