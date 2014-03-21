@@ -20,6 +20,7 @@ gem 'coffee-rails', '~> 4.0.0'
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
+gem 'jquery-ui-rails'
 
 # Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
 gem 'turbolinks'
@@ -30,6 +31,8 @@ gem 'jbuilder', '~> 1.2'
 gem 'devise'
 
 gem 'sprockets', '2.11.0'
+
+gem 'streamio-ffmpeg'
 
 gem 'instagram'
 
