@@ -1,7 +1,5 @@
 $(document).ready(function() {
-
 	$("a[href$='.mp4'], a[href$='.jpg'],a[href$='.png'],a[href$='.gif']").attr('rel', 'gallery').fancybox();//makes every image link on the site fancy
-	$('.selection_checkbox').hide();
 
 	$(document).on('click', ".video_thumbnail", function(){
 	  var save_url = $(this).attr('id');
@@ -18,35 +16,14 @@ $(document).ready(function() {
 		    });    
 	});
 
-	$(document).on('mouseover', ".video_thumbnail", function(){
-		console.log('on');
-	  	var checkbox = document.createElement('input');
-		checkbox.type = "checkbox";
-		checkbox.name = "name";
-		checkbox.value = "value";
-		checkbox.id = "id";
-		checkbox.display = "inline";
-		var position = $(this).position();
-		checkbox.style.cssText = 'position:absolute;top:' + position.top + ';left:' + position.left;
-		console.log(position);
-		console.log($(this).position());
 
-		var label = document.createElement('label')
-		label.htmlFor = "id";
-		label.appendChild(document.createTextNode('Select for compilation'));
-
-		var position = $(this).position();
-
-//		label.style.cssText = 'position:absolute;top:' + position.top + ';left:' + position.left + ';width:200px;height:200px;-moz-border-radius:100px;border:1px  solid #ddd;-moz-box-shadow: 0px 0px 8px  #fff;';
-		
-		$('.target').append(checkbox);
-		// $('.target').append(label);
+	$(document).on('mouseover', ".thumbnail_object", function(){
+		$(this).find('input').removeClass('hide-thumbnail');
+		$(this).find('input').addClass('show-thumbnail');
 	});
 
-	$(document).on('mouseout', ".video_thumbnail", function(){
-	  	console.log("off");
-
-
+	$(document).on('mouseout', ".thumbnail_object", function(){		
+		$(this).find('input').removeClass('show-thumbnail');
+		$(this).find('input').addClass('hide-thumbnail');
 	});
-	
 });

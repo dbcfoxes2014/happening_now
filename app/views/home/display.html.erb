@@ -1,14 +1,20 @@
 <div class="container">
 	<h1> <%= @message %> </h1>
-	<% @media.each do |media| %>
-	  <% if media.type == "image" %>
-	    <a class="grid-element" href="<%=media.images.standard_resolution.url%>"><img class="fancybox grid-element" src="<%=media.images.standard_resolution.url%>" height="260" width="260"></a>
-	  <% elsif media.type == "video" %>
-	        <img id="<%=media.videos.standard_resolution.url%>" src="assets/play_icon.png" class="video_thumbnail grid-element" width="260" height="260" border="0" style="background:URL(assets/dog.jpg) center center black;" />
-	  <% end %>
+	<% @media.each_with_index do |media, index| %>
+		<% if media.type == "image" %>
+			<div class="thumbnail_object">	
+			<input class="selection_checkbox hide-thumbnail" type="checkbox" id="checkbox_<%=index%>">
+				<a href="<%=media.images.standard_resolution.url%>"><img class="fancybox search_result" src="<%=media.images.standard_resolution.url%>" height="240" width="240"></a>
+			</div>
+		<% elsif media.type == "video" %>
+			<div class="thumbnail_object">	
+			<input class="selection_checkbox hide-thumbnail" type="checkbox" id="checkbox_<%=index%>">		
+				<img id="<%=media.videos.standard_resolution.url%>" src="assets/play_icon.png" class="video_thumbnail search_result" width="240" height="240" border="0" style="background:URL(assets/dog.jpg) center center black;" />
+			</div>
+		<% end %>
 	<% end %>
 
-
+	
 	<% link_to "Next", next_path %>
 	<% link_to "Back", back_path %>
 	
