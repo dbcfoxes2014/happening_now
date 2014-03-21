@@ -2,9 +2,9 @@ require 'spec_helper'
 
 feature "User" do
   context 'on home page' do
-    xit "can see the title of the site" do
+    it "can see the title of the site" do
       visit root_path
-      expect(page).to have_content "RecomMemeDo"
+      expect(page).to have_content "Free Candy"
     end
 
     it "should be able to go to signup form" do
@@ -14,7 +14,7 @@ feature "User" do
   end
 
   context "sign_up page and sign_in" do
-    xit "should be able to sign up to use a service" do
+    it "should be able to sign up to use a service" do
       visit new_user_registration_path
       expect {
         fill_in 'user_first_name' , :with => "test"
@@ -37,7 +37,7 @@ feature "User" do
         expect(page).to have_content "prohibited this user from being saved"
     end
 
-    xit "should return an error if account is invalid on sign in" do
+    it "should return an error if account is invalid on sign in" do
       visit new_user_session_path
       fill_in 'user_email', :with => "emaiasdfasdfasdfl@email.com"
       fill_in 'user_password', :with => "jhfgfuijoldkvijnbs"
