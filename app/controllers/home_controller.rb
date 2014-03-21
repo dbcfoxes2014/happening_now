@@ -38,14 +38,14 @@ class HomeController < ApplicationController
     # @message = params[:tag]
     # @media = Instagram.tag_recent_media("test", {MAX_ID: params[:max_id]})
     # @media = Instagram::Request.get("https://api.instagram.com/v1/tags/test/media")
-    render :display
+    # render :display
   end
 
 
   def back
-    @message = params[:tag]
-    @media = Instagram.tag_recent_media("test", {MIN_ID: params[:min_id]})
-    render :display
+    # @message = params[:tag]
+    # @media = Instagram.tag_recent_media("test", {MIN_ID: params[:min_id]})
+    # render :display
   end
 
   def save_media

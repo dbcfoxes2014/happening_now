@@ -15,8 +15,8 @@
 	<% end %>
 
 
-	<%= link_to "Back", back_path(:min_id => @media.last.id, :tag => @message)%>
-	<%= link_to "Next", next_path(:max_id => @media.last.id, :tag => @message)%>
+	<%= link_to "Older", back_path, :class => "back-button"%>
+	<%= link_to "Newer", next_path, :class => "next-button"%>
 
 	<!--Eat and write links in javascript-->
 	
