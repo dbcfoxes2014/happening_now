@@ -24,3 +24,6 @@
        url('../assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
+.video_thumbnail {
+	background-size:80px 60px;
+}
