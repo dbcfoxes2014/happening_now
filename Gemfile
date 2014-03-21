@@ -78,5 +78,3 @@ gem 'rails_12factor', group: :production
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
-
-ruby "1.9.3-p484"
