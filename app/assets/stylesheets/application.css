@@ -24,13 +24,6 @@
        url('../assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
-.wraptocenter {
-    display: table-cell;
-    text-align: center;
-    vertical-align: middle;
-    width: ...;
-    height: ...;
-}
-.wraptocenter * {
-    vertical-align: middle;
+.video_thumbnail {
+	background-size:80px 60px;
 }

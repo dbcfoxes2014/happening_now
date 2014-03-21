@@ -7,16 +7,20 @@ class HomeController < ApplicationController
 
   def popular
     @media = []
+    @message = "Popular Media"
 
     for item in Instagram.media_popular
       @media << item
     end
+
+    render :display
     
   end
 
   def search
     @media = []
     @search_content = params[:search_data]
+    @message = "Search Results for #{@search_content}"
 
     for item in Instagram.tag_recent_media(@search_content)
       if params[:commit] == "Search Photos"
@@ -31,5 +35,7 @@ class HomeController < ApplicationController
         @media << item
       end
     end
+
+    render :display
   end
 end
