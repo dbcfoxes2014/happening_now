@@ -21,38 +21,9 @@
 
 
 $(function(){
-    var PostIt = function(e) {
-        var $post_it = $('#master').clone().fadeIn(500);
-        $post_it.css({
-            'top': e.pageY-$post_it.width()*0.1 + 'px',
-            'left': e.pageX-$post_it.height()*0.5 + 'px',
-            display: 'block',
-            'z-index': ++stickyDepth
-        })
-        .draggable({
-            handle: ".header"
-        })
-        .resizable();
-        $post_it.on('mousedown', '.close', function() {
-            var $sticky = $(this).parent().parent();
-            $sticky.fadeOut(500, function() {
-                $sticky.remove();
-            });
-        });
-        $post_it.on('mousedown', function(e) {
-            e.stopPropagation();
-            $(this).css({
-                'z-index': ++stickyDepth
-            });
-        });
-        $post_it.find(".colors").spectrum({
-            change: function(color) {
-                $post_it.find('.header').css('background-color', color.toRgbString().slice(0, -1) + ",0.3)");
-                console.log(color.toRgbString().slice(0, -1) + ",0.3)");
-            }
-        });
-        $('#workspace'+workspaceCurrent).append($post_it);
-    };
+    var trackPallet = new Array();
+    var clipID = 0;
+    var timelineLength = 60.0;
 
     var Track = function(e){
       this.clips = new Array();
@@ -64,11 +35,20 @@ $(function(){
 
       console.log(this.url+this.thumb+this.start+this.stop);
     };
+    //start the tracks up
+    var TrackMain0 = new Track();
+    var TrackMain1 = new Track();
+    var TrackMain2 = new Track();
 
-    $('.workspace').on('mousedown', function(e) {
-        if(e.target.className == 'workspace')
-            new PostIt(e);
+    $('#moviePallet .palletOverflow div').each(function(){
+      //add id to pallet clips
+      $(this).attr('id',"palletClip_"+clipID);
+      //add the id to the trackPallet array
+      trackPallet.push("palletClip_"+clipID);
+      clipID++;//incriment id
     });
+    console.log(trackPallet);
+
     $('.palletThumb').on({
       mousedown: function() {
         $(this).css({
@@ -82,20 +62,50 @@ $(function(){
           top: ''
         });
       }
-    }).draggable();
+    }).draggable({
+
+    });
     $('#Track2,#Track1,#Track0').droppable({
+      accept: '.palletThumb',
       drop: function( event, ui ) {
-        console.log(ui.draggable.data);
-        $( this ).html( "Dropped!" );
+        console.log("UI id: "+$(this).attr('id'));
+        $clip = new Clip("","",0.0,15.0);
+        switch($(this).attr('id')){
+          case 'Track0':
+            console.log("Added clip to track 0");
+            TrackMain0.clips.push($clip);
+            break;
+          case 'Track1':
+            console.log("Added clip to track 1");
+            TrackMain1.clips.push($clip);
+            break;
+          case 'Track2':
+            console.log("Added clip to track 2");
+            TrackMain2.clips.push($clip);
+            break;
+        }
+        //$( this ).html( "Dropped!" );
+        ui.draggable.remove();
+
+        $( "<div id='"+ui.draggable.attr('id')+"' class='timelineClip'></div>" ).html(
+          "<div class='clipCrop'>"+ui.draggable.text()+"</div>"
+        ).draggable({
+          snap: "#Track2, #Track1, #Track0",
+          snapMode: 'inner'
+        }).resizable({
+          handles:'e, w'
+        }).appendTo( this );
       }
     });
+    console.log("ID IS: "+$('#Track2').id)
+
     $('#editorTimeSlider').draggable({
       axis: "x",
       stop: function(event, ui) {
         console.log(ui.position.left)
         if(ui.position.left<200)
         {
-        //alert('Return back');
+          //alert('Return back');
           $("#editorTimeSlider,#editorTimeBar").animate({"left": "190px"}, 600);
         }
         else if(ui.position.left>1000)
@@ -105,8 +115,16 @@ $(function(){
       },
       drag: function(event,ui){
         $('#editorTimeBar').css({
-          top: 20.0, left: ui.position.left
+          top: 50.0, left: ui.position.left
         });
+        var currentTime=(ui.position.left/1000) * timelineLength;
+        var miliSec = String(currentTime - Math.floor(currentTime)).slice(2,5);
+        var totalSec = Math.round(currentTime);
+        var minutes = parseInt( totalSec / 60 ) % 60;
+        var seconds = totalSec % 60;
+
+        var result = (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds)+":"+miliSec;
+        $('#editorTimeCurrent').text(result+"ms");
       }
     });
     new Clip("My Url","My Thumb",1.0,2.0);
