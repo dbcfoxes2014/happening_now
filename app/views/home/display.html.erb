@@ -2,18 +2,15 @@
 	<h1> <%= @message %> </h1>
 	<% @media.each_with_index do |media, index| %>
 		<% if media.type == "image" %>
-			<a href="<%=media.images.standard_resolution.url%>"><img class="fancybox" src="<%=media.images.standard_resolution.url%>" height="260" width="260"></a>
+			<div class="thumbnail_object">	
+			<input class="selection_checkbox hide-thumbnail" type="checkbox" id="checkbox_<%=index%>">
+				<a href="<%=media.images.standard_resolution.url%>"><img class="fancybox search_result" src="<%=media.images.standard_resolution.url%>" height="240" width="240"></a>
+			</div>
 		<% elsif media.type == "video" %>
-				<img id="<%=media.videos.standard_resolution.url%>" src="assets/play_icon.png" class="video_thumbnail" width="260" height="260" border="0" style="background:URL(assets/dog.jpg) center center black;" />
+			<div class="thumbnail_object">	
+			<input class="selection_checkbox hide-thumbnail" type="checkbox" id="checkbox_<%=index%>">		
+				<img id="<%=media.videos.standard_resolution.url%>" src="assets/play_icon.png" class="video_thumbnail search_result" width="240" height="240" border="0" style="background:URL(assets/dog.jpg) center center black;" />
+			</div>
 		<% end %>
 	<% end %>
 </div>
-
-
-
-
-<div class="target">
-	<% @media.length.times do |index| %>
-		<input class="selection_checkbox" type="checkbox" id="checkbox_<%=index%>">
-	<% end %>
- </div>
