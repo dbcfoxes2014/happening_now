@@ -5,26 +5,22 @@ class HomeController < ApplicationController
     @user = current_user
   end
 
-
-  def video
-    # @url = session[:url]
-    # binding.pry
-    @url = session[:url]
-    p @url 
-    p "ONE ABOVE-----------------dsfdasfdasfasfa---------"
-  end
-
   def popular
     @media = []
+    @message = "Popular Media"
 
     for item in Instagram.media_popular
       @media << item
     end
+
+    render :display
+    
   end
 
   def search
     @media = []
     @search_content = params[:search_data]
+    @message = "Search Results for #{@search_content}"
 
     for item in Instagram.tag_recent_media(@search_content)
       if params[:commit] == "Search Photos"
@@ -32,25 +28,14 @@ class HomeController < ApplicationController
           @media << item
         end
       elsif params[:commit] == "Search Videos"
-        if item.type == "videos"
+        if item.type == "video"
           @media << item
         end
-      elsif params[:commit] == "Search Both"
+      else
         @media << item
       end
     end
-  end
 
-  def show
-
-  end
-
-  def save_video_url
-    puts "heress ----------------------------------------"
-    # binding.pry
-    session[:url] = params[:url]
-    p session[:url]
-    p "ABOVE IS SAVE"
-    # redirect_to :video
+    render :display
   end
 end
