@@ -60,7 +60,7 @@ group :development, :test do
   gem "rspec-rails", "~> 2.0"
   gem "database_cleaner"
   gem "factory_girl_rails", "~> 4.2.1"
-  gem "faker", "~>1.1.2"
+  gem "faker", "~>1.2.0"
 end
 
 group :test do

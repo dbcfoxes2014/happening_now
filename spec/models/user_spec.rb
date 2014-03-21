@@ -10,7 +10,7 @@ describe User do
   end
 
   it "is invalid without a first_name" do
-  	expect(build(:user, first_name:nil)).to \
+  	expect(build(:user, first_name: nil)).to \
   	have(1).errors_on(:first_name)
   end
   
