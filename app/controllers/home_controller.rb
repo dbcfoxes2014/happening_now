@@ -29,13 +29,14 @@ class HomeController < ApplicationController
     else
       @media = grab_all_media(@search_content)  
     end 
-    @next = @media.last.id 
+    
     # binding.pry
     render :display
   end
 
   def next
-    @media = Instagram.tag_recent_media(@tag)
+    @media = Instagram.tag_recent_media(session[:tag], {MIN_ID: params[:min_id], MAX_ID: params[:max_id]})
+    render :display
   end
 
   def back

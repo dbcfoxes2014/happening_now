@@ -14,11 +14,11 @@
 		<% end %>
 	<% end %>
 
+
+
+
+	<%= link_to "Next", next_path(:min_id => @media.first.id, :max_id => @media.last.id) %>
+	<%session[:tag] = @message.join()%>
+	<%= link_to "Back", back_path %>
 	
-	<% link_to "Next", next_path %>
-	<% link_to "Back", back_path %>
-	
-	<% @min_id = @media.first.id%>
-	<% @max_id = @media.last.id%>
-	<% @tag = @media.join() %>
 </div>
