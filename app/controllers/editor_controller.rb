@@ -2,7 +2,6 @@ class EditorController < ApplicationController
   def home
 
   end
-
   def renderStatus
     responce = {}
     if(params[:query])
@@ -24,10 +23,12 @@ class EditorController < ApplicationController
     if(params[:command])
       case params[:command]
         when 'grabVideos'
-          puts params[:urls]
+          #puts params[:urls]
+          grabURLs(params[:urls])
           responce.merge!({status: 'videosDownloaded'})
         when 'startRender'
           puts "Starting Render on slot: #{params[:slot]}"
+          renderMovies()
           responce.merge!({status: 'renderStart',slot: rand(200)})
         when 'stopRender'
           puts "Stopping Render on slot: #{params[:slot]}"
@@ -46,5 +47,35 @@ class EditorController < ApplicationController
       responce = {status: 'Command Not Recognized'}
     end
     render json: responce
+  end
+
+private
+
+  def grabURLs(urls)
+    movie_files = Array.new
+    urls.map do |url|
+      movie_files << url[-12..-1]
+      save_dir = "public/data/#{movie_files[-1]}";
+      open(save_dir,"wb") do |file|
+        file.write open(url).read
+      end
+    end
+    session[:videos] = movie_files
+  end
+
+  def renderMovies
+    movie_ffmpeg = Array.new
+    #concate movies via transcoding
+    session[:videos].map do |mov|
+      movie_ffmpeg << FFMPEG::Movie.new("public/data/#{mov}")
+    end
+    args = movie_ffmpeg[1..-1].map{ |mov| "-i '" + mov.path + "'" }.join(" ")
+    puts "Command: #{args}"
+    #if(movie_ffmpeg.empty?)
+      movie_ffmpeg[0].transcode(
+        "public/data/joinedOutput.mp4",
+        "#{args} -s 480x480 -filter_complex concat=n=#{movie_ffmpeg.size}:v=1:a=1 -threads 4 -strict -2 -y"
+      )
+    #end
   end
 end
