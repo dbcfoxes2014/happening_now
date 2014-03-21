@@ -1,3 +1,4 @@
+include SearchHelper
 class HomeController < ApplicationController
   respond_to :json
 
@@ -14,27 +15,21 @@ class HomeController < ApplicationController
     end
 
     render :display
-    # render :template => 'home/display.html.erb'
   end
 
   def search
     @media = []
-    @search_content = params[:search_data]
+    @search_content = seperate_values(params[:search_data], ' ')
     @message = "Search Results for #{@search_content}"
-
-    for item in Instagram.tag_recent_media(@search_content)
-      if params[:commit] == "Search Photos"
-        if item.type == "image"
-          @media << item
-        end
-      elsif params[:commit] == "Search Videos"
-        if item.type == "video"
-          @media << item
-        end
-      else
-        @media << item
-      end
-    end
+      
+    if params[:commit] == "Search Photos"
+      @media = grab_select_media(@search_content, "image")
+  
+    elsif params[:commit] == "Search Videos"
+      @media = grab_select_media(@search_content, "video")
+    else
+      @media = grab_all_media(@search_content)  
+    end    
 
     render :display
   end
