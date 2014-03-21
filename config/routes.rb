@@ -20,6 +20,6 @@
   match 'popular', to: 'home#popular', via: :get
   match 'display', to: 'home#display', via: :get
   get '/home/show' => 'home#show', as: :home
-
+  post "/save_media_to_session" => "home#save_media", :as => :save_media_to_session
 
 end
