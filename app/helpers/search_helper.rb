@@ -26,4 +26,12 @@ module SearchHelper
 		media
 	end
 
+	def grab_popular_media
+		media = []
+		for item in Instagram.media_popular
+				media << item
+		end
+		media
+	end
+
 end

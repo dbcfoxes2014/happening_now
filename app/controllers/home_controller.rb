@@ -7,24 +7,23 @@ class HomeController < ApplicationController
   end
 
   def popular
-    @media = []
+    @media = grab_popular_media
     @message = "Popular Media"
-
-    for item in Instagram.media_popular
-      @media << item
-    end
 
     render :display
   end
 
   def search
-    @media = []
+    if params[:search_data] == ""
+      flash[:alert] = "Enter something to search"
+      redirect_to :root and return
+    end
+
     @search_content = seperate_values(params[:search_data], ' ')
-    @message = "Search Results for #{@search_content}"
-      
-    if params[:commit] == "Search Photos"
-      @media = grab_select_media(@search_content, "image")
-  
+    @message = "Search Results for #{@search_content}"          
+    
+    if params[:commit] == "Search Images"
+      @media = grab_select_media(@search_content, "image")  
     elsif params[:commit] == "Search Videos"
       @media = grab_select_media(@search_content, "video")
     else

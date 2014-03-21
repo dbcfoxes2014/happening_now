@@ -1,4 +1,4 @@
-FreeCandy::Application.routes.draw do
+  FreeCandy::Application.routes.draw do
   devise_for :users
   resources :users, :only => :show
   # resources :dan
