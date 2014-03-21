@@ -26,4 +26,5 @@
 
 .video_thumbnail {
 	background-size:80px 60px;
+	z-index: 0;
 }
