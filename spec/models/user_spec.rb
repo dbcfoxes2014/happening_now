@@ -10,26 +10,24 @@ describe User do
   end
 
   it "is invalid without a first_name" do
-  	user = User.new(
-  		first_name = "")
-  	expect(user).to be_invalid
+  	expect(User.new(first_name: nil)).to have(1).errors_on(:first_name)
   end
   
   it "is invalid without a last_name" do
-  	user = User.new(
-  		last_name = "")
-  	expect(user).to be_invalid
+  	expect(User.new(last_name: nil)).to have(1).errors_on(:last_name)
   end
   
   it "is invalid without an email address" do
-  	user = User.new(
-  		email = "")
-  	expect(user).to be_invalid
+  	expect(User.new(email: nil)).to have(1).errors_on(:email)
   end
   
   it "is invalid with a duplicate email address" do
+  	User.create(
+  		first_name: 'Jack', last_name: 'Dubnicek',
+  			email: 'j@d.com')
   	user = User.new(
-  		:email, uniqueness: :false)
-  	expect(user).to be_invalid
+  		first_name: 'John', last_name: 'Donner'
+  			email: 'j@d.com')
+  	expect(user).to have(1).errors_on(:email)
   end
 end
