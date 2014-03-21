@@ -2,9 +2,9 @@
 	<h1> <%= @message %> </h1>
 	<% @media.each do |media| %>
 	  <% if media.type == "image" %>
-	    <a href="<%=media.images.standard_resolution.url%>"><img class="fancybox" src="<%=media.images.standard_resolution.url%>" height="260" width="260"></a>
+	    <a class="grid-element" href="<%=media.images.standard_resolution.url%>"><img class="fancybox grid-element" src="<%=media.images.standard_resolution.url%>" height="260" width="260"></a>
 	  <% elsif media.type == "video" %>
-		    <a href="#"><img id="<%=media.videos.standard_resolution.url%>" src="assets/play_icon.png" class="video_thumbnail" width="260" height="260" border="0" style="background:URL(assets/dog.jpg) center center black;" /></a>
+	        <a href="#" class="grid-element"><img id="<%=media.videos.standard_resolution.url%>" src="assets/play_icon.png" class="video_thumbnail grid-element" width="260" height="260" border="0" style="background:URL(assets/dog.jpg) center center black;" /></a>
 	  <% end %>
 	<% end %>
 </div>
