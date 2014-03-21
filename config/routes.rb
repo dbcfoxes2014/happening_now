@@ -28,4 +28,8 @@
   post "/save_media_to_session" => "home#save_media", :as => :save_media_to_session
 
 
+
+
+  get "/debug_grab_test_urls" => "home#debug_grab_test_urls", :as => :debug_grab_test_urls
+
 end
