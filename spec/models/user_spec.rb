@@ -15,8 +15,21 @@ describe User do
   	expect(user).to be_invalid
   end
   
-  it "is invalid without a last_name"
-  it "is invalid without an email address"
-  it "is invalid with a duplicate email address"
-  #it "returns a contact's full name as a string"
+  it "is invalid without a last_name" do
+  	user = User.new(
+  		last_name = "")
+  	expect(user).to be_invalid
+  end
+  
+  it "is invalid without an email address" do
+  	user = User.new(
+  		email = "")
+  	expect(user).to be_invalid
+  end
+  
+  it "is invalid with a duplicate email address" do
+  	user = User.new(
+  		:email, uniqueness: :false)
+  	expect(user).to be_invalid
+  end
 end
