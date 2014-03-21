@@ -1,0 +1,94 @@
+*{
+  padding:0;
+  margin:0;
+}
+#editorTimeline{
+  width: 100%;
+  height: 246px;
+  position: fixed;
+  left: 0;
+  bottom: 0;
+  background: #3E3E3E;
+  color: #FFF;
+  z-index: 1;
+}
+#THeader0,
+#THeader1,
+#THeader2{
+  width: 200px;
+  height: 66px;
+  float:left;
+  border: #3E3E3E 3px outset;
+}
+#Track0,
+#Track1,
+#Track2{
+  margin-left:200px;
+  width:100%;
+  height: 66px;
+  background: #505050;
+  border: #3E3E3E 1px solid;
+}
+.timelineClip{
+  width:100px;
+  height:66px;
+  background:#9FC0BB;
+}
+.clipCrop{
+  height:66px;
+  border: #000 1px solid;
+}
+#timelineGraph{
+  width: 100%;
+  height: 50px;
+  background:#272822;
+}
+#editorTimeBar{
+  width:11px;
+  height:210px;
+  position:absolute;
+  left:190px;
+  top:50px;
+  z-index:400;
+  border-right:1px solid red;
+}
+#editorTimeSlider{
+  width:20px;
+  height:20px;
+  position:absolute;
+  left:190px;
+  top:30px;
+  background: red;
+}
+#editorTimeCurrent{
+  width:100px;
+  height:30px;
+  position: relative;
+  top:10px;
+  left:10px;
+  background: #1C1B1B;
+  padding: 5px 0 0 10px;
+}
+#moviePallet{
+  width:250px;
+  height:300px;
+  position: fixed;
+  right: 0;
+  top: 15%;
+  background: #505050;
+}
+#moviePallet .palletOverflow{
+  height:280px;
+  margin: 10px;
+  overflow: scroll;
+  overflow-x:hidden;
+}
+.palletThumb{
+  width:90px;
+  height:90px;
+  border:1px #3E3E3E solid;
+  display: inline-block;
+  margin: 5px;
+  position: relative;
+  z-index:10;
+}
