@@ -25,6 +25,30 @@
        url('../assets/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 
-.video_thumbnail {
-	background-size:80px 60px;
+.selection_checkbox {
+	background-size: 80px 60px;
+	display: block;
+	width: 25px;
+	height: 25px;
+	float: right;
+	position: relative;
+	top: 30px;
+	right: 3px;
+	background-color: red;
+}
+
+.thumbnail_object {
+	display: inline-block;
+    float: left;
+    width: 240px; 
+    height: 240px;
+}
+
+.show-thumbnail {
+	display:block;
+}
+
+.hide-thumbnail {
+	display:block;
+	visibility: hidden;
 }
