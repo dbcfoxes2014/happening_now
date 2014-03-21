@@ -13,6 +13,7 @@ class HomeController < ApplicationController
     for item in Instagram.media_popular
       @media << item
     end
+    
   end
 
   def search
@@ -28,7 +29,7 @@ class HomeController < ApplicationController
         if item.videos
           @media << item
         end
-      elsif params[:commit] == "Search Both"
+      else
         @media << item
       end
     end
