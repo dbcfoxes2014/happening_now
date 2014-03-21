@@ -1,3 +1,4 @@
+include SearchHelper
 class HomeController < ApplicationController
   respond_to :json
 
@@ -6,35 +7,28 @@ class HomeController < ApplicationController
   end
 
   def popular
-    @media = []
+    @media = grab_popular_media
     @message = "Popular Media"
 
-    for item in Instagram.media_popular
-      @media << item
-    end
-
     render :display
-    # render :template => 'home/display.html.erb'
   end
 
   def search
-    @media = []
-    @search_content = params[:search_data]
-    @message = "Search Results for #{@search_content}"
-
-    for item in Instagram.tag_recent_media(@search_content)
-      if params[:commit] == "Search Photos"
-        if item.type == "image"
-          @media << item
-        end
-      elsif params[:commit] == "Search Videos"
-        if item.type == "video"
-          @media << item
-        end
-      else
-        @media << item
-      end
+    if params[:search_data] == ""
+      flash[:alert] = "Enter something to search"
+      redirect_to :root and return
     end
+
+    @search_content = seperate_values(params[:search_data], ' ')
+    @message = "Search Results for #{@search_content}"          
+    
+    if params[:commit] == "Search Images"
+      @media = grab_select_media(@search_content, "image")  
+    elsif params[:commit] == "Search Videos"
+      @media = grab_select_media(@search_content, "video")
+    else
+      @media = grab_all_media(@search_content)  
+    end    
 
     render :display
   end
