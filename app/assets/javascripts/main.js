@@ -19,11 +19,26 @@ $(document).ready(function() {
 
 	$(document).on('mouseover', ".thumbnail_object", function(){
 		$(this).find('input').removeClass('hide-thumbnail');
-		$(this).find('input').addClass('show-thumbnail');
+		$(this).find('input').addClass('show-thumbnail');    
 	});
 
 	$(document).on('mouseout', ".thumbnail_object", function(){		
 		$(this).find('input').removeClass('show-thumbnail');
 		$(this).find('input').addClass('hide-thumbnail');
+	});
+
+	$(document).on('click', '.selection_checkbox', function() {
+		var save_url = $(this).attr('id');
+		$.ajax({
+	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+	        url: 'save_media_to_session',
+	        data: 'media_url=' + save_url,
+		    type: "post",
+			dataType: "json",
+
+	        success: function(serverResponse){
+	          console.log("good");    
+		    }
+		});
 	});
 });
