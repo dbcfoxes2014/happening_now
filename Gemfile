@@ -39,6 +39,8 @@ gem 'google-api-client'
 
 gem 'fancybox2-rails', '~> 0.2.8'
 
+gem 'factory_girl_rails'
+
 gem 'videojs_rails'
 
 group :doc do
