@@ -42,6 +42,8 @@ gem 'google-api-client'
 
 gem 'fancybox2-rails', '~> 0.2.8'
 
+
+
 gem 'videojs_rails'
 
 group :doc do
@@ -56,15 +58,23 @@ group :development, :test do
   gem 'pry'
   gem 'pry-nav'
   gem "rspec-rails", "~> 2.0"
-  gem "capybara", "~> 2.2.1"
   gem "database_cleaner"
+  gem "factory_girl_rails", "~> 4.2.1"
+  gem "faker", "~>1.1.2"
+end
+
+group :test do
+	gem "capybara", "~> 2.2.1"
+	gem "launchy", "~> 2.4.2"
+	gem "selenium-webdriver", "~> 2.39.0"
 end
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
-# gem 'unicorn'
+gem 'unicorn'
+gem 'rails_12factor', group: :production
 
 # Use Capistrano for deployment
 # gem 'capistrano', group: :development
