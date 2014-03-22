@@ -3,13 +3,21 @@
 	<% @media.each_with_index do |media, index| %>
 		<% if media.type == "image" %>
 			<div class="thumbnail_object">	
-			<input class="selection_checkbox hide-thumbnail" type="checkbox" id="<%=media.images.standard_resolution.url%>">
+			<% if session[:media_url] != nil && session[:media_url].include?(media.images.standard_resolution.url) %>
+				<input class="selection_checkbox hide-thumbnail" type="checkbox" id="<%=media.images.standard_resolution.url%>" checked>
+			<% else %>
+				<input class="selection_checkbox hide-thumbnail" type="checkbox" id="<%=media.images.standard_resolution.url%>">
+			<% end %>
 				<a href="<%=media.images.standard_resolution.url%>"><img class="fancybox search_result" src="<%=media.images.standard_resolution.url%>" height="240" width="240"></a>
 			</div>
 		<% elsif media.type == "video" %>
 			<div class="thumbnail_object">	
-			<input class="selection_checkbox hide-thumbnail" type="checkbox" id="<%=media.videos.standard_resolution.url%>">		
-				<img id="<%=media.videos.standard_resolution.url%>" src="assets/play_icon.png" class="video_thumbnail search_result" width="240" height="240" border="0" style="background:URL(assets/dog.jpg) center center black;" />
+			<% if session[:media_url] != nil && session[:media_url].include?(media.videos.standard_resolution.url) %>
+				<input class="selection_checkbox hide-thumbnail" type="checkbox" id="<%=media.videos.standard_resolution.url%>" checked>	
+			<% else %>
+				<input class="selection_checkbox hide-thumbnail" type="checkbox" id="<%=media.videos.standard_resolution.url%>">		
+			<% end %>
+			<img id="<%=media.videos.standard_resolution.url%>" src="assets/play_icon.png" class="video_thumbnail search_result" width="240" height="240" border="0" style="background:URL(<%= media.images.standard_resolution.url %>) center center black; background-size: 100%" />
 			</div>
 		<% end %>
 	<% end %>

@@ -7,6 +7,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+<%= render 'layouts/navbar' %>
+
+	<!-- we can put this in a partial if we decide on doing a nav bar -->
 	<% flash.each do |name, msg| %>
 		<% if msg.is_a?(String) %>
 			<div class="alert alert-<%= name == :notice ? "success" : "danger" %>">
