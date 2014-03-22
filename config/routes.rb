@@ -1,7 +1,8 @@
   FreeCandy::Application.routes.draw do
   devise_for :users
   resources :users, :only => :show
-  get 'editor/home', :to => 'editor#home'
+  get 'editor/video', :to => 'editor#video'
+  get 'editor/photo', :to => 'editor#photo'
   get 'editor/renderIO', :to => 'editor#renderStatus'
   post 'editor/renderIO', :to => 'editor#renderCommand'
   resources :dan

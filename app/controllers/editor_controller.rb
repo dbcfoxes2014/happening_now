@@ -1,7 +1,12 @@
 class EditorController < ApplicationController
-  def home
+  def video
 
   end
+
+  def photo
+
+  end
+
   def renderStatus
     responce = {}
     if(params[:query])
