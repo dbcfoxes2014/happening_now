@@ -26,4 +26,6 @@
   post "/remove_media_from_session" => "home#remove_media", :as => :remove_media_from_session
   get "/debug_grab_test_urls" => "home#debug_grab_test_urls", :as => :debug_grab_test_urls
 
+  get "/users/:id" => 'users#show', as: :user_home
+
 end
