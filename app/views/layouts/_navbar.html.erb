@@ -10,7 +10,7 @@
           <li><%= link_to "Popular", popular_path, {class: "popular-button"} %></li>
       </ul>
 
-      <%= form_for :search, url: search_path, method: :get, html: {class: "navbar-form navbar-left", role: "search"} do |f| %>
+      <%= form_for :search, url: search_path, method: :get, html: {class: "navbar-form navbar-left search-form", role: "search"} do |f| %>
         <div class="form-group">
           <%= f.search_field :search, name: "search_data", placeholder: "Search by tag or keyword", class: "form-control" %>
           <%= f.button type: :submit, class: "btn btn-primary", value: "Search" %>
