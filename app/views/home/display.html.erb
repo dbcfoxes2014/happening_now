@@ -9,7 +9,7 @@
 		<% elsif media.type == "video" %>
 			<div class="thumbnail_object">	
 			<input class="selection_checkbox hide-thumbnail" type="checkbox" id="<%=media.videos.standard_resolution.url%>">		
-				<img id="<%=media.videos.standard_resolution.url%>" src="assets/play_icon.png" class="video_thumbnail search_result" width="240" height="240" border="0" style="background:URL(assets/dog.jpg) center center black;" />
+				<img id="<%=media.videos.standard_resolution.url%>" src="assets/play_icon.png" class="video_thumbnail search_result" width="240" height="240" border="0" style="background:URL(<%= media.images.standard_resolution.url %>) center center black; background-size: 100%" />
 			</div>
 		<% end %>
 	<% end %>
