@@ -19,6 +19,7 @@
   match 'search', to: 'home#search', via: :get
   match 'popular', to: 'home#popular', via: :get
   match 'display', to: 'home#display', via: :get
+
   get '/home/show' => 'home#show', as: :home
 
   match 'next', to: 'home#next', via: :get
