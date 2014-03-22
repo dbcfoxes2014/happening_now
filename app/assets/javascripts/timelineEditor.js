@@ -20,6 +20,9 @@ var RenderVideo = function(movie_array){
     //context: document.body,
     data: {query: 'slotAvaliable'}
   }).done(function(responce) {
+    // console.log("Mapping: "+movie_array[0].url+" to: "+$.map(movie_array, function(clip) {
+    //     return clip.url
+    // }));
     //tell the avaliable slot what urls we need to copy
     $.ajax({
       type: "POST",
@@ -35,8 +38,8 @@ var RenderVideo = function(movie_array){
         //  'http://distilleryimage5.s3.amazonaws.com/129710feb13311e3aaf30e0373b3d96d_101.mp4'
         // ]
         urls: $.map(movie_array, function(clip) {
-            return clip.LastName + ", " + clip.FirstName;
-        });
+            return clip.url
+        })
       }
     }).done(function(responce){
       //tell the slot to start the render now the URL's are copied
@@ -54,7 +57,7 @@ var RenderVideo = function(movie_array){
     console.log("AJAX responce done: "+responce.status+responce.slot);
   });
 };
-//RenderVideo();
+
 var Track = function(e){
   this.clips = new Array();
 };
@@ -72,61 +75,89 @@ var MovieStudio = function(){
   var TrackMain0 = new Track();
   var TrackMain1 = new Track();
   var TrackMain2 = new Track();
-  var TrackMerged= [TrackMain0.clips,TrackMain1.clips,TrackMain2.clips];
+  var TrackMerged= new Array;
 
-  $('#moviePallet .palletOverflow div').each(function(){
-    //add id to pallet clips
-    $(this).attr('id',"palletClip_"+clipID);
-    //add the id to the trackPallet array
-    trackPallet.push("palletClip_"+clipID);
-    clipID++;//incriment id
+  //debug load the movie pallet
+  $('#moviePallet div').load('/debug_grab_test_urls', function(){
+    $('.palletThumb').each(function(){
+      //add id to pallet clips
+      $(this).attr('id',"palletClip_"+clipID);
+      //add the id to the trackPallet array
+      trackPallet.push("palletClip_"+clipID);
+      clipID++;//incriment id
+    }).on({
+      mousedown: function() {
+        $(this).css({
+          position: 'absolute',
+          zIndex: '400'
+        });
+      }, mouseup: function() {
+        $(this).css({
+          position: 'relative',
+          left: '',
+          top: ''
+        });
+      }
+    }).draggable({
+
+    });
   });
 
-  $('.palletThumb').on({
-    mousedown: function() {
-      $(this).css({
-        position: 'absolute',
-        zIndex: '400'
-      });
-    }, mouseup: function() {
-      $(this).css({
-        position: 'relative',
-        left: '',
-        top: ''
-      });
-    }
-  }).draggable({
+  // $('#moviePallet .palletOverflow div').each(function(){
+  //   //add id to pallet clips
+  //   $(this).attr('id',"palletClip_"+clipID);
+  //   //add the id to the trackPallet array
+  //   trackPallet.push("palletClip_"+clipID);
+  //   clipID++;//incriment id
+  // });
 
-  });
+  // $('.palletThumb').on({
+  //   mousedown: function() {
+  //     $(this).css({
+  //       position: 'absolute',
+  //       zIndex: '400'
+  //     });
+  //   }, mouseup: function() {
+  //     $(this).css({
+  //       position: 'relative',
+  //       left: '',
+  //       top: ''
+  //     });
+  //   }
+  // }).draggable({
+
+  // });
 
   $('#Track2,#Track1,#Track0').droppable({
     accept: '.palletThumb',
     drop: function( event, ui ) {
       console.log("UI id: "+$(this).attr('id'));
-      $clip = new Clip(ui.draggable.data('url'),"",0.0,15.0);
+      clip = new Clip(ui.draggable.data('url'),"",0.0,15.0);
       //console.log(ui.draggable.data('url'));
       switch($(this).attr('id')){
         case 'Track0':
           //console.log("Added clip to track 0");
-          TrackMain0.clips.push($clip);
+          TrackMain0.clips.push(clip);
           break;
         case 'Track1':
           //console.log("Added clip to track 1");
-          TrackMain1.clips.push($clip);
+          TrackMain1.clips.push(clip);
           break;
         case 'Track2':
           //console.log("Added clip to track 2");
-          TrackMain2.clips.push($clip);
+          TrackMain2.clips.push(clip);
           break;
       }
-      console.log("Merged Tracks: "+TrackMerged.toString());
+      //update the master track of all 3
+      TrackMerged = TrackMain0.clips.concat(TrackMain1.clips,TrackMain2.clips);
+      console.log("Merged Tracks: "+TrackMerged);
       //$( this ).html( "Dropped!" );
       ui.draggable.remove();
 
       $( "<div id='"+ui.draggable.attr('id')+"' class='timelineClip'></div>" ).data(
         'url',ui.draggable.data('url')
       ).html(
-        "<div class='clipCrop'>"+ui.draggable.text()+"</div>"
+        "<div class='clipCrop'>"+"<div class='clipThumb' style='background: url("+ui.draggable.data('thumbnail')+")'></div>"+"</div>"
       ).draggable({
         snap: "#Track2, #Track1, #Track0",
         snapMode: 'inner'
@@ -161,5 +192,23 @@ var MovieStudio = function(){
       $('#editorTimeCurrent').text(RenderTime(currentTime)+"ms");
     }
   });
+
+  $('#editorTools ul li span').on('click',function(){
+    //alert('Rendering that shit!');
+    RenderVideo(TrackMerged);
+  });
+  $('#editorTools').hover(function(){
+    //enter
+        $(this).animate({
+            'bottom': '+=70px'
+            }, "medium"
+        );
+    },function(){
+    //leave
+        $(this).animate({
+            'bottom': '-=70px'
+            }, "medium"
+        );
+    });
 };
 

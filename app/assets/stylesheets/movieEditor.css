@@ -10,7 +10,7 @@
   bottom: 0;
   background: #3E3E3E;
   color: #FFF;
-  z-index: 1;
+  z-index: 300;
 }
 #THeader0,
 #THeader1,
@@ -113,4 +113,20 @@
   margin: 5px;
   position: relative;
   z-index:10;
+  background-size: contain !important;
+}
+.clipThumb{
+  max-width: 55px;
+  height: 55px;
+  display: block;
+  background-size: cover !important;
+  margin: 4px auto;
+}
+#editorTools{
+  position:absolute;
+  bottom:170px;
+  left:10px;
+  width: 150px;
+  height: 100px;
+  background: #505050;
 }

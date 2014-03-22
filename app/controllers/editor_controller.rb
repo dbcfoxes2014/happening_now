@@ -23,7 +23,7 @@ class EditorController < ApplicationController
     if(params[:command])
       case params[:command]
         when 'grabVideos'
-          #puts params[:urls]
+          p params[:urls]
           grabURLs(params[:urls])
           responce.merge!({status: 'videosDownloaded'})
         when 'startRender'
