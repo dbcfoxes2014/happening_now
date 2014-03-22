@@ -42,8 +42,6 @@ gem 'google-api-client'
 
 gem 'fancybox2-rails', '~> 0.2.8'
 
-
-
 gem 'videojs_rails'
 
 group :doc do
@@ -77,7 +75,8 @@ gem 'unicorn'
 gem 'rails_12factor', group: :production
 
 # Use Capistrano for deployment
-# gem 'capistrano', group: :development
+gem 'capistrano'
+gem 'rvm-capistrano'
 
 # Use debugger
 # gem 'debugger', group: [:development, :test]
