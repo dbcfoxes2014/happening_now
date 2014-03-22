@@ -14,7 +14,6 @@ class HomeController < ApplicationController
   end
 
   def search
-    # binding.pry
     if params[:search_data] == ""
       flash[:alert] = "Enter something to search"
       redirect_to :root and return

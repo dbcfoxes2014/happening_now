@@ -34,7 +34,7 @@ $(document).ready(function(){
 			search_data: $(this).text()
 		}
 
-		$.ajax({			
+		$.ajax({		
 			url: 'search',
 			data: data,
 			type: 'get',

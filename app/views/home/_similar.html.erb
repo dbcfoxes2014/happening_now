@@ -1,7 +1,4 @@
-<% @similar_media.each do |media|%>
-	<%if media.type == "image" %>
-		<img src="<%=media.images.thumbnail.url%>">
-	<%else%>
-		<img src="<%=media.images.standard_resolution.url%>">
-	<%end%> 
+<% @similar_media.each do |media| %>
+	<img src="<%=media.images.thumbnail.url%>">
+	<%= link_to "##{media.tags.first}", search_path(search_data: "#{media.tags.first}"), {class: "sim-media fancybox"}%>
 <%end%>
