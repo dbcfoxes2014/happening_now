@@ -8,6 +8,7 @@
       <ul class="nav navbar-nav">
         <li class="active">
           <li><%= link_to "Popular", popular_path %></li>
+          <li><%= link_to "Recently Created Media", recently_created_media_path %></li>
       </ul>
 
       <%= form_for :search, url: search_path, method: :get, html: {class: "navbar-form navbar-left", role: "search"} do |f| %>
@@ -19,7 +20,8 @@
 
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
-          <li><%= link_to "Selected Media", root_path %></li>
+          <li><%= link_to "Go To Editor", '/editor/home' %></li>
+          <li><%= link_to "View Selected Media (#{session[:media_url].length})", root_path %></li>
           <li><%= link_to "Your Videos", root_path, :method => :delete %></li>
           <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
         <% else %>

@@ -1,0 +1,9 @@
+<div class="container">
+	<h1> <%= @message %> </h1>
+	<% if @media %>
+		<% @media.each_with_index do |media, index| %>
+			<img id="<%=media.file_path%>" src="assets/play_icon.png" class="video_thumbnail search_result" width="240" height="240" border="0" style="background:URL(<%= media.file_path %>) center center black; background-size: 100%" />
+		<% end %>
+	<% end %>
+</div>
+<%=@media.last.file_path%>

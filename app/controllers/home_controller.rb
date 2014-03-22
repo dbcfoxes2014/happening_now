@@ -34,12 +34,16 @@ class HomeController < ApplicationController
   end
 
   def save_media
-    session[:media_url] ||= []
-    session[:media_url].push(params[:media_url])
+      session[:media_url].push(params[:media_url])
   end
 
   def remove_media
     session[:media_url].delete(params[:media_url])
+  end
+
+  def recent_media
+    @media = Video.all
+    #@slideshows = SlideShow.all
   end
 
   def debug_grab_test_urls
