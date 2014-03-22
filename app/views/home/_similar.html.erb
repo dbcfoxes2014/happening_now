@@ -1,0 +1,7 @@
+<% @similar_media.each do |media|%>
+	<%if media.type == "image" %>
+		<img src="<%=media.images.thumbnail.url%>">
+	<%else%>
+		<img src="<%=media.images.standard_resolution.url%>">
+	<%end%> 
+<%end%>

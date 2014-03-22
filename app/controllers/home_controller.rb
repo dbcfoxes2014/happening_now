@@ -20,17 +20,20 @@ class HomeController < ApplicationController
     end
 
     @search_content = seperate_values(params[:search_data], ' ')
-    @similar_media = find_similar_tags(@search_content)
+    similar_tags = find_similar_tags(@search_content)  
+
     @message = "Search Results for #{@search_content}"          
     
     if params[:commit] == "Search Images"
+      @similar_media = grab_select_media(similar_tags, "image").sample(4)
       @media = grab_select_media(@search_content, "image")  
     elsif params[:commit] == "Search Videos"
+      @similar_media = grab_select_media(similar_tags, "video").sample(4)
       @media = grab_select_media(@search_content, "video")
     else
+      @similar_media = grab_all_media(similar_tags).sample(4)
       @media = grab_all_media(@search_content)  
-    end 
-    
+    end    
     
     render :display
   end
@@ -48,5 +51,5 @@ class HomeController < ApplicationController
     #this method will grab the urls as an array
     search_terms = ["puppies", "dogs", "cats", "airplanes", "skateboarding", "dbc", "water", "fly"]
     @content = grab_select_media(search_terms, "video")
-   end
+  end
 end
