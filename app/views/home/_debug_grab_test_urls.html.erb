@@ -1,0 +1,4 @@
+<% @content.each do |media| %>
+	<div class="palletThumb" data-url="<%=media.videos.standard_resolution.url%>" data-thumbnail="<%= media.images.standard_resolution.url %>" style="background: url(<%= media.images.standard_resolution.url %>)">
+	</div>
+<% end %>

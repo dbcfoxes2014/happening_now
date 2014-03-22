@@ -20,15 +20,15 @@ class HomeController < ApplicationController
     end
 
     @search_content = seperate_values(params[:search_data], ' ')
-    @message = "Search Results for #{@search_content}"          
-    
+    @message = "Search Results for #{@search_content}"
+
     if params[:commit] == "Search Images"
-      @media = grab_select_media(@search_content, "image")  
+      @media = grab_select_media(@search_content, "image")
     elsif params[:commit] == "Search Videos"
       @media = grab_select_media(@search_content, "video")
     else
-      @media = grab_all_media(@search_content)  
-    end    
+      @media = grab_all_media(@search_content)
+    end
 
     render :display
   end
@@ -46,5 +46,7 @@ class HomeController < ApplicationController
     #this method will grab the urls as an array
     search_terms = ["puppies", "dogs", "cats", "airplanes", "skateboarding", "dbc", "water", "fly"]
     @content = grab_select_media(search_terms, "video")
+
+    render partial: "debug_grab_test_urls"
    end
 end

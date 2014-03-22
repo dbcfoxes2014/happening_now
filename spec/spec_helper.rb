@@ -33,4 +33,36 @@ RSpec.configure do |config|
   config.after(:each) do
     DatabaseCleaner.clean
   end
+
+  # Include Factory Girl syntax to simplify calls to factories 
+  config.include FactoryGirl::Syntax::Methods
+
+  # Test::Unit
+  class Test::Unit::TestCase
+    include FactoryGirl::Syntax::Methods
+  end
+
+  # Cucumber
+  FactoryGirl::Syntax::Methods
+  
+  # # Spinach
+  # class Spinach::FeatureSteps
+  #   include FactoryGirl::Syntax::Methods
+  # end
+
+  # # MiniTest
+  # class MiniTest::Unit::TestCase
+  #   include FactoryGirl::Syntax::Methods
+  # end
+
+  # # MiniTest::Spec
+  # class MiniTest::Spec
+  #   include FactoryGirl::Syntax::Methods
+  # end
+
+  # # minitest-rails
+  # class MiniTest::Rails::ActiveSupport::TestCase
+  #   include FactoryGirl::Syntax::Methods
+  # end
+
 end
