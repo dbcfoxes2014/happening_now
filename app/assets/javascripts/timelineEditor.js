@@ -68,14 +68,187 @@ var Clip = function(url,thumb,start,stop){
 
   //console.log(this.url+this.thumb+this.start+this.stop);
 };
-
+////////////////////////////////////////MOVIE STUDIO////////////////////////////////////////
 var MovieStudio = function(){
-  var trackWidth = $('#Track0').width()-20.0;
+  var trackOffset= $('#TrackWrapper').offset().left;
+  var trackWidth = $('#TrackWrapper').width();
   //start the tracks up
-  var TrackMain0 = new Track();
-  var TrackMain1 = new Track();
-  var TrackMain2 = new Track();
-  var TrackMerged= new Array;
+  var TrackMain = new Track();
+  // var TrackMain1 = new Track();
+  // var TrackMain2 = new Track();
+  // var TrackMerged= new Array;
+  //resize handeling
+  $(window).bind('resize', function () { trackWidth = $('#TrackWrapper').width(); });
+  //debug load the movie pallet
+  $('#moviePallet div').load('/debug_grab_test_urls', function(){
+    $('.palletThumb').each(function(){
+      //add id to pallet clips
+      $(this).attr('id',"palletClip_"+clipID);
+      //add the id to the trackPallet array
+      trackPallet.push("palletClip_"+clipID);
+      clipID++;//incriment id
+    }).on({
+      mousedown: function() {
+        $(this).css({
+          position: 'absolute',
+          zIndex: '400'
+        });
+      }, mouseup: function() {
+        $(this).css({
+          position: 'relative',
+          left: '',//remove these elements by making them blank
+          top: ''
+        });
+      }
+    }).draggable({
+
+    });
+  });
+
+  // $('#moviePallet .palletOverflow div').each(function(){
+  //   //add id to pallet clips
+  //   $(this).attr('id',"palletClip_"+clipID);
+  //   //add the id to the trackPallet array
+  //   trackPallet.push("palletClip_"+clipID);
+  //   clipID++;//incriment id
+  // });
+
+  // $('.palletThumb').on({
+  //   mousedown: function() {
+  //     $(this).css({
+  //       position: 'absolute',
+  //       zIndex: '400'
+  //     });
+  //   }, mouseup: function() {
+  //     $(this).css({
+  //       position: 'relative',
+  //       left: '',
+  //       top: ''
+  //     });
+  //   }
+  // }).draggable({
+
+  // });
+
+  $('#Track2,#Track1,#Track0').droppable({
+    accept: '.palletThumb',
+    drop: function( event, ui ) {
+      console.log("UI id: "+$(this).attr('id'));
+      console.log("Drop Position Is: "+"<"+event.pageX+","+event.pageY+">");
+      //clip = new Clip(ui.draggable.data('url'),"",0.0,15.0);
+      //console.log(ui.draggable.data('url'));
+      // switch($(this).attr('id')){
+      //   case 'Track0':
+      //     //console.log("Added clip to track 0");
+      //     TrackMain0.clips.push(clip);
+      //     break;
+      //   case 'Track1':
+      //     //console.log("Added clip to track 1");
+      //     TrackMain1.clips.push(clip);
+      //     break;
+      //   case 'Track2':
+      //     //console.log("Added clip to track 2");
+      //     TrackMain2.clips.push(clip);
+      //     break;
+      // }
+
+
+      //update the master track of all 3
+      //TrackMerged = TrackMain0.clips.concat(TrackMain1.clips,TrackMain2.clips);
+      console.log("Merged Tracks: "+TrackMain.clips);
+      //$( this ).html( "Dropped!" );
+      ui.draggable.remove();
+      $clip = $( "<div id='"+ui.draggable.attr('id')+"' class='timelineClip'></div>" );
+
+      $clip.data(
+        'url',ui.draggable.data('url')
+      );
+      $clip.html(
+        "<div class='clipCrop'>"+"<div class='clipThumb' style='background: url("+ui.draggable.data('thumbnail')+")'></div>"+"</div>"
+      );
+      $clip.draggable({
+        snap: "#Track2, #Track1, #Track0",
+        snapMode: 'inner'
+      }).resizable({
+        handles:'e, w'
+      });
+      $clip.css({//mousePos - offset of time headers
+        'left': event.pageX - trackOffset + 'px',
+        'width': trackWidth * (15.0/timelineLength) + 'px'
+      });
+
+      $clip.appendTo( this );
+      // $( "<div id='"+ui.draggable.attr('id')+"' class='timelineClip'></div>" ).data(
+      //   'url',ui.draggable.data('url')
+      // ).html(
+      //   "<div class='clipCrop'>"+"<div class='clipThumb' style='background: url("+ui.draggable.data('thumbnail')+")'></div>"+"</div>"
+      // ).draggable({
+      //   snap: "#Track2, #Track1, #Track0",
+      //   snapMode: 'inner'
+      // }).resizable({
+      //   handles:'e, w'
+      // }).css({//mousePos - offset of time headers
+      //   'left': event.pageX - trackOffset + 'px',
+      //   'width': trackWidth * (15.0/timelineLength) + 'px'
+      // }).appendTo( this );
+
+      TrackMain.clips.push(new Clip(ui.draggable.data('url'),"",0.0,15.0));
+      //TrackMain.clips.sort(function(a,b){return a-b});
+    }
+  });
+
+  $('#editorTimeSlider').draggable({
+    axis: "x",
+    stop: function(event, ui) {
+      console.log(ui.position.left)
+      if(ui.position.left<trackOffset)
+      {
+        //alert('Return back');
+        $("#editorTimeSlider,#editorTimeBar").animate({"left": "190px"}, 600);
+        $('#editorTimeCurrent').text(RenderTime(0.0)+"000ms");
+      }
+      else if(ui.position.left>trackWidth-10.0)
+      {
+          $("#editorTimeSlider,#editorTimeBar").animate({"left": trackOffset+trackWidth-10.0+"px"}, 600);
+          var currentTime=((ui.position.left-trackOffset)/trackWidth) * timelineLength;
+          $('#editorTimeCurrent').text(RenderTime(currentTime)+"ms");
+      }
+    },
+    drag: function(event,ui){
+      $('#editorTimeBar').css({
+        top: 50.0, left: ui.position.left
+      });
+      var currentTime=((ui.position.left-trackOffset)/trackWidth) * timelineLength;
+      $('#editorTimeCurrent').text(RenderTime(currentTime)+"ms");
+    }
+  });
+
+  $('#editorTools ul li span').on('click',function(){
+    //alert('Rendering that shit!');
+    RenderVideo(TrackMain.clips);
+  });
+  $('#editorTools').hover(function(){
+    //enter
+        $(this).animate({
+            'bottom': '+=70px'
+            }, "medium"
+        );
+    },function(){
+    //leave
+        $(this).animate({
+            'bottom': '-=70px'
+            }, "medium"
+        );
+    });
+};
+////////////////////////////////////////PHOTO STUDIO////////////////////////////////////////
+var PhotoStudio = function(){
+  var trackWidth = $('#TrackWrapper').width()-20.0;
+  //start the tracks up
+  var TrackMain = new Track();
+  // var TrackMain1 = new Track();
+  // var TrackMain2 = new Track();
+  // var TrackMerged= new Array;
 
   //debug load the movie pallet
   $('#moviePallet div').load('/debug_grab_test_urls', function(){
@@ -132,25 +305,29 @@ var MovieStudio = function(){
     accept: '.palletThumb',
     drop: function( event, ui ) {
       console.log("UI id: "+$(this).attr('id'));
-      clip = new Clip(ui.draggable.data('url'),"",0.0,15.0);
+      console.log("Drop Position Is: "+"<"+event.pageX+","+event.pageY+">");
+      //clip = new Clip(ui.draggable.data('url'),"",0.0,15.0);
       //console.log(ui.draggable.data('url'));
-      switch($(this).attr('id')){
-        case 'Track0':
-          //console.log("Added clip to track 0");
-          TrackMain0.clips.push(clip);
-          break;
-        case 'Track1':
-          //console.log("Added clip to track 1");
-          TrackMain1.clips.push(clip);
-          break;
-        case 'Track2':
-          //console.log("Added clip to track 2");
-          TrackMain2.clips.push(clip);
-          break;
-      }
+      // switch($(this).attr('id')){
+      //   case 'Track0':
+      //     //console.log("Added clip to track 0");
+      //     TrackMain0.clips.push(clip);
+      //     break;
+      //   case 'Track1':
+      //     //console.log("Added clip to track 1");
+      //     TrackMain1.clips.push(clip);
+      //     break;
+      //   case 'Track2':
+      //     //console.log("Added clip to track 2");
+      //     TrackMain2.clips.push(clip);
+      //     break;
+      // }
+      TrackMain.clips.push(new Clip(ui.draggable.data('url'),"",0.0,15.0));
+      //TrackMain.clips.sort(function(a,b){return a-b});
+
       //update the master track of all 3
-      TrackMerged = TrackMain0.clips.concat(TrackMain1.clips,TrackMain2.clips);
-      console.log("Merged Tracks: "+TrackMerged);
+      //TrackMerged = TrackMain0.clips.concat(TrackMain1.clips,TrackMain2.clips);
+      console.log("Merged Tracks: "+TrackMain.clips);
       //$( this ).html( "Dropped!" );
       ui.draggable.remove();
 
@@ -163,6 +340,9 @@ var MovieStudio = function(){
         snapMode: 'inner'
       }).resizable({
         handles:'e, w'
+      }).css({//mousePos - offset of time headers
+        'left': event.pageX - 200.0 + 'px',
+        'width': trackWidth * (15.0/timelineLength) + 'px'
       }).appendTo( this );
     }
   });
@@ -195,7 +375,7 @@ var MovieStudio = function(){
 
   $('#editorTools ul li span').on('click',function(){
     //alert('Rendering that shit!');
-    RenderVideo(TrackMerged);
+    RenderVideo(TrackMain.clips);
   });
   $('#editorTools').hover(function(){
     //enter
