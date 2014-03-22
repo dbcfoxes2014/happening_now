@@ -48,11 +48,6 @@ class HomeController < ApplicationController
     #this method will grab the urls as an array
     search_terms = ["puppies", "dogs", "cats", "airplanes", "skateboarding", "dbc", "water", "fly"]
     @content = grab_select_media(search_terms, "video")
-<<<<<<< HEAD
-  end
-=======
-
     render partial: "debug_grab_test_urls"
    end
->>>>>>> 682cdd9f9538dec88f357632162aa3b2375a16b6
 end
