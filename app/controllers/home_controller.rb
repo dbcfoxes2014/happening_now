@@ -34,7 +34,6 @@ class HomeController < ApplicationController
   end
 
   def save_media
-    puts "we got here..............................................................."
     session[:media_url] ||= []
     session[:media_url].push(params[:media_url])
   end

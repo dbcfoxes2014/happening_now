@@ -7,19 +7,42 @@
 			<% @url = media.videos.standard_resolution.url%>
 			<% @thumbnail = media.images.standard_resolution.url %>
 		<% end %>
+		<% if media.link != "" && media.link != "null" && media.link != "nil"  #This determines whether or not an image is private. Instagram does not provide an easy means for us to know if a photo or video is private, so this is just a quick fix hack. Let dan know if you see a broken link, as that'll mean this didn't work.  %>
 
-		<div class="thumbnail_object">
-			<% if session[:media_url] != nil && session[:media_url].include?(@url) %>
-				<input class="selection_checkbox show-check-thumbnail" type="checkbox" id="<%=@url%>" checked>
-			<% else %>
-				<input class="selection_checkbox hide-thumbnail" type="checkbox" id="<%=@url%>">
-			<% end %>
+			<div class="thumbnail_object">
+				<% if session[:media_url] != nil && session[:media_url].include?(@url) %>
+					<input class="selection_checkbox show-check-thumbnail" type="checkbox" id="<%=@url%>" checked>
+				<% else %>
+					<input class="selection_checkbox hide-thumbnail" type="checkbox" id="<%=@url%>">
+				<% end %>
 
-			<% if media.type == "image" %>
-				<a href="<%=@url%>"><img class="fancybox search_result" src="<%=@url%>" height="240" width="240"></a>
-			<% else %>
-				<img id="<%=@url%>" src="assets/play_icon.png" class="video_thumbnail search_result" width="240" height="240" border="0" style="background:URL(<%= @thumbnail %>) center center black; background-size: 100%" />
-			<% end %>
-	    </div>
+				<% if media.type == "image" %>
+					<a href="<%=@url%>"><img class="fancybox search_result" src="<%=@url%>" height="240" width="240"></a>
+				<% else %>
+					<img id="<%=@url%>" src="assets/play_icon.png" class="video_thumbnail search_result" width="240" height="240" border="0" style="background:URL(<%= @thumbnail %>) center center black; background-size: 100%" />
+				<% end %>
+		    </div>
+		<% end %>
 	<% end %>
 </div>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<%=@media.first%>
+<%=@media.first.link%>
+
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
+<br>
