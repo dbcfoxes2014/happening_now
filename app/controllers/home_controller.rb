@@ -44,6 +44,17 @@ class HomeController < ApplicationController
   def recent_media
     @media = Video.all
     #@slideshows = SlideShow.all
+
+    render partial: 'home/recent_media', layout: false
+  end
+
+  def view_selected_media
+    @media = []
+    session[:media_url].each do |url|
+      @media.push(url)
+    end
+
+    render partial: 'home/selected_media', layout: false
   end
 
   def debug_grab_test_urls
