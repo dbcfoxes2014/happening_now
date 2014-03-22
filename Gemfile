@@ -77,7 +77,6 @@ gem 'rails_12factor', group: :production
 # Use Capistrano for deployment
 group :development do
   gem 'capistrano'
-  gem 'rvm-capistrano'
 end
 
 # Use debugger
