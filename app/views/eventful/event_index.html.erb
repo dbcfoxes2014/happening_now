@@ -1,0 +1,10 @@
+<h1>Free Candy</h1>
+
+
+<%= form_for popular_path, url: popular_path, method: :get do |f| %>
+	<%f.submit "Popular Media" %>
+<%end%>
+<%= form_for :search, url: search_path, method: :get do |f| %>
+  <%= f.search_field :search, name: "search_data", placeholder: "Search by tag or keyword" %>
+  <%= f.submit "Search Both" %><%= f.submit "Search Images" %><%= f.submit "Search Videos" %>
+<%end%>
