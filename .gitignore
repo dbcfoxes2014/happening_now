@@ -20,5 +20,8 @@
 #Ignore Secret keys
 instagram.yml
 
+#Ignore massive video files
+/public/data
+
 .DS_Store
 
