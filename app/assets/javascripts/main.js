@@ -15,56 +15,39 @@ $(document).ready(function() {
 		    });    
 	});
 
+	//the next three functions ensure that an images checkbox will 
+	//always remain visible if checked, and appear on mouse over if 
+	//unchecked / dissapear on mouseoff if unchecked
 	$(document).on('mouseover', ".thumbnail_object", function(){
-		// console.log("mouseon below------------------")
-		// if($(this).find('input').is(':checked'))
-		// 	console.log("checked");
-		// else 
-		// 	console.log("not checked")
-
-		if ($(this).find('input').hasClass('show-checked-thumbnail')){
-			$(this).find('input').removeClass('hide-thumbnail');
-			$(this).find('input').removeClass('show-thumbnail');    
-		}
-		else {
+		if ($(this).find('input').is(':checked') != true) {	
 			$(this).find('input').addClass('show-thumbnail');    
 			$(this).find('input').removeClass('hide-thumbnail');  	
-			$(this).find('input').removeClass('show-checked-thumbnail');  	
 		}
-
 	});
 
 	$(document).on('mouseout', ".thumbnail_object", function(){	
-		if ($(this).find('input').hasClass('show-checked-thumbnail')){	
-			$(this).find('input').removeClass('show-thumbnail');
-			$(this).find('input').removeClass('hide-thumbnail');
-		}
-		else {
-			$(this).find('input').removeClass('show-thumbnail');
-			$(this).find('input').removeClass('show-checked-thumbnail');
-			$(this).find('input').addClass('hide-thumbnail');
+		if ($(this).find('input').is(':checked') != true) {
+			$(this).find('input').removeClass('show-thumbnail');    
+			$(this).find('input').addClass('hide-thumbnail');  	
 		}
 	});
 
 	$(document).on('click', '.selection_checkbox', function() {
 		route = undefined;
-		if($(this).is(':checked')){
-			console.log("checked");
-			
+		if($(this).is(':checked')){	
 			route = 'save_media_to_session';
-			$(this).find('input').addClass('show-checked-thumbnail');
+			$(this).find('input').addClass('show-check-thumbnail');
 			$(this).find('input').removeClass('show-thumbnail');
-			$(this).find('input').removeClass('hide-thumbnail');		
+			$(this).find('input').removeClass('hide-thumbnail');	
 		}
 		else {
-		    console.log("not checked");
-			
 		    route = 'remove_media_from_session';
-			$(this).find('input').removeClass('show-checked-thumbnail');
+			$(this).find('input').removeClass('show-check-thumbnail');
 			$(this).find('input').removeClass('hide-thumbnail');		
 			$(this).find('input').addClass('show-thumbnail');   
 		}
 
+		console.log(route)
 		var save_url = $(this).attr('id');
 		$.ajax({
 	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
