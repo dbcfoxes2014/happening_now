@@ -182,6 +182,8 @@ GEM
       rspec-expectations (~> 2.14.0)
       rspec-mocks (~> 2.14.0)
     rubyzip (1.1.2)
+    rvm-capistrano (1.5.1)
+      capistrano (~> 2.15.4)
     sass (3.2.17)
     sass-rails (4.0.2)
       railties (>= 4.0.0, < 5.0)
@@ -264,6 +266,7 @@ DEPENDENCIES
   rails_autolink
   rinku
   rspec-rails (~> 2.0)
+  rvm-capistrano
   sass-rails (~> 4.0.0)
   sdoc
   selenium-webdriver (~> 2.39.0)

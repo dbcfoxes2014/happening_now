@@ -1,6 +1,6 @@
 set :application, 'rails'
 set :repository, "git@github.com:dbcfoxes2014/free_candy.git"
-set :deploy_to, "/home/#{user}/apps/#{application}"
+set :deploy_to, "/home/rails"
 set :scm, "git"
 set :branch, "master"
 set :user, "joe"
