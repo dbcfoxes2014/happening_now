@@ -1,10 +1,10 @@
-root = "/home/rails/current"
+root = "/home/deployer/apps/free_candy/current"
 working_directory root
 pid "#{root}/tmp/pids/unicorn.pid"
 stderr_path "#{root}/log/unicorn.log"
 stdout_path "#{root}/log/unicorn.log"
 
-listen "/tmp/unicorn.rails.sock"
+listen "/tmp/unicorn.free_candy.sock"
 worker_processes 2
 timeout 30
 
