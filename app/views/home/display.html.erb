@@ -3,12 +3,10 @@
 
 	<% if @similar_media %>
 		<h2> Similar Media</h2>
-		<ul>
-			<% @similar_media.each do |media| %> 
+			<% @similar_media.each do |media| %>
 			<img src="<%=media.images.thumbnail.url%>">
-			<%= link_to "##{media.tags.first}", search_path(search_data: "#{media.tags.first}")%>			
+			<%= link_to "##{media.tags.first}", search_path(search_data: "#{media.tags.first}")%>		
 			<%end%>
-		</ul>
 	<%end%>
 
 	<% @media.each_with_index do |media, index| %>
@@ -35,4 +33,3 @@
 
 
 </div>
-
