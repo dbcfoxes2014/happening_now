@@ -10,7 +10,7 @@ class HomeController < ApplicationController
     @media = grab_popular_media
     @message = "Popular Media"
 
-    render :display
+    render partial: 'home/display', layout: false
   end
 
   def search
