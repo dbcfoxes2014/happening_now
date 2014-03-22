@@ -80,8 +80,8 @@ gem 'unicorn'
 gem 'rails_12factor', group: :production
 
 # Use Capistrano for deployment
-gem 'capistrano', '~> 2.15.5'
-gem 'rvm-capistrano'
-
+group :development do
+  gem 'capistrano'
+end
 # Use debugger
 # gem 'debugger', group: [:development, :test]
