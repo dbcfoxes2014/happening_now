@@ -17,7 +17,7 @@
 development:
   adapter: postgresql
   encoding: unicode
-  database: rails_development
+  database: free_candy_development
   pool: 5
   username: 
   password: 
@@ -46,7 +46,7 @@ development:
 test:
   adapter: postgresql
   encoding: unicode
-  database: rails_test
+  database: free_candy_test
   pool: 5
   username: 
   password: 
@@ -54,7 +54,7 @@ test:
 production:
   adapter: postgresql
   encoding: unicode
-  database: rails_production
+  database: free_candy_production
   pool: 5
   username: 
   password: 
