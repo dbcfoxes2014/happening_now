@@ -20,6 +20,7 @@ class HomeController < ApplicationController
     end
 
     @search_content = seperate_values(params[:search_data], ' ')
+    @similar_media = find_similar_tags(@search_content)
     @message = "Search Results for #{@search_content}"          
     
     if params[:commit] == "Search Images"
