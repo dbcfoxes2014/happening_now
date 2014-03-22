@@ -263,7 +263,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
-  capistrano
+  capistrano (~> 2.15.5)
   capybara (~> 2.2.1)
   coffee-rails (~> 4.0.0)
   coveralls
