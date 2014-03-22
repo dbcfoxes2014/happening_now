@@ -60,11 +60,11 @@ group :development, :test do
   gem "rspec-rails", "~> 2.0"
   gem "database_cleaner"
   gem "factory_girl_rails", "~> 4.2.1"
-  gem "faker", "~>1.1.2"
+  gem "faker", "~>1.2.0"
+  gem "capybara", "~> 2.2.1"
 end
 
 group :test do
-	gem "capybara", "~> 2.2.1"
 	gem "launchy", "~> 2.4.2"
 	gem "selenium-webdriver", "~> 2.39.0"
 end

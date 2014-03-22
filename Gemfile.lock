@@ -66,7 +66,7 @@ GEM
     factory_girl_rails (4.2.1)
       factory_girl (~> 4.2.0)
       railties (>= 3.0.0)
-    faker (1.1.2)
+    faker (1.2.0)
       i18n (~> 0.5)
     fancybox2-rails (0.2.8)
       railties (>= 3.1.0, < 5.0)
@@ -233,7 +233,7 @@ DEPENDENCIES
   database_cleaner
   devise
   factory_girl_rails (~> 4.2.1)
-  faker (~> 1.1.2)
+  faker (~> 1.2.0)
   fancybox2-rails (~> 0.2.8)
   google-api-client
   instagram
