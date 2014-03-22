@@ -1,6 +1,7 @@
 module SearchHelper
 
 	def seperate_values(string, delim)
+		string.delete!("#")
 		string.split(delim)
 	end
 

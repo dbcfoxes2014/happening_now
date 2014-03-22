@@ -30,10 +30,13 @@ $(document).ready(function(){
 	//Display similar media without refreshing page
 	$(document).on('click', '.sim-media', function(event){
 		event.preventDefault();
+		var data = {
+			search_data: $(this).text()
+		}
 
-		$.ajax({
+		$.ajax({			
 			url: 'search',
-			data: {var search_data: $(this).text()},
+			data: data,
 			type: 'get',
 				success: function(serverResponse){
 					$('.container').html(serverResponse);
@@ -44,16 +47,3 @@ $(document).ready(function(){
 
 
 
-
-
-
-// console.log(route)
-// 		var save_url = $(this).attr('id');
-// 		$.ajax({
-// 	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-// 	        url: route,
-// 	        data: 'media_url=' + save_url,
-// 		    type: "post",
-// 			dataType: "json",
-
-// 	        success: function(serverResponse){

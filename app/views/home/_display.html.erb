@@ -5,7 +5,7 @@
 		<h2> Similar Media</h2>
 			<% @similar_media.each do |media| %>
 			<img src="<%=media.images.thumbnail.url%>">
-			<%= link_to "##{media.tags.first}", search_path(search_data: "#{media.tags.first}"), {class: "sim-media"}%>		
+			<%= link_to "##{media.tags.first}", search_path(search_data: "#{media.tags.first}"), {class: "sim-media"}%>
 			<%end%>
 	<%end%>
 
