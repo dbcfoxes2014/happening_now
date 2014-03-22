@@ -20,6 +20,9 @@
 #Ignore Secret keys
 instagram.yml
 
+#Ignore repo_token
+.coveralls.yml
+
 #Ignore massive video files
 /public/data
 

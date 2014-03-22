@@ -52,3 +52,7 @@
 	display:block;
 	visibility: hidden;
 }
+
+.show_checked_thumbnail {  
+	display:block;
+}
