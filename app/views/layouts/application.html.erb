@@ -7,6 +7,14 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+	<!-- we can put this in a partial if we decide on doing a nav bar -->
+	<% if user_signed_in? %>
+        <%= link_to "Sign out", destroy_user_session_path, :method => :delete %>
+	<% else %>
+		<%= link_to "Sign Up", new_user_registration_path %>
+	    <%= link_to "Sign In", new_user_session_path %>
+	<% end %>
+
 	<% flash.each do |name, msg| %>
 		<% if msg.is_a?(String) %>
 			<div class="alert alert-<%= name == :notice ? "success" : "danger" %>">
