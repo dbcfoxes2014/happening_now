@@ -7,7 +7,7 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active">
-          <li><%= link_to "Popular", popular_path %></li>
+          <li><%= link_to "Popular", popular_path, {class: "popular-button"} %></li>
       </ul>
 
       <%= form_for :search, url: search_path, method: :get, html: {class: "navbar-form navbar-left", role: "search"} do |f| %>
