@@ -1,5 +1,5 @@
 require 'coveralls'
-Coveralls.wear!
+Coveralls.wear!('rails')
 
 ENV["RAILS_ENV"] ||= 'test'
 require File.expand_path("../../config/environment", __FILE__)
@@ -20,7 +20,7 @@ RSpec.configure do |config|
   config.include Devise::TestHelpers, :type => :controller
   config.include ControllerMacros, :type => :controller
   config.include RequestMacros, :type => :request
-  
+
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)
