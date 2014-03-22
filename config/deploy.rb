@@ -1,3 +1,7 @@
+require "bundler/capistrano"
+require "rvm/capistrano"
+require 'sidekiq/capistrano'
+
 server '107.170.118.223', :web, :app, :db, :primary => true
 
 set :application, 'free_candy'
