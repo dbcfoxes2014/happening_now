@@ -76,12 +76,12 @@ end
 
 # Use unicorn as the app server
 gem 'unicorn'
+
 gem 'rails_12factor', group: :production
 
 # Use Capistrano for deployment
 group :development do
   gem 'capistrano'
 end
-
 # Use debugger
 # gem 'debugger', group: [:development, :test]

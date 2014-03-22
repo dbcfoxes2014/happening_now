@@ -6,6 +6,8 @@
 
   root to: 'home#index'
   get 'editor/home', :to => 'editor#home'
+  get 'editor/video', :to => 'editor#video'
+  get 'editor/photo', :to => 'editor#photo'
   get 'editor/renderIO', :to => 'editor#renderStatus'
   post 'editor/renderIO', :to => 'editor#renderCommand'
 
@@ -16,7 +18,13 @@
   match 'view_selected_media', to: 'home#view_selected_media', via: :get
 
   get '/home/show' => 'home#show', as: :home
+
+  match 'next', to: 'home#next', via: :get
+  match 'back', to: 'home#back', via: :get
   post "/save_media_to_session" => "home#save_media", :as => :save_media_to_session
+
   post "/remove_media_from_session" => "home#remove_media", :as => :remove_media_from_session
+
   get "/debug_grab_test_urls" => "home#debug_grab_test_urls", :as => :debug_grab_test_urls
+
 end
