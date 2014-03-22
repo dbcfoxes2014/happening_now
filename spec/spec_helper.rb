@@ -17,6 +17,10 @@ RSpec.configure do |config|
 
   config.mock_with :rspec
 
+  config.include Devise::TestHelpers, :type => :controller
+  config.include ControllerMacros, :type => :controller
+  config.include RequestMacros, :type => :request
+  
   config.before(:suite) do
     DatabaseCleaner.strategy = :transaction
     DatabaseCleaner.clean_with(:truncation)

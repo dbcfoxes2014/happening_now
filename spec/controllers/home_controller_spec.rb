@@ -2,9 +2,24 @@ require 'spec_helper'
 
 describe HomeController do
 
-	describe 'GET home#index' do
-		context 'with params[:current_user}' do
-			it "renders the :root template"
-		end
-	end
+	# before(:all) do
+	# 	@user = FactoryGirl.create(:user)
+	# 	sign_in user
+	# end
+
+	# context "home#index" do
+
+	# 	it "loads successfully" do
+	# 		expect(response(:root)).to be_success
+	# 	end
+	# end
+
+	it "should have a current_user" do
+    expect(subject.current_user).not_to be_nil
+  end
+
+  it "should get home#index" do
+    get 'index'
+    expect(response).to be_success
+  end
 end
