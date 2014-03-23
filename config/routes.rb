@@ -13,12 +13,12 @@
   match 'search', to: 'home#search', via: :get
   match 'popular', to: 'home#popular', via: :get
   match 'display', to: 'home#display', via: :get
-<<<<<<< HEAD
+
  
-=======
+
   match 'recently_created_media', to: 'home#recent_media', via: :get
   match 'view_selected_media', to: 'home#view_selected_media', via: :get
->>>>>>> b57da0a1841c0ec02aaee30edff88028a3545cb0
+
 
   get '/home/show' => 'home#show', as: :home
 
@@ -30,9 +30,8 @@
 
   get "/debug_grab_test_urls" => "home#debug_grab_test_urls", :as => :debug_grab_test_urls
 
-<<<<<<< HEAD
+
   get "/users/:id" => 'users#show', as: :user_home
 
-=======
->>>>>>> b57da0a1841c0ec02aaee30edff88028a3545cb0
+
 end
