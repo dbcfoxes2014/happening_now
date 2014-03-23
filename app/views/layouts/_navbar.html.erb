@@ -11,7 +11,7 @@
           <li><%= link_to "Recently Created Media", recently_created_media_path, {class: "recent-media-button"}%></li>
       </ul>
 
-      <%= form_for :search, url: search_path, method: :get, html: {class: "navbar-form navbar-left search-form", role: "search"} do |f| %>
+      <%= form_for :search, url: search_path, html: {class: "navbar-form navbar-left search-form", role: "search", method: :get} do |f| %>
         <div class="form-group">
           <%= f.search_field :search, name: "search_data", placeholder: "Search by tag or keyword", class: "form-control" %>
           <%= f.button type: :submit, class: "btn btn-primary", value: "Search" %>

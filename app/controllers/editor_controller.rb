@@ -25,6 +25,7 @@ class EditorController < ApplicationController
     end
     render json: response
   end
+
   def renderCommand
     response = {}
     if(params[:command])
