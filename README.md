@@ -1,6 +1,6 @@
 # VentiView Rails App
 
-![img src="https://coveralls.io/repos/dbcfoxes2014/free_candy/badge.png](https://coveralls.io/r/dbcfoxes2014/free_candy)
+[![Coverage Status](https://coveralls.io/repos/dbcfoxes2014/free_candy/badge.png)](https://coveralls.io/r/dbcfoxes2014/free_candy)
 
 ## Collaborators
 - [Jack Dubnicek](https://github.com/jdubnicek)
