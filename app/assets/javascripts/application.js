@@ -13,6 +13,7 @@
 //= require jquery
 //= require jquery_ujs
 //= require jquery.ui.all
+//= require jquery.immybox.min
 //= require bootstrap.min
 //= require fancybox
 //= require video
