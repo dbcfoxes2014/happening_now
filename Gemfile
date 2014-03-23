@@ -49,6 +49,10 @@ gem 'eventfulapi'
 
 gem 'sshkit'
 
+gem 'safe_yaml'
+
+gem 'eventbrite-client'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
