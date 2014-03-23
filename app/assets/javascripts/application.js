@@ -18,3 +18,5 @@
 //= require turbolinks
 //= require_tree .
 //= require jquery.ui.all
+//= require_relative "../bower_components/immybox/jquery.immybox.min.js"
+//= require_relative "../bower_components/immybox/auto_complete_library.js"

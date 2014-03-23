@@ -1,0 +1,16 @@
+{
+  "name": "immybox",
+  "version": "0.2.3",
+  "private": false,
+  "homepage": "https://github.com/immense/immybox",
+  "_release": "0.2.3",
+  "_resolution": {
+    "type": "version",
+    "tag": "0.2.3",
+    "commit": "bcf3cb78451c81126d9d671f1f71752b33bd25f4"
+  },
+  "_source": "git://github.com/immense/immybox.git",
+  "_target": "~0.2.3",
+  "_originalSource": "immybox",
+  "_direct": true
+}
