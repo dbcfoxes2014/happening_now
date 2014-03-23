@@ -14,10 +14,10 @@
   match 'popular', to: 'home#popular', via: :get
   match 'display', to: 'home#display', via: :get
 
- 
+
 
   match 'recently_created_media', to: 'home#recent_media', via: :get
-  match 'view_selected_media', to: 'home#view_selected_media', via: :get
+  match 'selected_media', to: 'home#selected_media', via: :get
 
 
   get '/home/show' => 'home#show', as: :home

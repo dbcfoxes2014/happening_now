@@ -12,9 +12,9 @@
 //
 //= require jquery
 //= require jquery_ujs
+//= require bootstrap.min
 //= require fancybox
 //= require video
-//= require bootstrap.min
 //= require turbolinks
 //= require_tree .
 //= require jquery.ui.all

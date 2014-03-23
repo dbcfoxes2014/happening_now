@@ -1,6 +1,6 @@
 include SearchHelper
 class HomeController < ApplicationController
-  respond_to :json
+  #respond_to :json
 
   def index
     @user = current_user
@@ -9,8 +9,6 @@ class HomeController < ApplicationController
   def popular
     @media = grab_popular_media
     @message = "Popular Media"
-
-    render partial: 'home/display', layout: false
   end
 
   def search
@@ -30,9 +28,8 @@ class HomeController < ApplicationController
     #   @media = grab_select_media(@search_content, "video")
     # else
       @similar_media = grab_all_media(similar_tags).sample(4)
-      @media = grab_all_media(@search_content)  
+      @media = grab_all_media(@search_content)
     # end
-    render partial: 'home/display', layout: false
   end
 
   def save_media
@@ -46,17 +43,15 @@ class HomeController < ApplicationController
   def recent_media
     @media = Video.all.limit(20)
     #@slideshows = SlideShow.all
-
-    render partial: 'home/recent_media', layout: false
   end
 
-  def view_selected_media
+  def selected_media
     @media = []
     session[:media_url].each do |url|
       @media.push(url)
     end
 
-    render partial: 'home/selected_media', layout: false
+    #render partial: 'home/selected_media', layout: false
   end
 
   def debug_grab_test_urls
