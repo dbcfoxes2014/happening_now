@@ -23,15 +23,28 @@
   /*float:left;*/
   border: #3E3E3E 3px outset;
 }
+#trackPhotosHeader{
+  width: 200px;
+  height: 100px;
+  /*float:left;*/
+  border: #3E3E3E 3px outset;
+}
 #TrackWrapper{
   margin: 0 10px 0 200px;
 }
-#Track0,
-#Track1,
-#Track2{
+#trackVideo0,
+#trackVideo1,
+#trackVideo2{
   /*margin-left:200px;*/
   width:100%;
   height: 66px;
+  background: url('/assets/movieEditorGraident.jpeg') #505050;
+  background-size:100% 100%;
+  border: #40C8FA 1px solid;
+}
+#trackPhotos{
+  width:100%;
+  height: 100px;
   background: url('/assets/movieEditorGraident.jpeg') #505050;
   background-size:100% 100%;
   border: #40C8FA 1px solid;
