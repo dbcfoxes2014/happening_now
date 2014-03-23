@@ -1,6 +1,8 @@
 class EditorController < ApplicationController
   def video
-
+    if(current_user)
+        @session_table = session['media_url']
+    end
   end
 
   def photo
@@ -8,50 +10,51 @@ class EditorController < ApplicationController
   end
 
   def renderStatus
-    responce = {}
+    response = {}
     if(params[:query])
       case params[:query]
         when 'slotAvaliable'
-          responce.merge!({status: 'renderReady',slot: rand(200)})
+          response.merge!({status: 'renderReady',slot: rand(200)})
         when 'renderTime'
-          responce.merge!({status: 'renderTime',time: 12})
+          response.merge!({status: 'renderTime',time: 12})
         else
 
         end
     else
-      responce = {status: 'Command Not Recognized'}
+      response = {status: 'Command Not Recognized'}
     end
-    render json: responce
+    render json: response
   end
   def renderCommand
-    responce = {}
+    response = {}
     if(params[:command])
       case params[:command]
         when 'grabVideos'
           p params[:urls]
           grabURLs(params[:urls])
-          responce.merge!({status: 'videosDownloaded'})
+          response.merge!({status: 'videosDownloaded'})
         when 'startRender'
           puts "Starting Render on slot: #{params[:slot]}"
+          response.merge!({status: 'renderStart',slot: rand(200)})
           renderMovies()
-          responce.merge!({status: 'renderStart',slot: rand(200)})
+          response.merge!({status: 'renderFinished',slot: rand(200)})
         when 'stopRender'
           puts "Stopping Render on slot: #{params[:slot]}"
-          responce.merge!({status: 'renderStop',slot: rand(200)})
+          response.merge!({status: 'renderStop',slot: rand(200)})
         when 'verbocity'
           dir = params[:direction]
           if dir == "+"
             puts "Increasing Verbocity"
-            responce.merge!({status: 'verbChange',level: 0})
+            response.merge!({status: 'verbChange',level: 0})
           elsif dir == "-"
             puts "Decreasing Verbocity"
-            responce.merge!({status: 'verbChange',level: 0})
+            response.merge!({status: 'verbChange',level: 0})
           end
         end
     else
-      responce = {status: 'Command Not Recognized'}
+      response = {status: 'Command Not Recognized'}
     end
-    render json: responce
+    render json: response
   end
 
 private
@@ -80,7 +83,7 @@ private
       movie_ffmpeg[0].transcode(
         "public/data/joinedOutput.mp4",
         "#{args} -s 480x480 -filter_complex concat=n=#{movie_ffmpeg.size}:v=1:a=1 -threads 4 -strict -2 -y"
-      )
+      );
     #end
   end
 end

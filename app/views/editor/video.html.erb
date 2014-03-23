@@ -5,18 +5,26 @@
 </script>
 <div id="moviePallet">
   <div class="palletOverflow">
-    <div class='palletLoader'>
-    </div>
+    <% if @session_table.empty? %>
+      <div class="ohnoes">
+        There are no URL's in your pallet!
+      </div>
+    <% else %>
+      <% @session_table.each do |url|%>
+        <div class="palletThumb" data-url="<%= url %>" data-thumbnail="/assets/dog.jpg" style="background: url(/assets/dog.jpg)">
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>
 <div id="editorTools">
     <span>Project Tools</span>
     <ul>
       <li>
-        <span>Render Project</span>
+        <span id="UI_render">Render Project</span>
       </li>
       <li>
-        <span>More stuff Woo</span>
+        <span id="UI_test">More stuff Woo</span>
       </li>
     </ul>
   </div>

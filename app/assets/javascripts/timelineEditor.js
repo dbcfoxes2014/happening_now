@@ -80,55 +80,55 @@ var MovieStudio = function(){
   //resize handeling
   $(window).bind('resize', function () { trackWidth = $('#TrackWrapper').width(); });
   //debug load the movie pallet
-  $('#moviePallet div').load('/debug_grab_test_urls', function(){
-    $('.palletThumb').each(function(){
-      //add id to pallet clips
-      $(this).attr('id',"palletClip_"+clipID);
-      //add the id to the trackPallet array
-      trackPallet.push("palletClip_"+clipID);
-      clipID++;//incriment id
-    }).on({
-      mousedown: function() {
-        $(this).css({
-          position: 'absolute',
-          zIndex: '400'
-        });
-      }, mouseup: function() {
-        $(this).css({
-          position: 'relative',
-          left: '',//remove these elements by making them blank
-          top: ''
-        });
-      }
-    }).draggable({
+  // $('#moviePallet div').load('/debug_grab_test_urls', function(){
+  //   $('.palletThumb').each(function(){
+  //     //add id to pallet clips
+  //     $(this).attr('id',"palletClip_"+clipID);
+  //     //add the id to the trackPallet array
+  //     trackPallet.push("palletClip_"+clipID);
+  //     clipID++;//incriment id
+  //   }).on({
+  //     mousedown: function() {
+  //       $(this).css({
+  //         position: 'absolute',
+  //         zIndex: '400'
+  //       });
+  //     }, mouseup: function() {
+  //       $(this).css({
+  //         position: 'relative',
+  //         left: '',//remove these elements by making them blank
+  //         top: ''
+  //       });
+  //     }
+  //   }).draggable({
 
-    });
+  //   });
+  // });
+
+  $('#moviePallet .palletOverflow div').each(function(){
+    //add id to pallet clips
+    $(this).attr('id',"palletClip_"+clipID);
+    //add the id to the trackPallet array
+    trackPallet.push("palletClip_"+clipID);
+    clipID++;//incriment id
   });
 
-  // $('#moviePallet .palletOverflow div').each(function(){
-  //   //add id to pallet clips
-  //   $(this).attr('id',"palletClip_"+clipID);
-  //   //add the id to the trackPallet array
-  //   trackPallet.push("palletClip_"+clipID);
-  //   clipID++;//incriment id
-  // });
+  $('.palletThumb').on({
+    mousedown: function() {
+      $(this).css({
+        position: 'absolute',
+        zIndex: '400'
+      });
+    }, mouseup: function() {
+      $(this).css({
+        position: 'relative',
+        left: '',
+        top: ''
+      });
+    }
+  }).draggable({
 
-  // $('.palletThumb').on({
-  //   mousedown: function() {
-  //     $(this).css({
-  //       position: 'absolute',
-  //       zIndex: '400'
-  //     });
-  //   }, mouseup: function() {
-  //     $(this).css({
-  //       position: 'relative',
-  //       left: '',
-  //       top: ''
-  //     });
-  //   }
-  // }).draggable({
-
-  // });
+  });
 
   $('#Track2,#Track1,#Track0').droppable({
     accept: '.palletThumb',
@@ -158,42 +158,48 @@ var MovieStudio = function(){
       console.log("Merged Tracks: "+TrackMain.clips);
       //$( this ).html( "Dropped!" );
       ui.draggable.remove();
-      $clip = $( "<div id='"+ui.draggable.attr('id')+"' class='timelineClip'></div>" );
 
-      $clip.data(
-        'url',ui.draggable.data('url')
+      var clip_width= trackWidth * (15.0/timelineLength);
+      var clip_leftX = event.pageX - trackOffset;
+      var clip_rightX= clip_leftX+15.0;
+      var clipObj = new Clip(
+        ui.draggable.data('url'),
+        ui.draggable.data('thumbnail'),
+        (clip_leftX/trackWidth)*timelineLength,
+        (clip_rightX/trackWidth)*timelineLength
       );
+
+      $clip = $( "<div id='"+ui.draggable.attr('id')+"' class='timelineClip'></div>" );
+      $clip.data({'url':clipObj.url,'start':clipObj.start,'stop':clipObj.stop});
       $clip.html(
-        "<div class='clipCrop'>"+"<div class='clipThumb' style='background: url("+ui.draggable.data('thumbnail')+")'></div>"+"</div>"
+        "<div class='clipCrop'>"+
+          "<div class='clipThumb' style='background: url("+clipObj.thumb+")'></div>"+
+        "</div>"
       );
       $clip.draggable({
         snap: "#Track2, #Track1, #Track0",
-        snapMode: 'inner'
+        snapMode: 'inner',
+        stop: function(event, ui) {
+          var clip_width= trackWidth * ($(this).width()/timelineLength);
+          var clip_leftX = $(this).position().left - trackOffset;
+          var clip_rightX= clip_leftX+$(this).width();
+          clipObj.start = (clip_leftX/trackWidth)*timelineLength;
+          clipObj.stop = (clip_rightX/trackWidth)*timelineLength;
+          // console.log(
+          //   "Clip Left Time: "+(clip_leftX/trackWidth)*timelineLength+
+          //   " Clip Right Time: "+(clip_rightX/trackWidth)*timelineLength
+          // );
+        }
       }).resizable({
         handles:'e, w'
       });
       $clip.css({//mousePos - offset of time headers
-        'left': event.pageX - trackOffset + 'px',
-        'width': trackWidth * (15.0/timelineLength) + 'px'
+        'left': clip_leftX + 'px',
+        'width': clip_width + 'px'
       });
 
       $clip.appendTo( this );
-      // $( "<div id='"+ui.draggable.attr('id')+"' class='timelineClip'></div>" ).data(
-      //   'url',ui.draggable.data('url')
-      // ).html(
-      //   "<div class='clipCrop'>"+"<div class='clipThumb' style='background: url("+ui.draggable.data('thumbnail')+")'></div>"+"</div>"
-      // ).draggable({
-      //   snap: "#Track2, #Track1, #Track0",
-      //   snapMode: 'inner'
-      // }).resizable({
-      //   handles:'e, w'
-      // }).css({//mousePos - offset of time headers
-      //   'left': event.pageX - trackOffset + 'px',
-      //   'width': trackWidth * (15.0/timelineLength) + 'px'
-      // }).appendTo( this );
-
-      TrackMain.clips.push(new Clip(ui.draggable.data('url'),"",0.0,15.0));
-      //TrackMain.clips.sort(function(a,b){return a-b});
+      TrackMain.clips.push(clipObj);
     }
   });
 
@@ -223,9 +229,16 @@ var MovieStudio = function(){
     }
   });
 
-  $('#editorTools ul li span').on('click',function(){
+  $('#editorTools ul li span').on('click',function(e){
     //alert('Rendering that shit!');
-    RenderVideo(TrackMain.clips);
+    switch(e.target.id){
+      case 'UI_render':
+        RenderVideo(TrackMain.clips.sort(function(a,b){return a.start-b.start}));
+        break;
+      case 'UI_test':
+        console.log(TrackMain.clips[0].stop);
+        break;
+    }
   });
   $('#editorTools').hover(function(){
     //enter
@@ -373,9 +386,17 @@ var PhotoStudio = function(){
     }
   });
 
-  $('#editorTools ul li span').on('click',function(){
+  $('#editorTools ul li span').on('click',function(e){
     //alert('Rendering that shit!');
-    RenderVideo(TrackMain.clips);
+    switch(e.id){
+      case 'UI_render':
+        //RenderVideo(TrackMain.clips);
+        break;
+      case 'UI_test':
+        console.log(TrackMain.first.start);
+        break;
+    }
+
   });
   $('#editorTools').hover(function(){
     //enter
