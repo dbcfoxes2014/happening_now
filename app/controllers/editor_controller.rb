@@ -1,7 +1,7 @@
 class EditorController < ApplicationController
   def video
     if(current_user)
-        @session_table = session['media_url']
+        @session_table = FlaggedContents.where(user_id: current_user.id)
     end
   end
 
@@ -84,8 +84,10 @@ private
     movie_name = nil
     if (Video.all.length == 0)
       movie_name = "data/1.mp4"
+      screenshot_name = "data/1.bmp"
     else
       movie_name = "data/#{Video.last.id + 1}.mp4"
+      screenshot_name = "data/#{Video.last.id + 1}.bmp"
     end
 
     movie_ffmpeg[0].transcode(
@@ -93,6 +95,8 @@ private
         "#{args} -s 480x480 -filter_complex concat=n=#{movie_ffmpeg.size}:v=1:a=1 -threads 4 -strict -2 -y"
     )
 
-    Video.create(user_id: current_user.id, title: "we shouldnt have a title", file_path: "#{movie_name}").save
+    movie_ffmpeg[0].screenshot("public/#{screenshot_name}", seek_time: 5, resolution: '480x480')
+
+    Video.create(user_id: current_user.id, title: "we shouldnt have a title", file_path: "#{movie_name}", thumbnail_path: "#{screenshot_name}").save
   end
 end

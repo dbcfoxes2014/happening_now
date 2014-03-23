@@ -49,10 +49,20 @@ $(document).ready(function() {
 		}
 
 		var save_url = $(this).attr('id');
+		var thumbnail = $(this).parent().find('img').css('background-image');
+		if (thumbnail === "none")
+			thumbnail = save_url;
+		else
+			thumbnail = thumbnail.slice(4, -1);
+
+		console.log(thumbnail)
+		console.log(save_url)
+
 		$.ajax({
 	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
 	        url: route,
-	        data: 'media_url=' + save_url,
+					data: {'media' : save_url,
+    						 'media_thumbnail' : thumbnail },
 		    	type: "post",
 					dataType: "json",
 

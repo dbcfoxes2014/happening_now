@@ -1,6 +1,6 @@
 include SearchHelper
 class HomeController < ApplicationController
-  #respond_to :json
+  respond_to :json
 
   def index
     @user = current_user
@@ -29,15 +29,19 @@ class HomeController < ApplicationController
     # else
       @similar_media = grab_all_media(similar_tags).sample(4)
       @media = grab_all_media(@search_content)
+      @flagged_media = FlaggedContent.where(user_id: current_user.id)
     # end
   end
 
   def save_media
-      session[:media_url].push(params[:media_url])
-  end
+    thumbnail_url = params[:media_thumbnail]
+    media = params[:media]
+    current_user.flagged_contents << FlaggedContent.create(url: media, thumbnail: thumbnail_url)
+ end
 
   def remove_media
-    session[:media_url].delete(params[:media_url])
+    remove_media = FlaggedContent.where(user_id: current_user.id, url: params[:media])
+    remove_media.destroy_all
   end
 
   def recent_media
@@ -46,12 +50,7 @@ class HomeController < ApplicationController
   end
 
   def selected_media
-    @media = []
-    session[:media_url].each do |url|
-      @media.push(url)
-    end
-
-    #render partial: 'home/selected_media', layout: false
+    @media = FlaggedContent.where(user_id: current_user.id)
   end
 
   def debug_grab_test_urls

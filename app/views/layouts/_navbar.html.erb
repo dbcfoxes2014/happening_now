@@ -21,9 +21,9 @@
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
           <li><%= link_to "Selected Media", root_path, method: :get %></li>
-          <li><%= link_to "Your Projects", root_path, method: :get %></li>
+          <li><%= link_to "Your Projects", user_path(current_user.id), method: :get %></li>
           <li><%= link_to "Go To Editor", editor_video_path, method: :get %></li>
-          <li><%= link_to "View Selected Media (#{session[:media_url].length})", selected_media_path, {class: "view-selected-button", method: :get} %></li>
+          <li><%= link_to "View Selected Media (#{session[:media].length})", selected_media_path, {class: "view-selected-button", method: :get} %></li>
           <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
         <% else %>
           <li><%= link_to "Sign Up", new_user_registration_path %></li>

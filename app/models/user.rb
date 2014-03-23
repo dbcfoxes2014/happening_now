@@ -7,4 +7,5 @@ class User < ActiveRecord::Base
 
   has_many :slide_shows
   has_many :videos
+  has_many :flagged_contents
 end

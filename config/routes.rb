@@ -14,11 +14,8 @@
   match 'popular', to: 'home#popular', via: :get
   match 'display', to: 'home#display', via: :get
 
-
-
   match 'recently_created_media', to: 'home#recent_media', via: :get
   match 'selected_media', to: 'home#selected_media', via: :get
-
 
   get '/home/show' => 'home#show', as: :home
 
@@ -30,8 +27,6 @@
 
   get "/debug_grab_test_urls" => "home#debug_grab_test_urls", :as => :debug_grab_test_urls
 
-
   get "/users/:id" => 'users#show', as: :user_home
-
 
 end
