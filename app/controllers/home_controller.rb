@@ -29,7 +29,9 @@ class HomeController < ApplicationController
     # else
       @similar_media = grab_all_media(similar_tags).sample(4)
       @media = grab_all_media(@search_content)
-      @flagged_media = FlaggedContent.where(user_id: current_user.id)
+      if current_user
+        @flagged_media = FlaggedContent.where(user_id: current_user.id).pluck(:url)
+      end
     # end
   end
 
