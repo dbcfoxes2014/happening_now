@@ -11,12 +11,11 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
+//= require jquery.ui.all
 //= require bootstrap.min
 //= require fancybox
 //= require video
 //= require turbolinks
 //= require_tree .
-//= require jquery.ui.all
-//= require_relative "../bower_components/immybox/jquery.immybox.min.js"
-//= require_relative "../bower_components/immybox/auto_complete_library.js"
