@@ -15,9 +15,7 @@ class HomeController < ApplicationController
     if params[:search_data] == ""
       flash[:alert] = "Enter something to search"
       redirect_to :root and return
-    end
-
-    
+    end    
 
     @search_content = seperate_values(params[:search_data], ' ')
     similar_tags = find_similar_tags(@search_content)
