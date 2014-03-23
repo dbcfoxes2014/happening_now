@@ -48,7 +48,6 @@ gem 'coveralls', require: false
 
 gem 'videojs_rails'
 
-
 gem 'eventfulapi'
 
 gem 'sshkit'
@@ -76,8 +75,6 @@ group :test do
 	gem "launchy", "~> 2.4.2"
 	gem "selenium-webdriver", "~> 2.39.0"
 end
-
-gem 'sshkit'
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
