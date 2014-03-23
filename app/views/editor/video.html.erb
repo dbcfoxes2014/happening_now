@@ -1,4 +1,4 @@
-<script>
+<script type="text/javascript">
   $(function() {
       var movieProject = new MovieStudio();
   });
@@ -10,8 +10,8 @@
         There are no URL's in your pallet!
       </div>
     <% else %>
-      <% @session_table.each do |url|%>
-        <div class="palletThumb" data-url="<%= url %>" data-thumbnail="/assets/dog.jpg" style="background: url(/assets/dog.jpg)">
+      <% @session_table.each do |media|%>
+        <div class="palletThumb" data-url="<%= media.url %>" data-thumbnail="<%= media.thumbnail %>" style="background: url(<%= media.thumbnail %>)">
         </div>
       <% end %>
     <% end %>
@@ -56,8 +56,8 @@
     <div id="THeader0">Track 0</div>
   </div>
   <div id="TrackWrapper">
-    <div id="Track2"></div>
-    <div id="Track1"></div>
-    <div id="Track0"></div>
+    <div id="trackVideo2"></div>
+    <div id="trackVideo1"></div>
+    <div id="trackVideo0"></div>
   </div>
 </div>
