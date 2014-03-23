@@ -290,6 +290,7 @@ DEPENDENCIES
   rails_autolink
   rinku
   rspec-rails (~> 2.0)
+  safe_yaml
   sass-rails (~> 4.0.0)
   sdoc
   selenium-webdriver (~> 2.39.0)

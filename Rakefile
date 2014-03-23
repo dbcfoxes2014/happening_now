@@ -4,3 +4,5 @@
 require File.expand_path('../config/application', __FILE__)
 
 FreeCandy::Application.load_tasks
+
+SafeYAML::OPTIONS[:default_mode] = :safe
