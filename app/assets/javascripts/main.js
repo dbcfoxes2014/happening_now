@@ -1,12 +1,13 @@
 //we must call by the document because turbo links only updates the document handle
 $(document).ready(function() {
+	$("a[href$='.mp4'], a[href$='.jpg'],a[href$='.png'],a[href$='.gif']").attr('rel', 'gallery').fancybox();
 
 	$(document).on('click', ".video_thumbnail", function(){
 	  var save_url = $(this).attr('id');
 			$.fancybox({
 			    'width'             : '75%',
 			    'height'            : '75%',
-			    'autoScale'         : true,`
+			    'autoScale'         : true,
 			    'transitionIn'      : 'none',
 			    'transitionOut'     : 'none',
 			    'type'              : 'iframe',
@@ -15,9 +16,9 @@ $(document).ready(function() {
 		    });
 	});
 
-	//the next three functions ensure that an images checkbox will
-	//always remain visible if checked, and appear on mouse over if
-	//unchecked / dissapear on mouseoff if unchecked
+	// //the next three functions ensure that an images checkbox will
+	// //always remain visible if checked, and appear on mouse over if
+	// //unchecked / dissapear on mouseoff if unchecked
 	$(document).on('mouseover', ".thumbnail_object", function(){
 		if ($(this).find('input').is(':checked') != true) {
 			$(this).find('input').addClass('show-thumbnail');
@@ -25,7 +26,7 @@ $(document).ready(function() {
 		}
 	});
 
-	$(document).on('mouseout', ".thumbnail_object", function(){
+	 $(document).on('mouseout', ".thumbnail_object", function(){
 		if ($(this).find('input').is(':checked') != true) {
 			$(this).find('input').removeClass('show-thumbnail');
 			$(this).find('input').addClass('hide-thumbnail');
@@ -52,8 +53,8 @@ $(document).ready(function() {
 	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
 	        url: route,
 	        data: 'media_url=' + save_url,
-		    type: "post",
-			dataType: "json",
+		    	type: "post",
+					dataType: "json",
 
 	        success: function(serverResponse){
 	        }
