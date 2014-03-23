@@ -9,8 +9,6 @@ class HomeController < ApplicationController
   def popular
     @media = grab_popular_media
     @message = "Popular Media"
-
-    render partial: 'home/display', layout: false
   end
 
   def search
@@ -30,33 +28,29 @@ class HomeController < ApplicationController
     #   @media = grab_select_media(@search_content, "video")
     # else
       @similar_media = grab_all_media(similar_tags).sample(4)
-      @media = grab_all_media(@search_content)  
+      @media = grab_all_media(@search_content)
+      @flagged_media = FlaggedContent.where(user_id: current_user.id)
     # end
-    render partial: 'home/display', layout: false
   end
 
   def save_media
-      session[:media_url].push(params[:media_url])
-  end
+    thumbnail_url = params[:media_thumbnail]
+    media = params[:media]
+    current_user.flagged_contents << FlaggedContent.create(url: media, thumbnail: thumbnail_url)
+ end
 
   def remove_media
-    session[:media_url].delete(params[:media_url])
+    remove_media = FlaggedContent.where(user_id: current_user.id, url: params[:media])
+    remove_media.destroy_all
   end
 
   def recent_media
     @media = Video.all.limit(20)
     #@slideshows = SlideShow.all
-
-    render partial: 'home/recent_media', layout: false
   end
 
-  def view_selected_media
-    @media = []
-    session[:media_url].each do |url|
-      @media.push(url)
-    end
-
-    render partial: 'home/selected_media', layout: false
+  def selected_media
+    @media = FlaggedContent.where(user_id: current_user.id)
   end
 
   def debug_grab_test_urls

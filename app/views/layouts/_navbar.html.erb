@@ -7,8 +7,8 @@
     <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active">
-          <li><%= link_to "Popular", popular_path, {class: "popular-button"} %></li>
-          <li><%= link_to "Recently Created Media", recently_created_media_path, {class: "recent-media-button"} %></li>
+          <li><%= link_to "Popular", popular_path, {class: "popular-button"}  %></li>
+          <li><%= link_to "Recently Created Media", recently_created_media_path, {class: "recent-media-button"}%></li>
       </ul>
 
       <%= form_for :search, url: search_path, method: :get, html: {class: "navbar-form navbar-left search-form", role: "search"} do |f| %>
@@ -21,9 +21,9 @@
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
           <li><%= link_to "Selected Media", root_path %></li>
-          <li><%= link_to "Your Projects", root_path, :method => :delete %></li>
-          <li><%= link_to "Go To Editor", '/editor/video' %></li>
-          <li><%= link_to "View Selected Media (#{session[:media_url].length})", view_selected_media_path, {class: "view-selected-button"} %></li>
+          <li><%= link_to "Your Projects", user_path(current_user.id) %></li>
+          <li><%= link_to "Go To Editor", editor_video_path %></li>
+          <li><%= link_to "View Selected Media (#{current_user.flagged_contents.length})", selected_media_path, {class: "view-selected-button"} %></li>
           <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
         <% else %>
           <li><%= link_to "Sign Up", new_user_registration_path %></li>
