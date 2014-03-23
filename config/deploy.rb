@@ -1,7 +1,7 @@
 
 set :application, 'free_candy'
 set :user, "deployer"
-set :deploy_to, "/home/#{user}/apps/#{application}"
+set :deploy_to, "/home/deployer/free_candy"
 set :deploy_via, :copy
 set :use_sudo, false
 set :scm, :git
