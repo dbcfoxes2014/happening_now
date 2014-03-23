@@ -1,7 +1,7 @@
 class EditorController < ApplicationController
   def video
     if(current_user)
-        @session_table = FlaggedContents.where(user_id: current_user.id)
+        @session_table = FlaggedContent.where(user_id: current_user.id)
     end
   end
 
