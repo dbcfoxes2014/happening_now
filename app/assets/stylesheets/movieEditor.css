@@ -148,3 +148,11 @@
   margin: auto;
   background: url('/assets/loaderAnim.gif');
 }
+.ohnoes{
+  color: #FFF;
+  width: 126px;
+  height: 126px;
+  display: block;
+  background-size:170px 126px !important;
+  background: url('http://cdn.cutestpaw.com/wp-content/uploads/2011/11/oh-noes-l.jpg');
+}

@@ -1,57 +1,63 @@
-<div class="container">
-  <script>
-    $(function() {
-        var movieProject = new MovieStudio();
-    });
-  </script>
-  <div id="moviePallet">
-    <div class="palletOverflow">
-      <div class='palletLoader'>
+<script>
+  $(function() {
+      var movieProject = new MovieStudio();
+  });
+</script>
+<div id="moviePallet">
+  <div class="palletOverflow">
+    <% if @session_table.empty? %>
+      <div class="ohnoes">
+        There are no URL's in your pallet!
+      </div>
+    <% else %>
+      <% @session_table.each do |url|%>
+        <div class="palletThumb" data-url="<%= url %>" data-thumbnail="/assets/dog.jpg" style="background: url(/assets/dog.jpg)">
+        </div>
+      <% end %>
+    <% end %>
+  </div>
+</div>
+<div id="editorTools">
+    <span>Project Tools</span>
+    <ul>
+      <li>
+        <span id="UI_render">Render Project</span>
+      </li>
+      <li>
+        <span id="UI_test">More stuff Woo</span>
+      </li>
+    </ul>
+  </div>
+<div id="editorTimeline">
+  <div id="editorTimeSlider"></div>
+  <div id="editorTimeBar"></div>
+  <div id="timelineGraph">
+    <div id="editorTimeCurrent">
+      <span>00:00:000ms</span>
+    </div>
+    <div id="editorTimeRuler">
+      <div id="editorTimeRulerHeader">
+        <span class="timelineTickTall"></span>
+        <span class="timelineTickShort"></span>
+        <span class="timelineTickShort"></span>
+        <span class="timelineTickShort"></span>
+        <span class="timelineTickShort"></span>
+        <span class="timelineTickShort"></span>
+        <span class="timelineTickShort"></span>
+        <span class="timelineTickShort"></span>
+        <span class="timelineTickShort"></span>
+        <span class="timelineTickShort"></span>
       </div>
     </div>
   </div>
-  <div id="editorTools">
-      <span>Project Tools</span>
-      <ul>
-        <li>
-          <span>Render Project</span>
-        </li>
-        <li>
-          <span>More stuff Woo</span>
-        </li>
-      </ul>
-    </div>
-  <div id="editorTimeline">
-    <div id="editorTimeSlider"></div>
-    <div id="editorTimeBar"></div>
-    <div id="timelineGraph">
-      <div id="editorTimeCurrent">
-        <span>00:00:000ms</span>
-      </div>
-      <div id="editorTimeRuler">
-        <div id="editorTimeRulerHeader">
-          <span class="timelineTickTall"></span>
-          <span class="timelineTickShort"></span>
-          <span class="timelineTickShort"></span>
-          <span class="timelineTickShort"></span>
-          <span class="timelineTickShort"></span>
-          <span class="timelineTickShort"></span>
-          <span class="timelineTickShort"></span>
-          <span class="timelineTickShort"></span>
-          <span class="timelineTickShort"></span>
-          <span class="timelineTickShort"></span>
-        </div>
-      </div>
-    </div>
-    <div id="THeaderWrapper">
-      <div id="THeader2">Track 2</div>
-      <div id="THeader1">Track 1</div>
-      <div id="THeader0">Track 0</div>
-    </div>
-    <div id="TrackWrapper">
-      <div id="Track2"></div>
-      <div id="Track1"></div>
-      <div id="Track0"></div>
-    </div>
+  <div id="THeaderWrapper">
+    <div id="THeader2">Track 2</div>
+    <div id="THeader1">Track 1</div>
+    <div id="THeader0">Track 0</div>
+  </div>
+  <div id="TrackWrapper">
+    <div id="Track2"></div>
+    <div id="Track1"></div>
+    <div id="Track0"></div>
   </div>
 </div>
