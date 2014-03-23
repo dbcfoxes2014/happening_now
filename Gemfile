@@ -51,9 +51,6 @@ gem 'videojs_rails'
 
 gem 'eventfulapi'
 
-gem 'sshkit'
-
-
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -81,9 +78,6 @@ end
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
-gem 'unicorn'
-
-gem 'rails_12factor', group: :production
 
 # Use Capistrano for deployment
 group :development do
