@@ -48,6 +48,12 @@ gem 'coveralls', require: false
 
 gem 'videojs_rails'
 
+
+gem 'eventfulapi'
+
+gem 'sshkit'
+
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -71,6 +77,8 @@ group :test do
 	gem "selenium-webdriver", "~> 2.39.0"
 end
 
+gem 'sshkit'
+
 # Use ActiveModel has_secure_password
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
@@ -80,8 +88,8 @@ gem 'unicorn'
 gem 'rails_12factor', group: :production
 
 # Use Capistrano for deployment
-gem 'capistrano', '~> 2.15.5'
-gem 'rvm-capistrano'
-
+group :development do
+  gem 'capistrano'
+end
 # Use debugger
 # gem 'debugger', group: [:development, :test]

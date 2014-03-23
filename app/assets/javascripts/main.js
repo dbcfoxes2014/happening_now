@@ -47,7 +47,6 @@ $(document).ready(function() {
 			$(this).find('input').addClass('show-thumbnail');   
 		}
 
-		console.log(route)
 		var save_url = $(this).attr('id');
 		$.ajax({
 	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
