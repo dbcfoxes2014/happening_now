@@ -1,12 +1,13 @@
+require 'bundler/capistrano'
 
 set :application, 'FreeCandy'
 set :user, "deployer"
-set :deploy_to, "/home/deployer/"
+set :deploy_to, "/home/deployer"
 set :deploy_via, :copy
 set :use_sudo, false
 set :scm, :git
 set :repository, "git@github.com:dbcfoxes2014/free_candy.git"
-set :branch, "master"
+set :branch, "origin/master"
 default_run_options[:pty] = true
 set :ssh_options, { :forward_agent => true, :port => 1026 }
 
