@@ -5,7 +5,7 @@ $(document).ready(function(){
 		event.preventDefault();
 
 		$.ajax({
-			url: 'popular',
+			url: '/popular',
 			type: 'get',
 				success: function(serverResponse){
 					$('.container').html(serverResponse);
@@ -18,7 +18,7 @@ $(document).ready(function(){
 		event.preventDefault();
 
 		$.ajax({
-			url: 'search',
+			url: '/search',
 			data: $('form').serialize(),
 			type: 'get', 
 				success: function(serverResponse){
@@ -35,13 +35,39 @@ $(document).ready(function(){
 		}
 
 		$.ajax({		
-			url: 'search',
+			url: '/search',
 			data: data,
 			type: 'get',
 				success: function(serverResponse){
 					$('.container').html(serverResponse);
 				}
 		})
+	});
+
+	//Display recent media without refreshing the page
+	$(document).on('click', '.recent-media-button', function(event){
+		event.preventDefault();
+
+		$.ajax({
+			url: '/recently_created_media',
+			type: 'get',
+				success: function(serverResponse){
+					$('.container').html(serverResponse);
+				}
+		});
+	});
+
+	//Display recent media without refreshing the page
+	$(document).on('click', '.view-selected-button', function(event){
+		event.preventDefault();
+
+		$.ajax({
+			url: '/view_selected_media',
+			type: 'get',
+				success: function(serverResponse){
+					$('.container').html(serverResponse);
+				}
+		});
 	});
 });
 

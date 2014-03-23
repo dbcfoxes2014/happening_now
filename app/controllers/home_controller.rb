@@ -44,7 +44,7 @@ class HomeController < ApplicationController
   end
 
   def recent_media
-    @media = Video.all
+    @media = Video.all.limit(20)
     #@slideshows = SlideShow.all
 
     render partial: 'home/recent_media', layout: false

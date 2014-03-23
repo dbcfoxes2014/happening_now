@@ -5,7 +5,6 @@
   resources :pictures, :only => :show
 
   root to: 'home#index'
-  get 'editor/home', :to => 'editor#home'
   get 'editor/video', :to => 'editor#video'
   get 'editor/photo', :to => 'editor#photo'
   get 'editor/renderIO', :to => 'editor#renderStatus'
