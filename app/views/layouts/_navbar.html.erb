@@ -16,6 +16,11 @@
           <%= f.search_field :search, name: "search_data", placeholder: "Search by tag or keyword", class: "form-control" %>
           <%= f.button type: :submit, class: "btn btn-primary", value: "Search" %>
         </div>
+        <%= f.label "Only Images" %>
+        <%= f.check_box 'images' %> 
+        <%= f.label "Only Videos" %> 
+        <%= f.check_box 'videos' %> 
+        
       <% end %>
 
       <ul class="nav navbar-nav navbar-right">
