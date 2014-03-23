@@ -20,6 +20,8 @@
 
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
+          <li><%= link_to "Selected Media", root_path %></li>
+          <li><%= link_to "Your Projects", root_path, :method => :delete %></li>
           <li><%= link_to "Go To Editor", '/editor/video' %></li>
           <li><%= link_to "View Selected Media (#{session[:media_url].length})", view_selected_media_path, {class: "view-selected-button"} %></li>
           <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>

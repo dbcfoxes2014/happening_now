@@ -1,1 +1,23 @@
 <h2><%= @user.first_name %> <%= @user.last_name %> </h2><hr />
+<h2>Enjoy your projects.</h2><hr />
+<br>
+<br>
+<div class="container">
+	<div class="slideshows">
+		<% @user.slide_shows.each do |slide_show| %>
+			<a href="<%=slide_show.title%>"><img class="fancybox search_result" src="<%=slide_show.file_path%>" height="240" width="240"></a>
+		<% end %>
+	</div>
+</div>
+<br>
+<br>
+<br>
+<br>
+<div class="container">
+	<div class="videos">
+		<% @user.videos.each do |video| %>
+			<a href="<%=video.title%>"><img class="fancybox search_result" src="<%=video.file_path%>" height="240" width="240"></a>
+		<% end %>
+	</div>
+</div
+<br>
