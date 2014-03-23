@@ -1,45 +1,23 @@
 <h2><%= @user.first_name %> <%= @user.last_name %> </h2><hr />
 <h2>Enjoy your projects.</h2><hr />
-
+<br>
+<br>
 <div class="container">
-	<h1> <%= @message %> </h1>
-	<% @media.each_with_index do |media, index| %>
-		<% if media.type == "image" %>
-			<% @url = media.images.standard_resolution.url %>
-		<% else %>
-			<% @url = media.videos.standard_resolution.url%>
-			<% @thumbnail = media.images.standard_resolution.url %>
+	<div class="slideshows">
+		<% @user.slide_shows.each do |slide_show| %>
+			<a href="<%=slide_show.title%>"><img class="fancybox search_result" src="<%=slide_show.file_path%>" height="240" width="240"></a>
 		<% end %>
-		<% if media.link != "" && media.link != "null" && media.link != "nil"  #This determines whether or not an image is private. Instagram does not provide an easy means for us to know if a photo or video is private, so this is just a quick fix hack. Let dan know if you see a broken link, as that'll mean this didn't work.  %>
-
-			<div class="thumbnail_object">
-				<% if media.type == "image" %>
-					<a href="<%=@url%>"><img class="fancybox search_result" src="<%=@url%>" height="240" width="240"></a>
-				<% else %>
-					<img id="<%=@url%>" src="assets/play_icon.png" class="video_thumbnail search_result" width="240" height="240" border="0" style="background:URL(<%= @thumbnail %>) center center black; background-size: 100%" />
-				<% end %>
-		    </div>
-		<% end %>
-	<% end %>
+	</div>
 </div>
-
 <br>
 <br>
 <br>
 <br>
-<br>
-<%=@media.first%>
-<%=@media.first.link%>
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
+<div class="container">
+	<div class="videos">
+		<% @user.videos.each do |video| %>
+			<a href="<%=video.title%>"><img class="fancybox search_result" src="<%=video.file_path%>" height="240" width="240"></a>
+		<% end %>
+	</div>
+</div
 <br>
