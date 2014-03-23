@@ -37,9 +37,9 @@ class HomeController < ApplicationController
       @media = grab_all_media(@search_content)
     end
 
-      if current_user
-        @flagged_media = FlaggedContent.where(user_id: current_user.id).pluck(:url)
-      end
+    if current_user
+      @flagged_media = FlaggedContent.where(user_id: current_user.id).pluck(:url)
+    end
   end
 
   def save_media
