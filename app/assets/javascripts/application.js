@@ -11,10 +11,11 @@
 // about supported directives.
 //
 //= require jquery
+//= require jquery.turbolinks
 //= require jquery_ujs
+//= require jquery.ui.all
 //= require bootstrap.min
 //= require fancybox
 //= require video
 //= require turbolinks
 //= require_tree .
-//= require jquery.ui.all
