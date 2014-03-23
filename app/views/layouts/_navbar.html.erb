@@ -13,10 +13,12 @@
 
       <%= form_for :search, url: search_path, method: :get, html: {class: "navbar-form navbar-left search-form", role: "search"} do |f| %>
         <div class="form-group">
-          <%= f.search_field :search, name: "search_data", placeholder: "Search by tag or keyword", class: "form-control" %>
+          <%= f.search_field :search, name: "search_data", placeholder: "Search by tag or keyword", id: 'input1', type: "text", class: "form-control" %>
           <%= f.button type: :submit, class: "btn btn-primary", value: "Search" %>
         </div>
       <% end %>
+
+
 
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>

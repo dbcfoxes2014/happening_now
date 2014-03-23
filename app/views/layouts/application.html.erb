@@ -2,9 +2,23 @@
 <html>
 <head>
   <title>FreeCandy</title>
+  <link rel='stylesheet' type='text/css' href='immybox.css'>
+	<script src='jquery.immybox.min.js'></script>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
+
+  <script type='text/javascript'>
+	 	$(function() {
+
+			$('#input1').immybox({
+			  choices: [
+			    {text: 'Bewbs', value: 'be'},
+			    {text: 'Buttz', value: 'bu'}
+			  ]
+			});
+		});
+	</script>
 </head>
 <body>
 
