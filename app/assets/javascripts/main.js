@@ -1,6 +1,10 @@
 //we must call by the document because turbo links only updates the document handle
 $(document).ready(function() {
-	$("a[href$='.mp4'], a[href$='.jpg'],a[href$='.png'],a[href$='.gif']").attr('rel', 'gallery').fancybox();
+
+	$(document).on("ready", "a[href$='.mp4'], a[href$='.jpg'],a[href$='.png'],a[href$='.gif']", function() {
+		$(this).attr('rel', 'gallery').fancybox();
+		console.log("is on ready a thing? i don't know that's a good question.  I guess you could tell it if an item count is greater htan one.  Calm down stenogrpaher dan.  He's probably asleep. he's probably just like adsfhaposfdhdapsfhdsapofhsapofhopdfsafjdsa.  it eventually just gets to this point. y ou know i think i think whaterver.  asfavasdfhabadges.  slurp.  damn dude.  what the fuck are we doing guys lets get back to work what the fuck you know I think that consoel is going to shit bricks hwen it prints that.  close neough.  haha.  behavior and say ")
+	});
 
 	$(document).on('click', ".video_thumbnail", function(){
 	  var save_url = $(this).attr('id');

@@ -3,12 +3,10 @@
 <head>
   <title>FreeCandy</title>
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
-  <%= javascript_include_tag "application", "data-turbolinks-track" => false %>
+  <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <%= csrf_meta_tags %>
 </head>
 <body>
-
-<% session[:media] ||= [] %>
 
 <%= render 'layouts/navbar' %>
 
