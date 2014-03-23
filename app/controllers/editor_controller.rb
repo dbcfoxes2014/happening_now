@@ -51,6 +51,7 @@ class EditorController < ApplicationController
     else
       responce = {status: 'Command Not Recognized'}
     end
+
     render json: responce
   end
 
@@ -77,10 +78,19 @@ private
     args = movie_ffmpeg[1..-1].map{ |mov| "-i '" + mov.path + "'" }.join(" ")
     puts "Command: #{args}"
     #if(movie_ffmpeg.empty?)
-      movie_ffmpeg[0].transcode(
-        "public/data/joinedOutput.mp4",
+
+    movie_name = nil
+    if (Video.all.length == 0)
+      movie_name = "data/1.mp4"
+    else
+      movie_name = "data/#{Video.last.id + 1}.mp4"
+    end
+
+    movie_ffmpeg[0].transcode(
+        "public/#{movie_name}",
         "#{args} -s 480x480 -filter_complex concat=n=#{movie_ffmpeg.size}:v=1:a=1 -threads 4 -strict -2 -y"
-      )
-    #end
+    )
+
+    Video.create(user_id: current_user.id, title: "we shouldnt have a title", file_path: "#{movie_name}").save
   end
 end

@@ -1,0 +1,16 @@
+<div class="container">
+	<h1> Selected Media</h1>
+	<% @media.each_with_index do |media, index| %>
+	<div class="thumbnail_object">
+		<input class="selection_checkbox show-check-thumbnail" type="checkbox" id="<%=@url%>" checked>
+
+		<% if media[-4..-1] == ".jpg" %>
+			<a href="<%=media%>"><img class="fancybox search_result" src="<%=media%>" height="240" width="240"></a>
+		<% else %>
+			<img id="<%=media%>" src="assets/play_icon.png" class="video_thumbnail search_result" width="240" height="240" border="0" style="background:URL(<%= @thumbnail %>) center center black; background-size: 100%" />
+		<% end %>
+	</div>
+	<% end %>
+</div>
+
+<script>$("a[href$='.mp4'], a[href$='.jpg'],a[href$='.png'],a[href$='.gif']").attr('rel', 'gallery').fancybox();</script>

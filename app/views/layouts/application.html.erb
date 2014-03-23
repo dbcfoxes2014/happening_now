@@ -7,6 +7,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+
+<% session[:media_url] ||= [] %>
+
 <%= render 'layouts/navbar' %>
 
 	<!-- we can put this in a partial if we decide on doing a nav bar -->
