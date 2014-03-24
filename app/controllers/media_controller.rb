@@ -71,7 +71,19 @@ respond_to :json
   end
 
   def event_media   
+    # if params[]
+    # binding.pry
     @username =  Instagram.user(params[:user_id]).username
+    @id = params[:user_id]
     @media = find_user_media(params[:user_id])
+  end
+
+  def event_media_pagination
+    # if params[]
+    # binding.pry
+    # @username =  Instagram.user(params[:user_id]).username
+    # @id = params[:user_id]
+    # @media = find_user_media(params[:user_id])
+    render partial :display_results
   end
 end
