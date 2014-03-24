@@ -10,7 +10,7 @@
   bottom: 0;
   background: #3E3E3E;
   color: #FFF;
-  z-index: 300;
+  z-index: 200;
 }
 #THeaderWrapper{
   float:left;
@@ -51,7 +51,7 @@
 }
 
 .timelineVideoClip,
-.timelinePhotoClip{background:#1581AC;width:100px;}
+.timelinePhotoClip{background:#1581AC;width:100px;position:absolute !important;}
 .timelineVideoClip{height:66px;}
 .timelinePhotoClip{height:100px;}
 
@@ -127,6 +127,7 @@
   right: 0;
   top: 15%;
   background: #505050;
+  z-index: 500;
 }
 #moviePallet .palletOverflow{
   height:280px;
