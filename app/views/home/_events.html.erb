@@ -1,7 +1,10 @@
 <div class="popular_media">
 	<p>Events Go Here</p>
 	<% @popular_events.each do |event| %>
-		<% event.title %>
+		<p><% event.title %></p>
+		<p><% event.tags %></p>
+		<p><% event.url %></p>
+
 	<% end %>
 
 
