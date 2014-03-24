@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/jackdubnicek/Desktop/free_candy/app/models/user.rb": [
+      "/Users/jbwilmoth/free_candy/app/models/user.rb": [
         1,
         null,
         null,
@@ -14,7 +14,7 @@
         1,
         null
       ],
-      "/Users/jackdubnicek/Desktop/free_candy/app/helpers/application_helper.rb": [
+      "/Users/jbwilmoth/free_candy/app/helpers/application_helper.rb": [
         1,
         null,
         null,
@@ -23,6 +23,7 @@
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/jackdubnicek/Desktop/free_candy/app/helpers/event_helper.rb": [
         1,
         null,
@@ -46,6 +47,9 @@
         null
       ],
       "/Users/jackdubnicek/Desktop/free_candy/app/helpers/search_helper.rb": [
+=======
+      "/Users/jbwilmoth/free_candy/app/helpers/search_helper.rb": [
+>>>>>>> 27d748d4bfa9970c6675739375c8f7b7e779d504
         1,
         null,
         1,
@@ -83,6 +87,12 @@
         null,
         1,
         null,
+<<<<<<< HEAD
+        0,
+        0,
+        null,
+=======
+>>>>>>> 27d748d4bfa9970c6675739375c8f7b7e779d504
         0,
         0,
         null,
@@ -91,6 +101,7 @@
         0,
         0,
         0,
+        null,
         null,
         null,
         null,
@@ -108,7 +119,7 @@
         null,
         null
       ],
-      "/Users/jackdubnicek/Desktop/free_candy/app/controllers/home_controller.rb": [
+      "/Users/jbwilmoth/free_candy/app/controllers/home_controller.rb": [
         1,
         1,
         1,
@@ -155,6 +166,8 @@
         0,
         0,
         0,
+<<<<<<< HEAD
+=======
         0,
         0,
         0,
@@ -173,6 +186,32 @@
         null,
         null,
         1,
+>>>>>>> 27d748d4bfa9970c6675739375c8f7b7e779d504
+        0,
+        0,
+        0,
+        null,
+        null,
+        null,
+        null,
+        0,
+        null,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+<<<<<<< HEAD
+        null,
+=======
+        null
+      ],
+      "/Users/jbwilmoth/free_candy/app/controllers/application_controller.rb": [
+        1,
+>>>>>>> 27d748d4bfa9970c6675739375c8f7b7e779d504
+        1,
         0,
         0,
         null,
@@ -182,19 +221,61 @@
         null,
         null,
         null,
+<<<<<<< HEAD
+=======
+        null
+      ],
+      "/Users/jbwilmoth/free_candy/app/models/clip.rb": [
+        1,
+>>>>>>> 27d748d4bfa9970c6675739375c8f7b7e779d504
         1,
         0,
         null,
+<<<<<<< HEAD
         null,
         1,
         null,
         0,
         0,
         0,
+=======
+        1,
+        null
+      ],
+      "/Users/jbwilmoth/free_candy/app/models/pic.rb": [
+        1,
+        1,
+        null,
+        1,
+        null
+      ],
+      "/Users/jbwilmoth/free_candy/app/models/slide_show.rb": [
+        1,
+        1,
+        1,
+        null,
+        1,
+        null
+      ],
+      "/Users/jbwilmoth/free_candy/app/models/video.rb": [
+        1,
+        1,
+        1,
+>>>>>>> 27d748d4bfa9970c6675739375c8f7b7e779d504
         null,
         null
       ],
+<<<<<<< HEAD
       "/Users/jackdubnicek/Desktop/free_candy/app/controllers/application_controller.rb": [
+=======
+      "/Users/jbwilmoth/free_candy/app/models/flagged_content.rb": [
+        1,
+        1,
+        null
+      ],
+      "/Users/jbwilmoth/free_candy/app/controllers/users_controller.rb": [
+        1,
+>>>>>>> 27d748d4bfa9970c6675739375c8f7b7e779d504
         1,
         1,
         null,
@@ -203,6 +284,19 @@
         1,
         null,
         1,
+        0,
+        0,
+        null,
+        null,
+<<<<<<< HEAD
+        null
+      ]
+    },
+    "timestamp": 1395623379
+=======
+        null,
+        1,
+        0,
         0,
         0,
         null,
@@ -210,6 +304,7 @@
         null
       ]
     },
-    "timestamp": 1395623379
+    "timestamp": 1395639426
+>>>>>>> 27d748d4bfa9970c6675739375c8f7b7e779d504
   }
 }

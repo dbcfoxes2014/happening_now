@@ -215,8 +215,8 @@ var MovieStudio = function(){
           "<div class='clipThumb' style='background: url("+clipObj.thumb+")'></div>"+
         "</div>"
       );
-      $clip.draggable({
-        snap: "#trackVideo2, #trackVideo1, #trackVideo0",
+      $clip.draggable({//FIXME: make clips snap to each other
+        snap: "#trackVideo2, #trackVideo1, #trackVideo0, "+$clip.id,
         snapMode: 'inner',
         stop: function(event, ui) {
           var clip_width= trackWidth * ($(this).width()/timelineLength);
