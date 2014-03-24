@@ -18,6 +18,7 @@
 
   match 'recently_created_media', to: 'home#recent_media', via: :get
   match 'selected_media', to: 'home#selected_media', via: :get
+  match 'event_media', to: 'home#event_media', via: :get
 
   get '/home/show' => 'home#show', as: :home
 
