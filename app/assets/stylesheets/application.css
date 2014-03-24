@@ -56,3 +56,10 @@
 .show_checked_thumbnail {
 	display:block;
 }
+
+.pic-username {
+	position:relative;
+	bottom: 20px;
+	background-color: black;
+	width: 100%;
+}

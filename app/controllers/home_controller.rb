@@ -75,6 +75,10 @@ class HomeController < ApplicationController
     @media = FlaggedContent.where(user_id: current_user.id)
   end
 
+  def event_media
+    # @media = find_user_media()
+  end
+
   def debug_grab_test_urls
     #this method will grab the urls as an array
     search_terms = ["puppies", "dogs", "cats", "airplanes", "skateboarding", "dbc", "water", "fly"]

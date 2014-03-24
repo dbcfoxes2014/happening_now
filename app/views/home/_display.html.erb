@@ -27,6 +27,7 @@
         <% else %>
           <img id="<%=@url%>" src="/assets/play_icon.png" class="video_thumbnail search_result" width="240" height="240" border="0" style="background:URL(<%= @thumbnail %>) center center black; background-size: 100%" />
         <% end %>
+        <%= link_to "#{media.user.usernam}", event_media_path, {class: 'pic-username'} %>
         </div>
     <% end %>
   <% end %>
