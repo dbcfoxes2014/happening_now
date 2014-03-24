@@ -1,5 +1,5 @@
-set :application, "set your application name here"
-set :repository,  "set your repository location here"
+set :application, "free_candy"
+set :repository,  "https://github.com/dbcfoxes2014/free_candy"
 
 # set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
 # Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
