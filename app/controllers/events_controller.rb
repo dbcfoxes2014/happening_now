@@ -2,10 +2,7 @@
 class EventsController < ApplicationController
   respond_to :json
 
-	def popular_events
-		@popular_events = events_list
-	end
-
+	
 	#API Request
 
 	#initialize our http object, for contacting the API
@@ -20,5 +17,10 @@ class EventsController < ApplicationController
 
 	#parse our JSON response data...
 	events_list = JSON.parse(response.body)
+
+	def popular_events
+		@popular_events = events_list
+	end
+
  
 end
