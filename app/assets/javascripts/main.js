@@ -1,4 +1,4 @@
-$(function(){
+function bindEvents() {
 	$("a[href$='.mp4'], a[href$='.jpg'],a[href$='.png'],a[href$='.gif']").attr('rel', 'gallery').fancybox();
 
 	$('.video_thumbnail').on('click', function(){
@@ -36,17 +36,21 @@ $(function(){
 
 	$('.more_results').on('click',function(e) {
 		e.preventDefault();
-		
+		console.log("wtf")
 		route = 'more_results';
-			
+
 		$.ajax({
 	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
 	        url: route,
 		    type: "get",
-			dataType: "json",
 
 	        success: function(serverResponse){
 	        	console.log("success");
+	        	console.log(serverResponse);
+	        	$(".display_results").html(serverResponse);
+	        	// $(".search_header").html(header);
+	        	bindEvents();
+
 	    	}
 		});
 	});
@@ -88,4 +92,8 @@ $(function(){
 	        }
 		});
 	});
+}
+
+$(function(){
+	bindEvents();
 });
