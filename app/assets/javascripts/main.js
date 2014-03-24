@@ -15,9 +15,9 @@ $(function(){
 		    });
 	});
 
-	// //the next three functions ensure that an images checkbox will
-	// //always remain visible if checked, and appear on mouse over if
-	// //unchecked / dissapear on mouseoff if unchecked
+	//the next three functions ensure that an images checkbox will
+	//always remain visible if checked, and appear on mouse over if
+	//unchecked / dissapear on mouseoff if unchecked
 	$('.thumbnail_object').on({
 		mouseover: function(){
 			if ($(this).find('input').is(':checked') != true) {

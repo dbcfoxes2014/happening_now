@@ -6,10 +6,6 @@ module SearchHelper
 	end
 
 	def find_similar_tags(values)
-		#session variables used for pagination
-		session[:search_terms] = values
-		session[:max_ids] = nil
-
 		similar_media = []
 		values.each do |value|
 			for item in Instagram.tag_search(value, {count: 4})
@@ -20,12 +16,12 @@ module SearchHelper
 	end
 
 	def grab_all_media(values)
-		#session variables used for pagination
+		session[:next_max_id] = []
 		session[:search_terms] = values
-		session[:max_ids] = nil
-
 		media = []
+
 		values.each do |value|
+			session[:next_max_id] << Instagram.tag_recent_media(value).pagination.next_max_id
 			for item in Instagram.tag_recent_media(value)
 				media << item
 			end
@@ -34,12 +30,13 @@ module SearchHelper
 	end
 
 	def grab_select_media(values, wanted_type)
-		#session variables used for pagination
+		session[:next_max_id] = []
 		session[:search_terms] = values
-		session[:max_ids] = nil
-
 		media = []
+
 		values.each do |value|
+			session[:next_max_id] << Instagram.tag_recent_media(value).pagination.next_max_id
+
 			for item in Instagram.tag_recent_media(value)
 				if item.type == wanted_type
 					media << item
@@ -50,7 +47,10 @@ module SearchHelper
 		media
 	end
 
-	def grab_popular_media
+	def grab_popular_media	
+	    session[:next_max_id] = []
+	    session[:search_terms] = []
+
 		media = []
 		for item in Instagram.media_popular
 				media << item
