@@ -1,5 +1,5 @@
 require 'enumerator'
-# require 'net/ssh/gateway'
+require 'net/ssh/gateway'
 require 'capistrano/ssh'
 require 'capistrano/errors'
 
