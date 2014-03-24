@@ -75,8 +75,9 @@ class HomeController < ApplicationController
     @media = FlaggedContent.where(user_id: current_user.id)
   end
 
-  def event_media
-    # @media = find_user_media()
+  def event_media   
+    @username =  Instagram.user(params[:user_id]).username
+    @media = find_user_media(params[:user_id])
   end
 
   def debug_grab_test_urls
