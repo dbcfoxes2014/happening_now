@@ -6,7 +6,7 @@ set :scm, :git
 set :branch, "master"
 
 set :user, "deployer"
-set :use_sudo, false
+
 
 set :rails_env, "production"
 
