@@ -1,6 +1,7 @@
 # Load the Rails application.
 require File.expand_path('../application', __FILE__)
 # require 'instagram.yaml'
+require 'eventbrite-client'
 
 APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
 
@@ -18,12 +19,16 @@ end
 # Initialize the Rails application.
 FreeCandy::Application.initialize!
 
+env_config = YAML.load_file(APP_ROOT.join('config', 'eventbrite.yml'))
+
 #Eventbrite API authorization
-eb_client = EventbriteClient.new(eb_auth_tokens)
+Eventbrite.configure do |config|
+	config.eb_client_app_key = ENV["app_key"]
+	config.eb_client_user_key = ENV["user_key"]
+end
 
 #Eventbrite example API method calls
 		#Here is an example using the API's user_list_events method:
-		response = eb_client.user_list_events()
+		#response = eb_client.user_list_events()
 		#The event_get API call should look like this:
-		response = eb_client.event_get({ id: 1848891083})
-
+		#response = eb_client.event_get({ id: 1848891083})
