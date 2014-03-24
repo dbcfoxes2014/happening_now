@@ -59,11 +59,13 @@ class HomeController < ApplicationController
     thumbnail_url = params[:media_thumbnail]
     media = params[:media]
     current_user.flagged_contents << FlaggedContent.create(url: media, thumbnail: thumbnail_url)
+    render json: ""
   end
 
   def remove_media
     remove_media = FlaggedContent.where(user_id: current_user.id, url: params[:media])
     remove_media.destroy_all
+    render json: ""
   end
 
   def recent_media
