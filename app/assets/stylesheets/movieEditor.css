@@ -49,22 +49,24 @@
   background-size:100% 100%;
   border: #40C8FA 1px solid;
 }
-.timelineClip{
-  width:100px;
-  height:66px;
-  background:#1581AC;
-}
-.clipCrop{
-  height:66px;
-  border: #194C60 1px solid;
-}
+
+.timelineVideoClip,
+.timelinePhotoClip{background:#1581AC;width:100px;}
+.timelineVideoClip{height:66px;}
+.timelinePhotoClip{height:100px;}
+
+.clipCrop{border: #194C60 1px solid;}
+.timelineVideoClip .clipCrop{height:66px;}
+.timelinePhotoClip .clipCrop{height:100px;}
+
 .clipThumb{
-  max-width: 55px;
-  height: 55px;
   display: block;
   background-size: cover !important;
   margin: 4px auto;
 }
+.timelineVideoClip .clipThumb{max-width: 55px;height: 55px;}
+.timelinePhotoClip .clipThumb{max-width: 90px;height: 90px;}
+
 #timelineGraph{
   width: 100%;
   height: 50px;
