@@ -25,4 +25,7 @@
 
 * Deployment: This app is deployed through ```ssh``` with ```git``` and ```Capistrano 2.14.2```. Run ```bundle install``` then deploy with ```deploy```.
 
+### API's
+
+* Instagram: You will need a client id and secret key from Instagram to use the API. Save a ```instagram.yml``` file to the ```root``` of the ```config``` directory.
 > [ventiview.co](http://ventiview.co)
