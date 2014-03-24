@@ -16,7 +16,7 @@
 <div class="container">
 	<div class="videos">
 		<% @user.videos.each do |video| %>
-			<a href="<%=video.title%>"><img class="fancybox search_result" src="<%=video.file_path%>" height="240" width="240"></a>
+			<img id="/<%=video.file_path%>" src="/assets/play_icon.png" class="video_thumbnail search_result" width="240" height="240" border="0" style="background:URL(/<%= video.thumbnail_path %>) center center black; background-size: 100%" />
 		<% end %>
 	</div>
 </div
