@@ -33,6 +33,24 @@ $(function(){
 		}
 	});
 
+
+	$('.more_results').on('click',function(e) {
+		e.preventDefault();
+		
+		route = 'more_results';
+			
+		$.ajax({
+	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+	        url: route,
+		    type: "get",
+			dataType: "json",
+
+	        success: function(serverResponse){
+	        	console.log("success");
+	    	}
+		});
+	});
+
 	$('.selection_checkbox').on('click',function() {
 		route = undefined;
 		if($(this).is(':checked')){
