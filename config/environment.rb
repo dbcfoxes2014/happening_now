@@ -20,13 +20,13 @@ end
 FreeCandy::Application.initialize!
 
 
+
 eb_auth_tokens = {
 									 app_key: 'XDZVAB6BIBH52S27PU',
 									 user_key: '139301281190391193493'
 									}
 
 eb_client = EventbriteClient.new(eb_auth_tokens)
-
 
 
 
@@ -46,6 +46,13 @@ eb_client = EventbriteClient.new(eb_auth_tokens)
 
 #Eventbrite example API method calls
 		#Here is an example using the API's user_list_events method:
+
 		#response = eb_client.user_list_events()
 		#The event_get API call should look like this:
 		#response = eb_client.event_get({ id: 1848891083})
+
+		# response = eb_client.user_list_events()
+		#The event_get API call should look like this:
+		# response = eb_client.event_get({ id: 1848891083})
+
+

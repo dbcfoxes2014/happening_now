@@ -13,4 +13,12 @@ class UsersController < ApplicationController
   def user_slide_shows
   	@user_slide_shows = SlideShows.all(params[:user_id]) 	
   end	
+
+
+  def autocomplete
+    @users = User.autocomplete(:name, params[:q])
+    respond_to do |format|
+      format.json { render json: @users }
+    end
+  end
 end

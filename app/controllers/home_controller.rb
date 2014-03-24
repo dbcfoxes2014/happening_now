@@ -21,7 +21,10 @@ class HomeController < ApplicationController
     similar_tags = find_similar_tags(@search_content)
     @message = "Search Results for #{@search_content}"
 
-    if params[:search][:images] == "1" && params[:search][:videos] == "1"
+    if params[:search] == nil
+      @similar_media = grab_all_media(similar_tags).sample(4)
+      @media = grab_all_media(@search_content)
+    elsif params[:search][:images] == "1" && params[:search][:videos] == "1"
       @similar_media = grab_all_media(similar_tags).sample(4)
       @media = grab_all_media(@search_content)
     elsif params[:search][:images] == "1"
@@ -29,10 +32,7 @@ class HomeController < ApplicationController
       @media = grab_select_media(@search_content, "image")
     elsif params[:search][:videos] == "1"
       @similar_media = grab_select_media(similar_tags, "video").sample(4)
-      @media = grab_select_media(@search_content, "video")
-    else
-      @similar_media = grab_all_media(similar_tags).sample(4)
-      @media = grab_all_media(@search_content)
+      @media = grab_select_media(@search_content, "video")      
     end
 
     if current_user

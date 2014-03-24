@@ -10,8 +10,8 @@
         There are no URL's in your pallet!
       </div>
     <% else %>
-      <% @session_table.each do |url|%>
-        <div class="palletThumb" data-url="<%= url %>" data-thumbnail="/assets/dog.jpg" style="background: url(/assets/dog.jpg)">
+      <% @session_table.each do |media|%>
+        <div class="palletThumb" data-url="<%= media.url %>" data-thumbnail="<%= media.thumbnail %>" style="background: url(<%= media.thumbnail %>)">
         </div>
       <% end %>
     <% end %>
@@ -21,10 +21,10 @@
     <span>Project Tools</span>
     <ul>
       <li>
-        <span>Render Project</span>
+        <span id="UI_render">Render Project</span>
       </li>
       <li>
-        <span>More stuff Woo</span>
+        <span id="UI_test">More stuff Woo</span>
       </li>
     </ul>
   </div>
