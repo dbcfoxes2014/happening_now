@@ -41,7 +41,7 @@
 	display: inline-block;
     float: left;
     width: 240px;
-    height: 240px;
+    height: 240px;    
 }
 
 .show-thumbnail {
@@ -58,8 +58,10 @@
 }
 
 .pic-username {
+	z-index: 5;
+	display: inline;
 	position:relative;
-	bottom: 20px;
+	top: 30px;
 	background-color: black;
 	width: 100%;
 }
