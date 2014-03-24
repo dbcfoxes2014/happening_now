@@ -17,8 +17,6 @@ class HomeController < ApplicationController
       redirect_to :root and return
     end
 
-    
-
     @search_content = seperate_values(params[:search_data], ' ')
     similar_tags = find_similar_tags(@search_content)
     @message = "Search Results for #{@search_content}"
@@ -41,6 +39,21 @@ class HomeController < ApplicationController
       @flagged_media = FlaggedContent.where(user_id: current_user.id).pluck(:url)
     end
   end
+
+  def paginate
+    if !(session[:max_ids])
+      media = []
+      session[:search_terms].each do |value|
+        pagination_info = Instagram.tag_recent_media(value).pagination
+        for item in Instagram.tag_recent_media(value, {:MAX_ID => pagination_info.next_max_id})
+          media << item
+        end
+      end
+    end
+
+    render partial: "display"
+  end
+
 
   def save_media
     thumbnail_url = params[:media_thumbnail]
