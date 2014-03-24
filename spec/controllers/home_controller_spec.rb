@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe HomeController do
 
+  # CODE REVIEW: what is this testing?
 	it "should have a current_user" do
     expect(subject.current_user).not_to be_nil
   end

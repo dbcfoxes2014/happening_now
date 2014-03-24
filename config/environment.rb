@@ -6,6 +6,9 @@ APP_ROOT = Pathname.new(File.expand_path('../../', __FILE__))
 
 env_config = YAML.load_file(APP_ROOT.join('config', 'instagram.yml'))
 
+# CODE REVIEW: Took me a long time to figure out I needed the configuration
+# setup to run your project. Weird errors happen when the file (which is
+# required) is blank. No mention in your README
 env_config.each do |key, value|
   ENV[key] = value
 end

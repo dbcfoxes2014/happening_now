@@ -1,4 +1,6 @@
+# CODE REVIEW: http://www.tickld.com/cdn_image_content/21544.jpg
 class EditorController < ApplicationController
+  # CODE REVIEW: how are #video and #photo different?
   def video
     if(current_user)
         @session_table = FlaggedContent.where(user_id: current_user.id)
@@ -13,6 +15,7 @@ class EditorController < ApplicationController
 
   def renderStatus
     response = {}
+    # CODE REVIEW: What logic is happening here?
     if(params[:query])
       case params[:query]
         when 'slotAvaliable'

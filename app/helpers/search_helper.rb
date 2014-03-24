@@ -1,5 +1,5 @@
 module SearchHelper
-
+  # CODE REVIEW: holy tabs
 	def seperate_values(string, delim)
 		string.delete!("#")
 		string.split(delim)
@@ -51,7 +51,9 @@ module SearchHelper
 	end
 
 	def grab_popular_media
+    # CODE REVIEW: Why can't you just return Instagram.media_popular
 		media = []
+    # CODE REVIEW: for loop?
 		for item in Instagram.media_popular
 				media << item
 		end
