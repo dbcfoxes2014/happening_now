@@ -6,6 +6,9 @@ set :scm, :git
 set :branch, "master"
 
 set :user, "deployer"
+set :use_sudo, false
+
+set :rails_env, "production"
 
 role :web, "your web-server here"                          # Your HTTP server, Apache/etc
 role :app, "your app-server here"                          # This may be the same as your `Web` server
