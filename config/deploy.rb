@@ -5,7 +5,7 @@ set :deploy_to, "/var/www/default"
 set :scm, :git
 set :branch, "master"
 
-
+set :user, "deployer"
 
 role :web, "your web-server here"                          # Your HTTP server, Apache/etc
 role :app, "your app-server here"                          # This may be the same as your `Web` server
