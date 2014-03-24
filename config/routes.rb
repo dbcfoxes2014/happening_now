@@ -5,6 +5,8 @@
   resources :pictures, :only => :show
 
   root to: 'home#index'
+  get 'paginate_search', :to => 'home#paginate'
+
   get 'editor/video', :to => 'editor#video'
   get 'editor/photo', :to => 'editor#photo'
   get 'editor/renderIO', :to => 'editor#renderStatus'

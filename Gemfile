@@ -50,6 +50,11 @@ gem 'eventfulapi'
 gem 'sshkit'
 
 
+gem 'safe_yaml'
+
+gem 'eventbrite-client'
+
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -77,7 +82,7 @@ end
 # gem 'bcrypt-ruby', '~> 3.1.2'
 
 # Use unicorn as the app server
-gem 'unicorn'
+# gem 'unicorn'
 
 gem 'rails_12factor', group: :production
 

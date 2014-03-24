@@ -17,13 +17,14 @@ class HomeController < ApplicationController
       redirect_to :root and return
     end
 
-    
-
     @search_content = seperate_values(params[:search_data], ' ')
     similar_tags = find_similar_tags(@search_content)
     @message = "Search Results for #{@search_content}"
 
-    if params[:search][:images] == "1" && params[:search][:videos] == "1"
+    if params[:search] == nil
+      @similar_media = grab_all_media(similar_tags).sample(4)
+      @media = grab_all_media(@search_content)
+    elsif params[:search][:images] == "1" && params[:search][:videos] == "1"
       @similar_media = grab_all_media(similar_tags).sample(4)
       @media = grab_all_media(@search_content)
     elsif params[:search][:images] == "1"
@@ -31,16 +32,28 @@ class HomeController < ApplicationController
       @media = grab_select_media(@search_content, "image")
     elsif params[:search][:videos] == "1"
       @similar_media = grab_select_media(similar_tags, "video").sample(4)
-      @media = grab_select_media(@search_content, "video")
-    else
-      @similar_media = grab_all_media(similar_tags).sample(4)
-      @media = grab_all_media(@search_content)
+      @media = grab_select_media(@search_content, "video")      
     end
 
     if current_user
       @flagged_media = FlaggedContent.where(user_id: current_user.id).pluck(:url)
     end
   end
+
+  def paginate
+    if !(session[:max_ids])
+      media = []
+      session[:search_terms].each do |value|
+        pagination_info = Instagram.tag_recent_media(value).pagination
+        for item in Instagram.tag_recent_media(value, {:MAX_ID => pagination_info.next_max_id})
+          media << item
+        end
+      end
+    end
+
+    render partial: "display"
+  end
+
 
   def save_media
     thumbnail_url = params[:media_thumbnail]
