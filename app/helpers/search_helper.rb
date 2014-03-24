@@ -55,4 +55,13 @@ module SearchHelper
 		media
 	end
 
+	def find_user_media(user_id)
+		media = []
+		for item in Instagram.user_recent_media(user_id)
+			media << item
+		end
+		media
+	end
+
 end
+	
