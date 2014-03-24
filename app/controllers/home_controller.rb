@@ -1,8 +1,11 @@
+# CODE REVIEW: SearchHelper should be included in to HomeController. Doing it
+# this way makes them global methods
 include SearchHelper
 class HomeController < ApplicationController
   respond_to :json
 
   def index
+    # CODE REVIEW: why not just refer to current_user in the code?
     @user = current_user
   end
 
@@ -21,6 +24,8 @@ class HomeController < ApplicationController
     similar_tags = find_similar_tags(@search_content)
     @message = "Search Results for #{@search_content}"
 
+    # CODE REVIEW: This isn't conveying a lot of meaning to me. I'd refactor
+    # this out to some methods that describe what's happening better
     if params[:search] == nil
       @similar_media = grab_all_media(similar_tags).sample(4)
       @media = grab_all_media(@search_content)
@@ -44,6 +49,7 @@ class HomeController < ApplicationController
     if !(session[:max_ids])
       media = []
       session[:search_terms].each do |value|
+        # CODE REVIEW: why is there not a helper method for this?
         pagination_info = Instagram.tag_recent_media(value).pagination
         for item in Instagram.tag_recent_media(value, {:MAX_ID => pagination_info.next_max_id})
           media << item
@@ -54,7 +60,8 @@ class HomeController < ApplicationController
     render partial: "display"
   end
 
-
+  # CODE REVIEW: Why are these "media" actions in the home controller? Doesn't
+  # seem like a concern of the home controller to me.
   def save_media
     thumbnail_url = params[:media_thumbnail]
     media = params[:media]
