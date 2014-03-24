@@ -12,15 +12,20 @@
   get 'editor/renderIO', :to => 'editor#renderStatus'
   post 'editor/renderIO', :to => 'editor#renderCommand'
 
+
   match 'search', to: 'media#search', via: :get
   match 'popular', to: 'media#popular', via: :get
   match 'display', to: 'media#display', via: :get
+
+  #match 'events', to: 'home#events', via: :get
 
   match 'recently_created_media', to: 'media#recent_media', via: :get
   match 'selected_media', to: 'media#selected_media', via: :get
   match 'event_media', to: 'media#event_media', via: :get
 
   get '/home/show' => 'home#show', as: :home
+
+  get '/home/events' => 'home#events', as: :home_events
 
   post "/save_media_to_session" => "media#save_media", :as => :save_media_to_session
 

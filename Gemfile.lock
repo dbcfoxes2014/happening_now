@@ -68,6 +68,9 @@ GEM
     diff-lcs (1.2.5)
     docile (1.1.3)
     erubis (2.7.0)
+    eventbright (0.2.3)
+      httparty (>= 0.5.2)
+      tzinfo (>= 0.3.22)
     eventbrite-client (0.1.4)
       httparty (~> 0.8.0)
       tzinfo (~> 0.3.22)
@@ -264,6 +267,7 @@ DEPENDENCIES
   coveralls
   database_cleaner
   devise
+  eventbright (~> 0.2.3)
   eventbrite-client
   eventfulapi
   factory_girl_rails (~> 4.2.1)
