@@ -40,18 +40,19 @@ class HomeController < ApplicationController
     end
   end
 
-  def paginate
-    if !(session[:max_ids])
-      media = []
-      session[:search_terms].each do |value|
-        pagination_info = Instagram.tag_recent_media(value).pagination
-        for item in Instagram.tag_recent_media(value, {:MAX_ID => pagination_info.next_max_id})
-          media << item
-        end
+  def more_results
+    @media = []
+    current_max_ids = session[:next_max_id]
+    session[:next_max_id] = []
+
+    session[:search_terms].each_with_index do |value, index|
+      session[:next_max_id] << Instagram.tag_recent_media(value, :max_id => current_max_ids[index]).pagination.next_max_id
+      for item in Instagram.tag_recent_media(value)
+        @media << item
       end
     end
+    
 
-    render partial: "display"
   end
 
 
