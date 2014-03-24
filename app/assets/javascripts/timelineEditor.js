@@ -47,7 +47,46 @@ var RenderVideo = function(movie_array){
         type: "POST",
         url: "/editor/renderIO",
         data: {
-          command: 'startRender'
+          command: 'startVideoRender'
+        }
+      }).done(function(responce){
+        //tell the user the render is done (we need background jobs)
+        alert('Your render is done!');
+      });
+    });
+    console.log("AJAX responce done: "+responce.status+responce.slot);
+  });
+};
+
+var RenderSlideshow = function(movie_array){
+  console.log("sending ajax request on render");
+  //ask for a slot to render in
+  $.ajax({
+    type: "GET",
+    url: "/editor/renderIO",
+    //context: document.body,
+    data: {query: 'slotAvaliable'}
+  }).done(function(responce) {
+    // console.log("Mapping: "+movie_array[0].url+" to: "+$.map(movie_array, function(clip) {
+    //     return clip.url
+    // }));
+    //tell the avaliable slot what urls we need to copy
+    $.ajax({
+      type: "POST",
+      url: "/editor/renderIO",
+      data: {
+        command: 'grabPhotos',
+        urls: $.map(movie_array, function(clip) {
+            return clip.url
+        })
+      }
+    }).done(function(responce){
+      //tell the slot to start the render now the URL's are copied
+      $.ajax({
+        type: "POST",
+        url: "/editor/renderIO",
+        data: {
+          command: 'startPhotoRender'
         }
       }).done(function(responce){
         //tell the user the render is done (we need background jobs)
@@ -169,7 +208,7 @@ var MovieStudio = function(){
         (clip_rightX/trackWidth)*timelineLength
       );
 
-      $clip = $( "<div id='"+ui.draggable.attr('id')+"' class='timelineClip'></div>" );
+      $clip = $( "<div id='"+ui.draggable.attr('id')+"' class='timelineVideoClip'></div>" );
       $clip.data({'url':clipObj.url,'start':clipObj.start,'stop':clipObj.stop});
       $clip.html(
         "<div class='clipCrop'>"+
@@ -284,19 +323,14 @@ var PhotoStudio = function(){
 
   });
 
-  $('#Track2,#Track1,#Track0').droppable({
+  $('#trackPhotos').droppable({
     accept: '.palletThumb',
     drop: function( event, ui ) {
-      console.log("UI id: "+$(this).attr('id'));
-      console.log("Drop Position Is: "+"<"+event.pageX+","+event.pageY+">");
-
-      //update the master track of all 3
-      console.log("Merged Tracks: "+TrackMain.clips);
       ui.draggable.remove();
 
-      var clip_width= trackWidth * (15.0/timelineLength);
+      var clip_width= trackWidth * (5.0/timelineLength);
       var clip_leftX = event.pageX - trackOffset;
-      var clip_rightX= clip_leftX+15.0;
+      var clip_rightX= clip_leftX+5.0;
       var clipObj = new Clip(
         ui.draggable.data('url'),
         ui.draggable.data('thumbnail'),
@@ -304,7 +338,7 @@ var PhotoStudio = function(){
         (clip_rightX/trackWidth)*timelineLength
       );
 
-      $clip = $( "<div id='"+ui.draggable.attr('id')+"' class='timelineClip'></div>" );
+      $clip = $( "<div id='"+ui.draggable.attr('id')+"' class='timelinePhotoClip'></div>" );
       $clip.data({'url':clipObj.url,'start':clipObj.start,'stop':clipObj.stop});
       $clip.html(
         "<div class='clipCrop'>"+
@@ -312,7 +346,7 @@ var PhotoStudio = function(){
         "</div>"
       );
       $clip.draggable({
-        snap: "#Track2, #Track1, #Track0",
+        snap: "#trackPhotos",
         snapMode: 'inner',
         stop: function(event, ui) {
           var clip_width= trackWidth * ($(this).width()/timelineLength);
@@ -321,8 +355,6 @@ var PhotoStudio = function(){
           clipObj.start = (clip_leftX/trackWidth)*timelineLength;
           clipObj.stop = (clip_rightX/trackWidth)*timelineLength;
         }
-      }).resizable({
-        handles:'e, w'
       });
       $clip.css({//mousePos - offset of time headers
         'left': clip_leftX + 'px',
@@ -364,15 +396,15 @@ var PhotoStudio = function(){
     //alert('Rendering that shit!');
     switch(e.target.id){
       case 'UI_render':
-        RenderVideo(TrackMain.clips.sort(function(a,b){return a.start-b.start}));
+        RenderSlideshow(TrackMain.clips.sort(function(a,b){return a.start-b.start}));
         break;
       case 'UI_test':
         console.log(TrackMain.clips[0].stop);
         break;
     }
   });
-};
-$(document).on('hover','#editorTools',function(){
+
+  $('#editorTools').hover(function(){
     //enter
         $(this).animate({
             'bottom': '+=70px'
@@ -384,5 +416,6 @@ $(document).on('hover','#editorTools',function(){
             'bottom': '-=70px'
             }, "medium"
         );
-  });
+    });
+};
 
