@@ -1,4 +1,4 @@
-include EventsHelper
+
 class EventsController < ApplicationController
   respond_to :json
 
