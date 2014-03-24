@@ -23,4 +23,6 @@
 
 * Server: ```Ubuntu 12.04.3 / Ruby 1.9.3-p484 From Source / Apache2 / Phusion Passenger / Redis / PostgreSQL / Rails 4.0.3 / NodeJS / RubyGems 2.2.2```
 
-* Deployment: This app is deployed through ```ssh``` with ```git``` and ```Capistrano 2.15.4```. Run ```bundle install``` then deploy with ```deploy```.
+* Deployment: This app is deployed through ```ssh``` with ```git``` and ```Capistrano 2.14.2```. Run ```bundle install``` then deploy with ```deploy```.
+
+> [ventiview.co](http://ventiview.co)

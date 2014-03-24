@@ -34,7 +34,7 @@ GEM
       multi_json (>= 1.0.0)
     bcrypt (3.1.7)
     builder (3.1.4)
-    capistrano (3.1.0)
+    capistrano (2.14.2)
       i18n
       rake (>= 10.0.0)
       sshkit (~> 1.3)
@@ -285,7 +285,6 @@ DEPENDENCIES
   selenium-webdriver (~> 2.39.0)
   snappy
   sprockets (= 2.11.0)
-  sshkit
   streamio-ffmpeg
   travis-lint
   uglifier (>= 1.3.0)
