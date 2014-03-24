@@ -1,8 +1,11 @@
 set :application, "free_candy"
 set :repository,  "https://github.com/dbcfoxes2014/free_candy"
 
-# set :scm, :git # You can set :scm explicitly or Capistrano will make an intelligent guess based on known version control directory names
-# Or: `accurev`, `bzr`, `cvs`, `darcs`, `git`, `mercurial`, `perforce`, `subversion` or `none`
+set :deploy_to, "/var/www/default"
+set :scm, :git
+set :branch, "master"
+
+
 
 role :web, "your web-server here"                          # Your HTTP server, Apache/etc
 role :app, "your app-server here"                          # This may be the same as your `Web` server
