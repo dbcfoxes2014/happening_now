@@ -1,7 +1,7 @@
 {
   "RSpec": {
     "coverage": {
-      "/Users/jbwilmoth/free_candy/app/models/user.rb": [
+      "/Users/christoph/Documents/dbc/free_candy/app/models/user.rb": [
         1,
         null,
         null,
@@ -14,7 +14,7 @@
         1,
         null
       ],
-      "/Users/jbwilmoth/free_candy/app/helpers/application_helper.rb": [
+      "/Users/christoph/Documents/dbc/free_candy/app/helpers/application_helper.rb": [
         1,
         null,
         null,
@@ -23,7 +23,7 @@
         null,
         null
       ],
-      "/Users/jbwilmoth/free_candy/app/helpers/search_helper.rb": [
+      "/Users/christoph/Documents/dbc/free_candy/app/helpers/search_helper.rb": [
         1,
         null,
         1,
@@ -82,11 +82,20 @@
         0,
         null,
         0,
+        null,
+        null,
+        1,
+        0,
+        0,
+        0,
+        null,
+        0,
+        null,
         null,
         null,
         null
       ],
-      "/Users/jbwilmoth/free_candy/app/controllers/home_controller.rb": [
+      "/Users/christoph/Documents/dbc/free_candy/app/controllers/home_controller.rb": [
         1,
         1,
         1,
@@ -165,6 +174,11 @@
         null,
         null,
         1,
+        0,
+        0,
+        null,
+        null,
+        1,
         null,
         0,
         0,
@@ -172,7 +186,7 @@
         null,
         null
       ],
-      "/Users/jbwilmoth/free_candy/app/controllers/application_controller.rb": [
+      "/Users/christoph/Documents/dbc/free_candy/app/controllers/application_controller.rb": [
         1,
         1,
         null,
@@ -187,29 +201,21 @@
         null,
         null
       ],
-      "/Users/jbwilmoth/free_candy/app/models/clip.rb": [
+      "/Users/christoph/Documents/dbc/free_candy/app/models/clip.rb": [
         1,
         1,
         null,
         1,
         null
       ],
-      "/Users/jbwilmoth/free_candy/app/models/pic.rb": [
+      "/Users/christoph/Documents/dbc/free_candy/app/models/pic.rb": [
         1,
         1,
         null,
         1,
         null
       ],
-      "/Users/jbwilmoth/free_candy/app/models/slide_show.rb": [
-        1,
-        1,
-        1,
-        null,
-        1,
-        null
-      ],
-      "/Users/jbwilmoth/free_candy/app/models/video.rb": [
+      "/Users/christoph/Documents/dbc/free_candy/app/models/slide_show.rb": [
         1,
         1,
         1,
@@ -217,12 +223,20 @@
         1,
         null
       ],
-      "/Users/jbwilmoth/free_candy/app/models/flagged_content.rb": [
+      "/Users/christoph/Documents/dbc/free_candy/app/models/video.rb": [
+        1,
+        1,
+        1,
+        null,
+        1,
+        null
+      ],
+      "/Users/christoph/Documents/dbc/free_candy/app/models/flagged_content.rb": [
         1,
         1,
         null
       ],
-      "/Users/jbwilmoth/free_candy/app/controllers/users_controller.rb": [
+      "/Users/christoph/Documents/dbc/free_candy/app/controllers/users_controller.rb": [
         1,
         1,
         1,
@@ -249,6 +263,6 @@
         null
       ]
     },
-    "timestamp": 1395639426
+    "timestamp": 1395676144
   }
 }
