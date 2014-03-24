@@ -4,7 +4,7 @@ require 'rails/all'
 require 'json'
 require 'open-uri'
 require 'eventbrite-client'
-require 'eventbrite'
+# require 'eventbright'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.

@@ -26,7 +26,7 @@ eb_auth_tokens = {
 									 user_key: '139301281190391193493'
 									}
 
-eb_client = EventbriteClient.new(eb_auth_tokens)
+$eb_client = EventbriteClient.new(eb_auth_tokens)
 
 
 

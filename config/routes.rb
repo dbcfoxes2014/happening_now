@@ -25,7 +25,7 @@
 
   get '/home/show' => 'home#show', as: :home
 
-  get '/home/events' => 'home#events', as: :home_events
+  get '/home/events' => 'event#popular_events', as: :home_events
 
   post "/save_media_to_session" => "media#save_media", :as => :save_media_to_session
 
