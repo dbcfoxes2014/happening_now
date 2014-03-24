@@ -225,6 +225,7 @@ GEM
       sprockets (~> 2.8)
     sshkit (1.3.0)
       net-scp (>= 1.1.2)
+      net-sftp
       net-ssh
       net-ssh-gateway
       term-ansicolor
