@@ -1,0 +1,9 @@
+A library for working with the Eventful API. Simple programmatic access to
+Eventful's database of events, venues, performers and speakers, groups,
+calendars, and users.
+
+See http://api.eventful.com/ for general information about the API, and
+http://api.eventful.com/docs/libs/ruby/doc for documentation about the Ruby library.
+
+Copyright 2005-2007 EVDB, Inc. This module is distributed under the same terms 
+as Ruby itself (see http://www.ruby-lang.org/en/LICENSE.txt)
