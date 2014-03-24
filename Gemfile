@@ -26,7 +26,8 @@ gem 'devise'
 
 gem 'sprockets', '2.11.0'
 
-gem 'streamio-ffmpeg'
+gem 'free_candy-ffmpeg', '1.0.0', :path => './vendor/gems/free_candy-ffmpeg-1.0.0'
+#gem 'streamio-ffmpeg'
 
 gem 'instagram'
 
@@ -47,6 +48,8 @@ gem 'eventfulapi'
 gem 'safe_yaml'
 
 gem 'eventbrite-client'
+
+gem 'rake'
 
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
