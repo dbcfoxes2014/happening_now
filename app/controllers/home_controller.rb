@@ -59,7 +59,7 @@ class HomeController < ApplicationController
     thumbnail_url = params[:media_thumbnail]
     media = params[:media]
     current_user.flagged_contents << FlaggedContent.create(url: media, thumbnail: thumbnail_url)
- end
+  end
 
   def remove_media
     remove_media = FlaggedContent.where(user_id: current_user.id, url: params[:media])

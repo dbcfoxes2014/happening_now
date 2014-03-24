@@ -25,8 +25,9 @@
 
       <ul class="nav navbar-nav navbar-right">
         <% if user_signed_in? %>
+          <%= link_to(raw("Go to editor" +("<b class= 'caret'></b>")), "#", :class => "dropdown-toggle", :data => {:toggle=>"dropdown"}) %>
+          
           <li><%= link_to "Your Projects", user_path(current_user.id) %></li>
-          <li><%= link_to "Go To Editor", editor_video_path %></li>
           <li><%= link_to "View Selected Media (#{current_user.flagged_contents.length})", selected_media_path, {class: "view-selected-button"} %></li>
           <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
         <% else %>
