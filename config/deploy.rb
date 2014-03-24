@@ -1,7 +1,9 @@
+require 'bundler/capistrano'
+
 set :application, "free_candy"
 set :repository,  "https://github.com/dbcfoxes2014/free_candy"
 
-set :deploy_to, "/var/www/default"
+set :deploy_to, "/var/www/#{application}"
 set :scm, :git
 set :branch, "master"
 
