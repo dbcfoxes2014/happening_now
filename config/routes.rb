@@ -12,6 +12,8 @@
   get 'editor/renderIO', :to => 'editor#renderStatus'
   post 'editor/renderIO', :to => 'editor#renderCommand'
 
+   get '/home/events', :to => 'home#events'
+
   match 'search', to: 'home#search', via: :get
   match 'popular', to: 'home#popular', via: :get
   match 'display', to: 'home#display', via: :get
@@ -20,6 +22,8 @@
   match 'selected_media', to: 'home#selected_media', via: :get
 
   get '/home/show' => 'home#show', as: :home
+
+
 
   match 'next', to: 'home#next', via: :get
   match 'back', to: 'home#back', via: :get
