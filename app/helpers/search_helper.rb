@@ -47,7 +47,10 @@ module SearchHelper
 		media
 	end
 
-	def grab_popular_media
+	def grab_popular_media	
+	    session[:next_max_id] = []
+	    session[:search_terms] = []
+
 		media = []
 		for item in Instagram.media_popular
 				media << item

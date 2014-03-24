@@ -1,4 +1,11 @@
+<div class="search_header" >
 <% if @similar_media %>
+</div>
+
+<% if session[:next_max_id].length > 0 %>
+  <%= link_to "More Results", more_results_path, {class: "more_results"}  %>
+<% end %>
+
   <h2> Similar Media</h2>
   <div class="similar-media">
     <%= render 'home/similar' %>
@@ -31,5 +38,3 @@
     <% end %>
   <% end %>
 <% end %>
-
-<%= link_to "More Results", more_results_path %>
