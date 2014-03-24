@@ -1,6 +1,8 @@
 <% if @similar_media %>
   <h2> Similar Media</h2>
+  <div class="similar-media">
     <%= render 'home/similar' %>
+  </div>
 <%end%>
 
 <% if @media %>
@@ -29,19 +31,3 @@
     <% end %>
   <% end %>
 <% end %>
-
-<%= link_to "More Results", paginate_search_path %>
-<%=@media%>
-
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
-<br>
