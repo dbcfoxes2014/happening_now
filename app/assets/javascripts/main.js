@@ -128,10 +128,9 @@ function bindEvents() {
 					dataType: "json",
 							})
 
-		.always(function(serverResponse){
-			console.log(serverResponse)
-		$(".view-selected-button").html("View Selected Media (" + serverResponse.count + ")")
-		})
+			.always(function(serverResponse){
+			$(".view-selected-button").html("View Selected Media (" + serverResponse.count + ")")
+			})
 	});
 }
 
