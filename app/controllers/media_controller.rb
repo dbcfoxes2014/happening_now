@@ -2,7 +2,7 @@ class MediaController < ApplicationController
 include SearchHelper
 respond_to :json
 
-	def popular
+  def popular
     @media = grab_popular_media
     @message = "Popular Media"
   end
@@ -28,7 +28,7 @@ respond_to :json
       @media = grab_select_media(@search_content, "image")
     elsif params[:search][:videos] == "1"
       @similar_media = grab_select_media(similar_tags, "video").sample(4)
-      @media = grab_select_media(@search_content, "video")      
+      @media = grab_select_media(@search_content, "video")
     end
 
     if current_user
@@ -50,7 +50,7 @@ respond_to :json
     render partial: "display_results"
   end
 
-	def save_media
+  def save_media
     thumbnail_url = params[:media_thumbnail]
     media = params[:media]
     current_user.flagged_contents << FlaggedContent.create(url: media, thumbnail: thumbnail_url)
@@ -72,20 +72,25 @@ respond_to :json
     @media = FlaggedContent.where(user_id: current_user.id)
   end
 
-  def event_media   
-    # if params[]
-    # binding.pry
+  def event_media
+    session[:next_user_max_id] = nil
     @username =  Instagram.user(params[:user_id]).username
     @id = params[:user_id]
     @media = find_user_media(params[:user_id])
   end
 
   def event_media_pagination
-    # if params[]
-    # binding.pry
-    # @username =  Instagram.user(params[:user_id]).username
-    # @id = params[:user_id]
-    # @media = find_user_media(params[:user_id])
-    render partial :display_results
+    if !session[:next_user_max_id]
+      session[:next_user_max_id] = Instagram.user_recent_media(params[:user_id]).pagination.next_max_id
+    else
+      session[:next_user_max_id] = Instagram.user_recent_media(params[:user_id], :max_id => session[:next_user_max_id]).pagination.next_max_id
+    end
+
+    @media = []
+    for item in Instagram.user_recent_media(params[:user_id], :max_id => session[:next_user_max_id])
+      @media << item
+    end
+
+    render partial: "display_results"
   end
 end

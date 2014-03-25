@@ -1,8 +1,8 @@
 set :application, 'free_candy'
-set :deploy_user, 'deployer'
+set :deploy_user, 'joe'
 set :ssh_options, {
   forward_agent: true,
-  port: 1026
+  port: 22
 }
 
 # setup repo details
@@ -10,10 +10,8 @@ set :scm, :git
 set :repo_url, 'git@github.com:dbcfoxes2014/free_candy.git'
 
 # setup rvm.
-set :rbenv_type, :system
-set :rbenv_ruby, '1.9.3-p484'
-set :rbenv_prefix, "RBENV_ROOT=#{fetch(:rbenv_path)} RBENV_VERSION=#{fetch(:rbenv_ruby)} #{fetch(:rbenv_path)}/bin/rbenv exec"
-set :rbenv_map_bins, %w{rake gem bundle ruby rails}
+set :rvm_type, :system
+set :rvm_ruby_version, '2.0.0-p353'
 
 # how many old releases do we want to keep, not much
 set :keep_releases, 5
