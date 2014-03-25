@@ -94,6 +94,28 @@ function bindEvents() {
 		});
 	});
 
+
+	//on the page where you view the event media
+	//when you click on the more results function, go to a route to grab the next set
+	//of images, and then replace the search_results content with the updated media set
+	$('.more_user_results').on('click',function(e) {
+		e.preventDefault();
+		var route = 'event_media_pagination';
+		var user_id = $(this).attr('id');
+
+		$.ajax({
+	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+	        url: route,
+	        data: {'user_id' : user_id},
+		    	type: "get",
+
+	        success: function(serverResponse){
+	        	$(".display_results").html(serverResponse);
+	        	bindEvents();
+	    	}
+		});
+	});
+
 	//when you check an image to be saved,
 	//update its class to ensure that it won't
 	//become hidden when you mouse off of the thumbnail.
