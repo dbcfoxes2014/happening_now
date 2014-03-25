@@ -54,6 +54,7 @@ respond_to :json
     thumbnail_url = params[:media_thumbnail]
     media = params[:media]
     current_user.flagged_contents << FlaggedContent.create(url: media, thumbnail: thumbnail_url)
+    current_user.flagged_contents.length =+ 1
   end
 
   def remove_media

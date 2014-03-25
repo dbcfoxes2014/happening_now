@@ -96,11 +96,10 @@ function bindEvents() {
 		});
 	});
 
-
+	// CALL SAVE_MEDIA SOMEWHERE HERE
 	$('.selection_checkbox').on('click',function() {
 		route = undefined;
 		if($(this).is(':checked')){
-			route = 'save_media_to_session';
 			$(this).find('input').addClass('show-check-thumbnail');
 			$(this).find('input').removeClass('show-thumbnail');
 			$(this).find('input').removeClass('hide-thumbnail');
@@ -134,6 +133,7 @@ function bindEvents() {
 	        }
 		});
 	});
+	
 }
 
 $(function(){
