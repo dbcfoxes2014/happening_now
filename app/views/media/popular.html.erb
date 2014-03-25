@@ -2,32 +2,42 @@
 	<h1> <%= @message %> </h1>
 
 
-	<p>Content Refresh in:></p>
+	<p>Content Refresh in: </p>
 	<p id="timer">30</p>
+
 	<div class="display_results">
 		<%= render "media/display_results" %>
 	</div>
 </div>
 
 <script>	
-	setInterval(function(){
-		if (document.getElementById('timer').innerHTML > 1)
+	resetTimer();
+
+	function resetTimer() {
+	   var interval = setInterval(function() {            
 			document.getElementById('timer').innerHTML = document.getElementById('timer').innerHTML - 1;
-	},1000);
+	         
+		    if(document.getElementById('timer').innerHTML < 1) {
+		        clearInterval(interval);                   
+		    }
+	    }, 1000);
+	}
 
 	setInterval(function(){
-	document.getElementById('timer').innerHTML = 30;
-	route = 'update_popular';
+		route = 'update_popular';
+		
+		$.ajax({
+	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+	        url: route,
+	        type: "get",
 
-	$.ajax({
-        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-        url: route,
-        type: "get",
+	        success: function(serverResponse){
+	        	$(".display_results").html(serverResponse);
+	        	bindEvents();
 
-        success: function(serverResponse){
-        	$(".display_results").html(serverResponse);
-        	bindEvents();
-        }
-    });
-},30000);
+				document.getElementById('timer').innerHTML = 30;
+					resetTimer();
+			    }
+	    });
+	}, 30000);
 </script>
