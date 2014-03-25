@@ -123,19 +123,22 @@ function bindEvents() {
 		else
 			thumbnail = thumbnail.slice(4, -1);
 
+
 		$.ajax({
 	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
 	        url: route,
 				data: {'media' : save_url,
   						 'media_thumbnail' : thumbnail },
 		    	type: "post",
-					dataType: "json",
-							})
+					dataType: "json"
 
+		})
 			.always(function(serverResponse){
-			$(".view-selected-button").html("View Selected Media (" + serverResponse.count + ")")
-			})
-		});
+				$(".view-selected-button").html("View Selected Media (" + serverResponse.count + ")");
+			});
+
+	});
+
 }
 
 

@@ -19,7 +19,7 @@
   match 'update_popular', to: 'media#update_popular', via: :get
   match 'display', to: 'media#display', via: :get
 
-  #match 'events', to: 'home#events', via: :get
+  match 'find_location', to: 'event#find_location', via: :get
 
   match 'recently_created_media', to: 'media#recent_media', via: :get
   match 'selected_media', to: 'media#selected_media', via: :get

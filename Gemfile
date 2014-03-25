@@ -51,7 +51,8 @@ gem 'safe_yaml'
 
 gem 'eventbrite-client'
 
-# gem 'eventbright', '~> 0.2.3'
+gem 'similar_text', '~> 0.0.4'
+
 gem 'json'
 
 group :doc do

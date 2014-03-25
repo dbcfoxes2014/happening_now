@@ -1,7 +1,7 @@
 module SearchHelper
 
 	def seperate_values(string, delim)
-		string.delete!("#")
+		string.gsub!(/\W/, " ")
 		string.split(delim)
 	end
 
@@ -43,11 +43,10 @@ module SearchHelper
 				end
 			end
 		end
-
 		media
 	end
 
-	def grab_popular_media	
+	def grab_popular_media
 	    session[:next_max_id] = []
 	    session[:search_terms] = []
 
@@ -66,5 +65,38 @@ module SearchHelper
 		media
 	end
 
+	def find_media_by_location(lat, long, start)
+		media = []
+		for item in Instagram.media_search(lat, long, MIN_TIMESTAMP: start, DISTANCE: 1)
+			media << item
+		end
+		media
+	end
+
+	def find_media_by_venue(id)
+		venue_search = Instagram.location_recent_media(id)
+		media = []
+		for item in venue_search
+			media << item
+		end
+		media
+	rescue URI::InvalidURIError
+		media
+	end
+
+	def find_id_by_location(lat, long, venue)
+		binding.pry
+		search = Instagram.location_search(lat, long)
+		for item in search
+			if item['name'].split('').sort.join('').strip.similar(venue) > 90
+				return item['id']
+			end
+		end
+		nil
+	rescue Instagram::InternalServerError
+		nil
+	end
+
 end
+	
 	

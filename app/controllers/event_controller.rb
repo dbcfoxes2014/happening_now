@@ -1,32 +1,39 @@
-
 class EventController < ApplicationController
+	include SearchHelper
   respond_to :json
 
-	eb_auth_tokens = {
-									 app_key: 'XDZVAB6BIBH52S27PU',
-									 user_key: '139301281190391193493'
-									}
-	eb_client = EventbriteClient.new(eb_auth_tokens)
-
-	# API Request
-	# initialize our http object, for contacting the API
-	http = Net::HTTP.new('www.eventbrite.com', 443)
-	http.use_ssl=true
-
-
-	#make our API request - 
-	
-	#parse our JSON response data...
 
 	def popular_events
 		response = $eb_client.event_search("Last Week")		
 		@e = JSON.parse(response.body)
 		@e["events"].delete_at(0)
-		# puts response
-		# @popular_events = response
-		# binding.pry
+
+		render :popular
+
+	end 
+
+	def find_location
+		@event = $eb_client.event_get(id: params[:id])
+		if @event['event']['venue']['latitude']
+			venue_chars = @event['event']['venue']['name'].split('').sort.join('').strip
+			lat = @event['event']['venue']['latitude']
+			long = @event['event']['venue']['longitude']			
+			start = @event['event']['start_date']
+			venue_id = find_id_by_location(lat, long, venue_chars)
+			if venue_id.nil?
+				@media = find_media_by_location(lat, long, start)				
+			else
+				@media = find_media_by_venue(venue_id)
+			end
+		else
+			values = seperate_values(@event['event']['title'], ' ')
+			@media = grab_all_media(values)
+		end
+
 		render :events
 	end
-
- 
 end
+
+
+
+

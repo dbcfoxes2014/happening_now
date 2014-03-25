@@ -1,0 +1,9 @@
+<div class="container">
+	<h1>Popular Events</h1>
+
+	<ul>
+		<%@e['events'].each do |event|%>
+			<li><%= link_to "#{event['event']['title']}", 	find_location_path(id: event['event']['id'])%></li>
+		<%end%>
+	</ul>
+</div>

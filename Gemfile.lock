@@ -233,6 +233,7 @@ GEM
       faraday (~> 0.8.1)
       jwt (>= 0.1.5)
       multi_json (>= 1.0.0)
+    similar_text (0.0.4)
     simplecov (0.8.2)
       docile (~> 1.1.0)
       multi_json
@@ -322,6 +323,7 @@ DEPENDENCIES
   sdoc
   selenium-webdriver (~> 2.39.0)
   sidekiq
+  similar_text (~> 0.0.4)
   snappy
   sprockets (= 2.11.0)
   travis-lint
