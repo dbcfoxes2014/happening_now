@@ -1,13 +1,11 @@
 include SearchHelper
+
 class HomeController < ApplicationController
   respond_to :json
 
   def index
     @user = current_user
   end
-
-  
-
   
   def debug_grab_test_urls
     #this method will grab the urls as an array

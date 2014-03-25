@@ -2,8 +2,6 @@ class MediaController < ApplicationController
 include SearchHelper
 respond_to :json
 
-
-
 	def popular
     @media = grab_popular_media
     @message = "Popular Media"
@@ -49,21 +47,18 @@ respond_to :json
         @media << item
       end
     end
-    
-
+    render partial: "display_results"
   end
 
 	def save_media
     thumbnail_url = params[:media_thumbnail]
     media = params[:media]
     current_user.flagged_contents << FlaggedContent.create(url: media, thumbnail: thumbnail_url)
-    # render json: ""
   end
 
   def remove_media
     remove_media = FlaggedContent.where(user_id: current_user.id, url: params[:media])
     remove_media.destroy_all
-    # render json: ""
   end
 
   def recent_media
@@ -76,9 +71,19 @@ respond_to :json
   end
 
   def event_media   
+    # if params[]
+    # binding.pry
     @username =  Instagram.user(params[:user_id]).username
+    @id = params[:user_id]
     @media = find_user_media(params[:user_id])
   end
 
-
+  def event_media_pagination
+    # if params[]
+    # binding.pry
+    # @username =  Instagram.user(params[:user_id]).username
+    # @id = params[:user_id]
+    # @media = find_user_media(params[:user_id])
+    render partial :display_results
+  end
 end
