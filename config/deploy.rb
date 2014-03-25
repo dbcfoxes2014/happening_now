@@ -1,5 +1,9 @@
 set :application, 'free_candy'
 set :deploy_user, 'deployer'
+set :ssh_options, {
+  forward_agent: true,
+  port: 1026
+}
 
 # setup repo details
 set :scm, :git
