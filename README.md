@@ -21,11 +21,19 @@
 
 * How to run the test suite: Type ```rake``` in your console to run the tests and ensure the application is working as it should.
 
-* Server: ```Ubuntu 12.04.3 / Ruby 1.9.3-p484 From Source / Apache2 / Phusion Passenger / Redis / PostgreSQL / Rails 4.0.3 / NodeJS / RubyGems 2.2.2```
+* Server: ```Ubuntu 12.04.3 / Ruby 1.9.3-p484 Source / Apache2 / Phusion Passenger / Redis / PostgreSQL / Rails 4.0.3 / NodeJS / RubyGems 1.9.1```
 
-* Deployment: This app is deployed through ```ssh``` with ```git``` and ```Capistrano 2.14.2```. Run ```bundle install``` then deploy with ```deploy```.
+* Deployment: This app is deployed through ```ssh``` with ```git``` and ```Capistrano 3.1.0```. Run ```bundle install``` then deploy with ```deploy```.
+
+* Start Redis: ```redis-server /usr/local/etc/redis.conf```
+
+* Start Sidekiq: ```bundle exec sidekiq``` 
+
+* Run ```rails s``` and type ```localhost:3000``` in your browser to launch the Rails server.
 
 ### API's
 
 * Instagram: You will need a client id and secret key from Instagram to use the API. Save a ```instagram.yml``` file to the ```root``` of the ```config``` directory.
+
+
 > [ventiview.co](http://ventiview.co)
