@@ -48,6 +48,13 @@ function bindEvents() {
 		}
 	});
 
+	// CODE REVIEW
+	//
+	// what is the scope of this route variable?  Global?  Be careful here.
+	// be more explicit.  If it is local to 'bindEvents', make it so.
+	//
+	// REMOVE console.log when you are done testing things!
+
 	//on the page you get to after searching
 	//when you click on the more results function, go to a route to grab the next set
 	//of images, and then replace the search_results content with the updated media set

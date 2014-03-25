@@ -1,13 +1,32 @@
+// CODE REVIEW
+//
+// You have what appears to be a lot of objects because the vars are named
+// with uppercase.  However on further inspection, most of these are just methods.
+// 
+// Based on this code Track and Clip are the only real objects.
+// anything else should have a lower case first letter.  
+// 
+// Everything but Track and Clip are just a bunch of methods that bind events.
+// 
+// don't keep console.log in production code please.  Remove when you are done testing.
+
 var trackPallet = new Array();
 var clipID = 0;
 var timelineLength = 60.0;
 
 var DrawProgressBar = function(dataperc){
   $('.progressbar').each(function(){
+
+    // CODE REVIEW
+    //
+    //defining vars like this with commas doesn't read well.  Define each on one line please.
     var t = $(this),
       barperc = Math.round(dataperc*5.56);
     t.find('.bar').animate({width:barperc}, dataperc*25);
 
+    // CODE REVIEW
+    //
+    //defining vars like this with commas doesn't read well.  Define each on one line please.
     var length = t.find('.bar').css('width'),
       perc = Math.round(parseInt(length)/5.56),
       labelpos = (parseInt(length)-2);
