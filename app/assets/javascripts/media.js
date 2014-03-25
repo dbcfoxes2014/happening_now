@@ -16,14 +16,4 @@ $(function(){
 	// });
 
 
-	// $(document).on('mouseleave', '.thumbnail_object', function(){
-	// 	$(this).find('.pic-username').addClass('hide-thumbnail')
-	// });
-
-	// $('.pick-username').on('click', function(e){
-	// 	e.preventDefault;
-	// 	console.log('yo');
-	// 	// $(this).find('.pic-username').addClass('hide-thumbnail')
-	// 	console.log($('pic-username').attr('id'));
-	// });	
 });	
