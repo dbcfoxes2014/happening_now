@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20140323220308) do
+ActiveRecord::Schema.define(version: 20140324194633) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -36,6 +36,14 @@ ActiveRecord::Schema.define(version: 20140323220308) do
     t.integer  "slide_show_id"
     t.string   "file_path"
     t.boolean  "is_private",    default: false
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  create_table "render_queues", force: true do |t|
+    t.string   "title"
+    t.string   "job_id"
+    t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

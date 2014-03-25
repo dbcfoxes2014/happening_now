@@ -28,6 +28,8 @@ gem 'sprockets', '2.11.0'
 
 gem 'free_candy-ffmpeg', '1.0.0', :path => './vendor/gems/free_candy-ffmpeg-1.0.0'
 #gem 'streamio-ffmpeg'
+gem 'sidekiq'
+gem 'redis'
 
 gem 'instagram'
 

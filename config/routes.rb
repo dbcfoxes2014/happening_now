@@ -6,6 +6,7 @@
 
   root to: 'home#index'
   get 'more_results', :to => 'media#more_results'
+  get 'event_media_pagination', :to => 'media#event_media_pagination'
 
   get 'editor/video', :to => 'editor#video'
   get 'editor/photo', :to => 'editor#photo'
