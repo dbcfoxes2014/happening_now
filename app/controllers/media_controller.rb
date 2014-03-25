@@ -1,5 +1,6 @@
 class MediaController < ApplicationController
 include SearchHelper
+include BannedWordsHelper
 respond_to :json
 
 	def popular
@@ -14,6 +15,9 @@ respond_to :json
     end
 
     @search_content = seperate_values(params[:search_data], ' ')
+    
+    check_search_content_keywords(@search_content)
+
     similar_tags = find_similar_tags(@search_content)
     @message = "Search Results for #{@search_content}"
 
