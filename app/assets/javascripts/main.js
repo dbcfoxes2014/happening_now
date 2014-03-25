@@ -57,16 +57,15 @@ function bindEvents() {
 	//of images, and then replace the search_results content with the updated media set
 	$('.more_results').on('click',function(e) {
 		e.preventDefault();
-		route = 'more_results';
+		var route = 'more_results';
 
 		$.ajax({
 	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
 	        url: route,
-		    type: "get",
+		    	type: "get",
 
 	        success: function(serverResponse){
-	        	console.log(serverResponse);
-	        	$(".display_results").html(serverResponse);
+	        	$('.display_results').html(serverResponse);
 	        	bindEvents();
 	    	}
 		});
@@ -78,7 +77,7 @@ function bindEvents() {
 	//of images, and then replace the search_results content with the updated media set
 	$('.more_user_results').on('click',function(e) {
 		e.preventDefault();
-		route = 'event_media_pagination';
+		var route = 'event_media_pagination';
 		var user_id = $(this).attr('id');
 		// var page =
 
@@ -102,7 +101,7 @@ function bindEvents() {
 	//if you're unchecking it.
 	//Then go to a ruby method which saves the selected media into the database
 	$('.selection_checkbox').on('click',function() {
-		route = undefined;
+		var route = undefined;
 		if($(this).is(':checked')){
 			route = 'save_media_to_session';
 			$(this).find('input').addClass('show-check-thumbnail');
@@ -131,14 +130,11 @@ function bindEvents() {
   						 'media_thumbnail' : thumbnail },
 		    	type: "post",
 					dataType: "json"
-
 		})
 			.always(function(serverResponse){
 				$(".view-selected-button").html("View Selected Media (" + serverResponse.count + ")");
 			});
-
 	});
-
 }
 
 

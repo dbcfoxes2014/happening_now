@@ -52,6 +52,7 @@ respond_to :json
         @media << item
       end
     end
+
     render partial: "display_results"
   end
 
