@@ -1,7 +1,9 @@
 {
   "RSpec": {
     "coverage": {
+
       "/Users/christoph/Documents/dbc/free_candy/app/models/user.rb": [
+
         1,
         null,
         null,
@@ -14,7 +16,9 @@
         1,
         null
       ],
+
       "/Users/christoph/Documents/dbc/free_candy/app/helpers/application_helper.rb": [
+
         1,
         null,
         null,
@@ -23,65 +27,26 @@
         null,
         null
       ],
+
       "/Users/christoph/Documents/dbc/free_candy/app/helpers/search_helper.rb": [
+
         1,
         null,
-        1,
-        0,
-        0,
-        null,
-        null,
-        1,
-        null,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        0,
-        null,
-        null,
-        1,
-        null,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        0,
-        null,
-        null,
-        0,
-        null,
-        null,
-        1,
-        null,
-        0,
-        0,
-        null,
-        0,
-        0,
-        0,
-        0,
-        0,
         null,
         null,
         null,
         null,
-        0,
         null,
         null,
-        1,
-        0,
-        0,
-        0,
         null,
-        0,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
         null,
         null,
         1,
@@ -95,6 +60,7 @@
         null,
         null
       ],
+
       "/Users/christoph/Documents/dbc/free_candy/app/controllers/home_controller.rb": [
         1,
         1,
@@ -157,48 +123,45 @@
         0,
         0,
         0,
+
         null,
         null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+        null,
+
         1,
         0,
         0,
         null,
         null,
         1,
-        0,
+
         null,
         null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        0,
-        0,
-        null,
-        null,
-        1,
-        null,
-        0,
-        0,
-        0,
-        null,
+
         null
       ],
       "/Users/christoph/Documents/dbc/free_candy/app/controllers/application_controller.rb": [
+
         1,
         1,
         null,
         null,
-        1,
+        null,
+        null,
+        null,
+
+        null,
+        null,
         1,
         null,
         1,
-        8,
-        2,
-        null,
-        null,
+
         null
       ],
       "/Users/christoph/Documents/dbc/free_candy/app/models/clip.rb": [
@@ -240,29 +203,22 @@
         1,
         1,
         1,
-        null,
-        1,
-        1,
-        null,
-        null,
-        1,
-        0,
-        null,
-        null,
-        1,
-        0,
+
         null,
         null,
         null,
-        1,
-        0,
-        0,
-        0,
+        null,
+        null,
+        null,
+        null,
+        null,
         null,
         null,
         null
       ]
     },
+
     "timestamp": 1395676144
+
   }
 }

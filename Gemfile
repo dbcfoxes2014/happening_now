@@ -51,6 +51,10 @@ gem 'safe_yaml'
 
 gem 'eventbrite-client'
 
+# gem 'eventbright', '~> 0.2.3'
+gem 'json'
+
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false

@@ -288,6 +288,7 @@ DEPENDENCIES
   jbuilder (~> 1.2)
   jquery-rails
   jquery-ui-rails
+  json
   launchy (~> 2.4.2)
   pg
   pry
