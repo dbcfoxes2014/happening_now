@@ -74,20 +74,25 @@ module SearchHelper
 	end
 
 	def find_media_by_venue(id)
+		venue_search = Instagram.location_recent_media(id)
 		media = []
-		for item in Instagram.location_recent_media(id)
+		for item in venue_search
 			media << item
 		end
+		media
+	rescue URI::InvalidURIError => e
 		media
 	end
 
 	def find_id_by_location(lat, long, venue)
-		for item in Instagram.location_search(lat, long)
-			return if  Instagram::InternalServerError d
+		search = Instagram.location_search(lat, long)
+		for item in search
 			if item['name'].split('').sort.join('').similar(venue) > 90
 				return item['id']
-			end			
+			end
 		end
+		nil
+	rescue Instagram::InternalServerError => e
 		nil
 	end
 
