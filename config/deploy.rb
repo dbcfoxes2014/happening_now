@@ -31,6 +31,8 @@ set(:config_files, %w(
   nginx.conf
   application.yml
   database.example.yml
+  instagram.yml
+  eventbrite.yml
   log_rotation
   monit
   unicorn.rb

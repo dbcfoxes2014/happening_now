@@ -79,6 +79,8 @@ end
 
 gem 'rails_12factor', group: :production
 
+gem 'unicorn'
+
 gem 'capistrano', '~> 3.0.1'
 
 # rails specific capistrano funcitons
