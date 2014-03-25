@@ -121,7 +121,7 @@ function bindEvents() {
 
 		// console.log(thumbnail)
 		// console.log(save_url)
-
+		// debugger
 		$.ajax({
 	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
 	        url: route,
@@ -130,9 +130,12 @@ function bindEvents() {
 		    	type: "post",
 					dataType: "json",
 
-	        success: function(serverResponse){
-	        }
-		});
+
+		})
+	        .always(function(serverResponse){
+	        	
+	        	
+	        });
 	});
 }
 

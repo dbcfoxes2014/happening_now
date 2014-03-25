@@ -43,7 +43,6 @@ module SearchHelper
 				end
 			end
 		end
-
 		media
 	end
 
@@ -66,12 +65,32 @@ module SearchHelper
 		media
 	end
 
-	def find_media_by_location(lat, long)
+	def find_media_by_location(lat, long, start)
 		media = []
-		for item in Instagram.media_search(lat, long)
+		for item in Instagram.media_search(lat, long, MIN_TIMESTAMP: start, DISTANCE: 1)
 			media << item
 		end
 		media
 	end
+
+	def find_media_by_venue(id)
+		media = []
+		for item in Instagram.location_recent_media(id)
+			media << item
+		end
+		media
+	end
+
+	def find_id_by_location(lat, long, venue)
+		for item in Instagram.location_search(lat, long)
+			return if  Instagram::InternalServerError d
+			if item['name'].split('').sort.join('').similar(venue) > 90
+				return item['id']
+			end			
+		end
+		nil
+	end
+
 end
+	
 	
