@@ -1,7 +1,43 @@
 <div class="container">
-	<h1> <%= @message %> </h1>
+  <h1> <%= @message %> </h1>
 
-	
-	<%= render "media/display_results" %>
+
+  <p>Content Refresh in: </p>
+  <p id="timer">30</p>
+
+  <div class="display_results">
+    <%= render "media/display_results" %>
+  </div>
 </div>
 
+<script>
+  resetTimer();
+
+  function resetTimer() {
+     var interval = setInterval(function() {
+      document.getElementById('timer').innerHTML = document.getElementById('timer').innerHTML - 1;
+
+        if(document.getElementById('timer').innerHTML < 1) {
+            clearInterval(interval);
+        }
+      }, 1000);
+  }
+
+  setInterval(function(){
+    route = 'update_popular';
+
+    $.ajax({
+          beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+          url: route,
+          type: "get",
+
+          success: function(serverResponse){
+            $(".display_results").html(serverResponse);
+            bindEvents();
+
+        document.getElementById('timer').innerHTML = 30;
+          resetTimer();
+          }
+      });
+  }, 30000);
+</script>
