@@ -12,19 +12,12 @@ gem 'sass-rails', '~> 4.0.0'
 # Use Uglifier as compressor for JavaScript assets
 gem 'uglifier', '>= 1.3.0'
 
-# Use CoffeeScript for .js.coffee assets and views
-#gem 'coffee-rails', '~> 4.0.0'
-
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
 # gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 gem 'jquery-ui-rails'
-gem 'jquery-turbolinks'
-
-# Turbolinks makes following links in your web application faster. Read more: https://github.com/rails/turbolinks
-gem 'turbolinks'
 
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 1.2'
@@ -33,7 +26,10 @@ gem 'devise'
 
 gem 'sprockets', '2.11.0'
 
-gem 'streamio-ffmpeg'
+gem 'free_candy-ffmpeg', '1.0.0', :path => './vendor/gems/free_candy-ffmpeg-1.0.0'
+#gem 'streamio-ffmpeg'
+gem 'sidekiq'
+gem 'redis'
 
 gem 'instagram'
 
@@ -51,7 +47,12 @@ gem 'videojs_rails'
 
 gem 'eventfulapi'
 
-gem 'sshkit'
+gem 'safe_yaml'
+
+gem 'eventbrite-client'
+
+# gem 'eventbright', '~> 0.2.3'
+gem 'json'
 
 
 group :doc do
@@ -77,17 +78,9 @@ group :test do
 	gem "selenium-webdriver", "~> 2.39.0"
 end
 
-# Use ActiveModel has_secure_password
-# gem 'bcrypt-ruby', '~> 3.1.2'
-
-# Use unicorn as the app server
-gem 'unicorn'
-
 gem 'rails_12factor', group: :production
 
 # Use Capistrano for deployment
 group :development do
   gem 'capistrano'
 end
-# Use debugger
-# gem 'debugger', group: [:development, :test]

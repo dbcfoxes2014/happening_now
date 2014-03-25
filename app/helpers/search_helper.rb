@@ -16,8 +16,12 @@ module SearchHelper
 	end
 
 	def grab_all_media(values)
+		session[:next_max_id] = []
+		session[:search_terms] = values
 		media = []
+
 		values.each do |value|
+			session[:next_max_id] << Instagram.tag_recent_media(value).pagination.next_max_id
 			for item in Instagram.tag_recent_media(value)
 				media << item
 			end
@@ -26,18 +30,27 @@ module SearchHelper
 	end
 
 	def grab_select_media(values, wanted_type)
+		session[:next_max_id] = []
+		session[:search_terms] = values
 		media = []
+
 		values.each do |value|
+			session[:next_max_id] << Instagram.tag_recent_media(value).pagination.next_max_id
+
 			for item in Instagram.tag_recent_media(value)
 				if item.type == wanted_type
 					media << item
 				end
 			end
 		end
+
 		media
 	end
 
-	def grab_popular_media
+	def grab_popular_media	
+	    session[:next_max_id] = []
+	    session[:search_terms] = []
+
 		media = []
 		for item in Instagram.media_popular
 				media << item
@@ -45,4 +58,13 @@ module SearchHelper
 		media
 	end
 
+	def find_user_media(user_id)
+		media = []
+		for item in Instagram.user_recent_media(user_id)
+			media << item
+		end
+		media
+	end
+
 end
+	

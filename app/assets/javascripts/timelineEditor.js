@@ -47,7 +47,46 @@ var RenderVideo = function(movie_array){
         type: "POST",
         url: "/editor/renderIO",
         data: {
-          command: 'startRender'
+          command: 'startVideoRender'
+        }
+      }).done(function(responce){
+        //tell the user the render is done (we need background jobs)
+        alert('Your render is done!');
+      });
+    });
+    console.log("AJAX responce done: "+responce.status+responce.slot);
+  });
+};
+
+var RenderSlideshow = function(movie_array){
+  console.log("sending ajax request on render");
+  //ask for a slot to render in
+  $.ajax({
+    type: "GET",
+    url: "/editor/renderIO",
+    //context: document.body,
+    data: {query: 'slotAvaliable'}
+  }).done(function(responce) {
+    // console.log("Mapping: "+movie_array[0].url+" to: "+$.map(movie_array, function(clip) {
+    //     return clip.url
+    // }));
+    //tell the avaliable slot what urls we need to copy
+    $.ajax({
+      type: "POST",
+      url: "/editor/renderIO",
+      data: {
+        command: 'grabPhotos',
+        urls: $.map(movie_array, function(clip) {
+            return clip.url
+        })
+      }
+    }).done(function(responce){
+      //tell the slot to start the render now the URL's are copied
+      $.ajax({
+        type: "POST",
+        url: "/editor/renderIO",
+        data: {
+          command: 'startPhotoRender'
         }
       }).done(function(responce){
         //tell the user the render is done (we need background jobs)
@@ -130,7 +169,7 @@ var MovieStudio = function(){
 
   });
 
-  $('#Track2,#Track1,#Track0').droppable({
+  $('#trackVideo2, #trackVideo1, #trackVideo0').droppable({
     accept: '.palletThumb',
     drop: function( event, ui ) {
       console.log("UI id: "+$(this).attr('id'));
@@ -169,15 +208,15 @@ var MovieStudio = function(){
         (clip_rightX/trackWidth)*timelineLength
       );
 
-      $clip = $( "<div id='"+ui.draggable.attr('id')+"' class='timelineClip'></div>" );
+      $clip = $( "<div id='"+ui.draggable.attr('id')+"' class='timelineVideoClip'></div>" );
       $clip.data({'url':clipObj.url,'start':clipObj.start,'stop':clipObj.stop});
       $clip.html(
         "<div class='clipCrop'>"+
           "<div class='clipThumb' style='background: url("+clipObj.thumb+")'></div>"+
         "</div>"
       );
-      $clip.draggable({
-        snap: "#Track2, #Track1, #Track0",
+      $clip.draggable({//FIXME: make clips snap to each other
+        snap: "#trackVideo2, #trackVideo1, #trackVideo0, "+$clip.id,
         snapMode: 'inner',
         stop: function(event, ui) {
           var clip_width= trackWidth * ($(this).width()/timelineLength);
@@ -185,10 +224,6 @@ var MovieStudio = function(){
           var clip_rightX= clip_leftX+$(this).width();
           clipObj.start = (clip_leftX/trackWidth)*timelineLength;
           clipObj.stop = (clip_rightX/trackWidth)*timelineLength;
-          // console.log(
-          //   "Clip Left Time: "+(clip_leftX/trackWidth)*timelineLength+
-          //   " Clip Right Time: "+(clip_rightX/trackWidth)*timelineLength
-          // );
         }
       }).resizable({
         handles:'e, w'
@@ -256,107 +291,78 @@ var MovieStudio = function(){
 };
 ////////////////////////////////////////PHOTO STUDIO////////////////////////////////////////
 var PhotoStudio = function(){
-  var trackWidth = $('#TrackWrapper').width()-20.0;
+  var trackOffset= $('#TrackWrapper').offset().left;
+  var trackWidth = $('#TrackWrapper').width();
   //start the tracks up
   var TrackMain = new Track();
-  // var TrackMain1 = new Track();
-  // var TrackMain2 = new Track();
-  // var TrackMerged= new Array;
+  //resize handeling
+  $(window).bind('resize', function () { trackWidth = $('#TrackWrapper').width(); });
 
-  //debug load the movie pallet
-  $('#moviePallet div').load('/debug_grab_test_urls', function(){
-    $('.palletThumb').each(function(){
-      //add id to pallet clips
-      $(this).attr('id',"palletClip_"+clipID);
-      //add the id to the trackPallet array
-      trackPallet.push("palletClip_"+clipID);
-      clipID++;//incriment id
-    }).on({
-      mousedown: function() {
-        $(this).css({
-          position: 'absolute',
-          zIndex: '400'
-        });
-      }, mouseup: function() {
-        $(this).css({
-          position: 'relative',
-          left: '',
-          top: ''
-        });
-      }
-    }).draggable({
-
-    });
+  $('#moviePallet .palletOverflow div').each(function(){
+    //add id to pallet clips
+    $(this).attr('id',"palletClip_"+clipID);
+    //add the id to the trackPallet array
+    trackPallet.push("palletClip_"+clipID);
+    clipID++;//incriment id
   });
 
-  // $('#moviePallet .palletOverflow div').each(function(){
-  //   //add id to pallet clips
-  //   $(this).attr('id',"palletClip_"+clipID);
-  //   //add the id to the trackPallet array
-  //   trackPallet.push("palletClip_"+clipID);
-  //   clipID++;//incriment id
-  // });
+  $('.palletThumb').on({
+    mousedown: function() {
+      $(this).css({
+        position: 'absolute',
+        zIndex: '400'
+      });
+    }, mouseup: function() {
+      $(this).css({
+        position: 'relative',
+        left: '',
+        top: ''
+      });
+    }
+  }).draggable({
 
-  // $('.palletThumb').on({
-  //   mousedown: function() {
-  //     $(this).css({
-  //       position: 'absolute',
-  //       zIndex: '400'
-  //     });
-  //   }, mouseup: function() {
-  //     $(this).css({
-  //       position: 'relative',
-  //       left: '',
-  //       top: ''
-  //     });
-  //   }
-  // }).draggable({
+  });
 
-  // });
-
-  $('#Track2,#Track1,#Track0').droppable({
+  $('#trackPhotos').droppable({
     accept: '.palletThumb',
     drop: function( event, ui ) {
-      console.log("UI id: "+$(this).attr('id'));
-      console.log("Drop Position Is: "+"<"+event.pageX+","+event.pageY+">");
-      //clip = new Clip(ui.draggable.data('url'),"",0.0,15.0);
-      //console.log(ui.draggable.data('url'));
-      // switch($(this).attr('id')){
-      //   case 'Track0':
-      //     //console.log("Added clip to track 0");
-      //     TrackMain0.clips.push(clip);
-      //     break;
-      //   case 'Track1':
-      //     //console.log("Added clip to track 1");
-      //     TrackMain1.clips.push(clip);
-      //     break;
-      //   case 'Track2':
-      //     //console.log("Added clip to track 2");
-      //     TrackMain2.clips.push(clip);
-      //     break;
-      // }
-      TrackMain.clips.push(new Clip(ui.draggable.data('url'),"",0.0,15.0));
-      //TrackMain.clips.sort(function(a,b){return a-b});
-
-      //update the master track of all 3
-      //TrackMerged = TrackMain0.clips.concat(TrackMain1.clips,TrackMain2.clips);
-      console.log("Merged Tracks: "+TrackMain.clips);
-      //$( this ).html( "Dropped!" );
       ui.draggable.remove();
 
-      $( "<div id='"+ui.draggable.attr('id')+"' class='timelineClip'></div>" ).data(
-        'url',ui.draggable.data('url')
-      ).html(
-        "<div class='clipCrop'>"+"<div class='clipThumb' style='background: url("+ui.draggable.data('thumbnail')+")'></div>"+"</div>"
-      ).draggable({
-        snap: "#Track2, #Track1, #Track0",
-        snapMode: 'inner'
-      }).resizable({
-        handles:'e, w'
-      }).css({//mousePos - offset of time headers
-        'left': event.pageX - 200.0 + 'px',
-        'width': trackWidth * (15.0/timelineLength) + 'px'
-      }).appendTo( this );
+      var clip_width= trackWidth * (5.0/timelineLength);
+      var clip_leftX = event.pageX - trackOffset;
+      var clip_rightX= clip_leftX+5.0;
+      var clipObj = new Clip(
+        ui.draggable.data('url'),
+        ui.draggable.data('thumbnail'),
+        (clip_leftX/trackWidth)*timelineLength,
+        (clip_rightX/trackWidth)*timelineLength
+      );
+
+      $clip = $( "<div id='"+ui.draggable.attr('id')+"' class='timelinePhotoClip'></div>" );
+      $clip.data({'url':clipObj.url,'start':clipObj.start,'stop':clipObj.stop});
+      $clip.html(
+        "<div class='clipCrop'>"+
+          "<div class='clipThumb' style='background: url("+clipObj.thumb+")'></div>"+
+        "</div>"
+      );
+      $clip.draggable({
+        snap: "#trackPhotos",
+        snapMode: 'inner',
+        stop: function(event, ui) {
+          var clip_width= trackWidth * ($(this).width()/timelineLength);
+          var clip_leftX = $(this).position().left - trackOffset;
+          var clip_rightX= clip_leftX+$(this).width();
+          clipObj.start = (clip_leftX/trackWidth)*timelineLength;
+          clipObj.stop = (clip_rightX/trackWidth)*timelineLength;
+        }
+      });
+      $clip.css({//mousePos - offset of time headers
+        'left': clip_leftX + 'px',
+        'width': clip_width + 'px'
+      });
+
+      $clip.appendTo( this );
+      TrackMain.clips.push(clipObj);
     }
   });
 
@@ -364,16 +370,16 @@ var PhotoStudio = function(){
     axis: "x",
     stop: function(event, ui) {
       console.log(ui.position.left)
-      if(ui.position.left<200)
+      if(ui.position.left<trackOffset)
       {
         //alert('Return back');
         $("#editorTimeSlider,#editorTimeBar").animate({"left": "190px"}, 600);
         $('#editorTimeCurrent').text(RenderTime(0.0)+"000ms");
       }
-      else if(ui.position.left>trackWidth)
+      else if(ui.position.left>trackWidth-10.0)
       {
-          $("#editorTimeSlider,#editorTimeBar").animate({"left": trackWidth+"px"}, 600);
-          var currentTime=(ui.position.left/trackWidth) * timelineLength;
+          $("#editorTimeSlider,#editorTimeBar").animate({"left": trackOffset+trackWidth-10.0+"px"}, 600);
+          var currentTime=((ui.position.left-trackOffset)/trackWidth) * timelineLength;
           $('#editorTimeCurrent').text(RenderTime(currentTime)+"ms");
       }
     },
@@ -381,23 +387,23 @@ var PhotoStudio = function(){
       $('#editorTimeBar').css({
         top: 50.0, left: ui.position.left
       });
-      var currentTime=(ui.position.left/trackWidth) * timelineLength;
+      var currentTime=((ui.position.left-trackOffset)/trackWidth) * timelineLength;
       $('#editorTimeCurrent').text(RenderTime(currentTime)+"ms");
     }
   });
 
   $('#editorTools ul li span').on('click',function(e){
     //alert('Rendering that shit!');
-    switch(e.id){
+    switch(e.target.id){
       case 'UI_render':
-        //RenderVideo(TrackMain.clips);
+        RenderSlideshow(TrackMain.clips.sort(function(a,b){return a.start-b.start}));
         break;
       case 'UI_test':
-        console.log(TrackMain.first.start);
+        console.log(TrackMain.clips[0].stop);
         break;
     }
-
   });
+
   $('#editorTools').hover(function(){
     //enter
         $(this).animate({

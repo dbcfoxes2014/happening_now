@@ -38,6 +38,8 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
+  config.include SafeYAML::OPTIONS[:default_mode] = :safe
+
   # Include Factory Girl syntax to simplify calls to factories 
   config.include FactoryGirl::Syntax::Methods
 
@@ -54,19 +56,19 @@ RSpec.configure do |config|
   #   include FactoryGirl::Syntax::Methods
   # end
 
-  # MiniTest
-  class MiniTest::Unit::TestCase
-    include FactoryGirl::Syntax::Methods
-  end
+  # # MiniTest
+  # class MiniTest::Unit::TestCase
+  #   include FactoryGirl::Syntax::Methods
+  # end
 
-  # MiniTest::Spec
-  class MiniTest::Spec
-    include FactoryGirl::Syntax::Methods
-  end
+  # # MiniTest::Spec
+  # class MiniTest::Spec
+  #   include FactoryGirl::Syntax::Methods
+  # end
 
-  # minitest-rails
-  class MiniTest::Rails::ActiveSupport::TestCase
-    include FactoryGirl::Syntax::Methods
-  end
+  # # minitest-rails
+  # class MiniTest::Rails::ActiveSupport::TestCase
+  #   include FactoryGirl::Syntax::Methods
+  # end
 
 end

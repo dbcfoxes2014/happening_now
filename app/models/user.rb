@@ -8,4 +8,5 @@ class User < ActiveRecord::Base
   has_many :slide_shows
   has_many :videos
   has_many :flagged_contents
+  has_many :render_queues
 end

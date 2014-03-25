@@ -1,8 +1,10 @@
+@import url(http://fonts.googleapis.com/css?family=Aldrich);
 *{
   padding:0;
   margin:0;
 }
 #editorTimeline{
+  font-family: 'Aldrich', sans-serif;
   width: 100%;
   height: 246px;
   position: fixed;
@@ -10,7 +12,7 @@
   bottom: 0;
   background: #3E3E3E;
   color: #FFF;
-  z-index: 300;
+  z-index: 200;
 }
 #THeaderWrapper{
   float:left;
@@ -23,35 +25,50 @@
   /*float:left;*/
   border: #3E3E3E 3px outset;
 }
+#trackPhotosHeader{
+  width: 200px;
+  height: 100px;
+  /*float:left;*/
+  border: #3E3E3E 3px outset;
+}
 #TrackWrapper{
   margin: 0 10px 0 200px;
 }
-#Track0,
-#Track1,
-#Track2{
+#trackVideo0,
+#trackVideo1,
+#trackVideo2{
   /*margin-left:200px;*/
   width:100%;
   height: 66px;
-  background: url('/assets/movieEditorGraident.jpeg') #505050;
+  background: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gA+Q1JFQVRPUjogZ2QtanBlZyB2MS4wICh1c2luZyBJSkcgSlBFRyB2NjIpLCBkZWZhdWx0IHF1YWxpdHkK/9sAQwAIBgYHBgUIBwcHCQkICgwUDQwLCwwZEhMPFB0aHx4dGhwcICQuJyAiLCMcHCg3KSwwMTQ0NB8nOT04MjwuMzQy/9sAQwEJCQkMCwwYDQ0YMiEcITIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIy/8AAEQgAAQGQAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A8opKKKgkSg0UUAJSUUUDENIaKKAA0lFFACUlFFACUlFFMBKQ0UUAIaKKKAEpDRRQAUlFFACUhoooAQ0GiigBKSiigBKSiimAlIaKKAENBoooASkoooGJSUUUAJSGiigApKKKAEoNFFACUlFFMBKSiigBDSGiigD/2Q==) #505050;
   background-size:100% 100%;
   border: #40C8FA 1px solid;
 }
-.timelineClip{
-  width:100px;
-  height:66px;
-  background:#1581AC;
+#trackPhotos{
+  width:100%;
+  height: 100px;
+  background: url(data:image/jpeg;base64,/9j/4AAQSkZJRgABAQAAAQABAAD//gA+Q1JFQVRPUjogZ2QtanBlZyB2MS4wICh1c2luZyBJSkcgSlBFRyB2NjIpLCBkZWZhdWx0IHF1YWxpdHkK/9sAQwAIBgYHBgUIBwcHCQkICgwUDQwLCwwZEhMPFB0aHx4dGhwcICQuJyAiLCMcHCg3KSwwMTQ0NB8nOT04MjwuMzQy/9sAQwEJCQkMCwwYDQ0YMiEcITIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIyMjIy/8AAEQgAAQGQAwEiAAIRAQMRAf/EAB8AAAEFAQEBAQEBAAAAAAAAAAABAgMEBQYHCAkKC//EALUQAAIBAwMCBAMFBQQEAAABfQECAwAEEQUSITFBBhNRYQcicRQygZGhCCNCscEVUtHwJDNicoIJChYXGBkaJSYnKCkqNDU2Nzg5OkNERUZHSElKU1RVVldYWVpjZGVmZ2hpanN0dXZ3eHl6g4SFhoeIiYqSk5SVlpeYmZqio6Slpqeoqaqys7S1tre4ubrCw8TFxsfIycrS09TV1tfY2drh4uPk5ebn6Onq8fLz9PX29/j5+v/EAB8BAAMBAQEBAQEBAQEAAAAAAAABAgMEBQYHCAkKC//EALURAAIBAgQEAwQHBQQEAAECdwABAgMRBAUhMQYSQVEHYXETIjKBCBRCkaGxwQkjM1LwFWJy0QoWJDThJfEXGBkaJicoKSo1Njc4OTpDREVGR0hJSlNUVVZXWFlaY2RlZmdoaWpzdHV2d3h5eoKDhIWGh4iJipKTlJWWl5iZmqKjpKWmp6ipqrKztLW2t7i5usLDxMXGx8jJytLT1NXW19jZ2uLj5OXm5+jp6vLz9PX29/j5+v/aAAwDAQACEQMRAD8A8opKKKgkSg0UUAJSUUUDENIaKKAA0lFFACUlFFACUlFFMBKQ0UUAIaKKKAEpDRRQAUlFFACUhoooAQ0GiigBKSiigBKSiimAlIaKKAENBoooASkoooGJSUUUAJSGiigApKKKAEoNFFACUlFFMBKSiigBDSGiigD/2Q==) #505050;
+  background-size:100% 100%;
+  border: #40C8FA 1px solid;
 }
-.clipCrop{
-  height:66px;
-  border: #194C60 1px solid;
-}
+
+.timelineVideoClip,
+.timelinePhotoClip{background:#1581AC;width:100px;position:absolute !important;}
+.timelineVideoClip{height:66px;}
+.timelinePhotoClip{height:100px;}
+
+.clipCrop{border: #194C60 1px solid;}
+.timelineVideoClip .clipCrop{height:66px;}
+.timelinePhotoClip .clipCrop{height:100px;}
+
 .clipThumb{
-  max-width: 55px;
-  height: 55px;
   display: block;
   background-size: cover !important;
   margin: 4px auto;
 }
+.timelineVideoClip .clipThumb{max-width: 55px;height: 55px;}
+.timelinePhotoClip .clipThumb{max-width: 90px;height: 90px;}
+
 #timelineGraph{
   width: 100%;
   height: 50px;
@@ -112,6 +129,7 @@
   right: 0;
   top: 15%;
   background: #505050;
+  z-index: 500;
 }
 #moviePallet .palletOverflow{
   height:280px;
@@ -130,6 +148,7 @@
   background-size: contain !important;
 }
 #editorTools{
+  font-family: 'Aldrich', sans-serif;
   position:absolute;
   bottom:170px;
   left:10px;

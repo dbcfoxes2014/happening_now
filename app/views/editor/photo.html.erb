@@ -1,22 +1,30 @@
-<script>
+<script type="text/javascript">
   $(function() {
       var slideshowProject = new PhotoStudio();
   });
 </script>
 <div id="moviePallet">
   <div class="palletOverflow">
-    <div class='palletLoader'>
-    </div>
+    <% if @session_table.empty? %>
+      <div class="ohnoes">
+        There are no URL's in your pallet!
+      </div>
+    <% else %>
+      <% @session_table.each do |media|%>
+        <div class="palletThumb" data-url="<%= media.url %>" data-thumbnail="<%= media.thumbnail %>" style="background: url(<%= media.thumbnail %>)">
+        </div>
+      <% end %>
+    <% end %>
   </div>
 </div>
 <div id="editorTools">
     <span>Project Tools</span>
     <ul>
       <li>
-        <span>Render Project</span>
+        <span id="UI_render">Render Project</span>
       </li>
       <li>
-        <span>More stuff Woo</span>
+        <span id="UI_test">More stuff Woo</span>
       </li>
     </ul>
   </div>
@@ -43,9 +51,9 @@
     </div>
   </div>
   <div id="THeaderWrapper">
-    <div id="THeader0">Track 0</div>
+    <div id="trackPhotosHeader">SlideShow</div>
   </div>
   <div id="TrackWrapper">
-    <div id="Track0"></div>
+    <div id="trackPhotos"></div>
   </div>
 </div>

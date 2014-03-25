@@ -42,7 +42,7 @@
 	display: inline-block;
     float: left;
     width: 240px;
-    height: 240px;
+    height: 240px;    
 }
 
 .show-thumbnail {
@@ -56,4 +56,13 @@
 
 .show_checked_thumbnail {
 	display:block;
+}
+
+.pic-username {
+	z-index: 5;
+	display: inline;
+	position:relative;
+	top: 30px;
+	background-color: black;
+	width: 100%;
 }
