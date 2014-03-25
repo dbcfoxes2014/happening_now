@@ -132,8 +132,8 @@ function bindEvents() {
 			$(".view-selected-button").html("View Selected Media (" + serverResponse.count + ")")
 			})
 		});
-	}
 }
+
 
 //on document load, make sure everything is bound
 $(function(){
