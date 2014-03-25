@@ -8,7 +8,7 @@ module FFMPEG
     attr_reader :container
 
     def initialize(path)
-      raise Errno::ENOENT, "the file '#{path}' does not exist" unless File.exists?(path)
+      #raise Errno::ENOENT, "the file '#{path}' does not exist" unless File.exists?(path)
 
       @path = path
 
@@ -93,12 +93,12 @@ module FFMPEG
       video_stream[/(\d*\.?\d*)\s?fps/] ? $1.to_f : nil
     end
 
-    def transcode(output_file, options = EncodingOptions.new, transcoder_options = {}, &block)
-      Transcoder.new(self, output_file, options, transcoder_options).run &block
+    def transcode(output_file, options = EncodingOptions.new, transcoder_options = {}, type, &block)
+      Transcoder.new(self, output_file, options, transcoder_options).run(type, &block)
     end
 
     def screenshot(output_file, options = EncodingOptions.new, transcoder_options = {}, &block)
-      Transcoder.new(self, output_file, options.merge(screenshot: true), transcoder_options).run &block
+      Transcoder.new(self, output_file, options.merge(screenshot: true), transcoder_options).run('movie',&block)
     end
 
     protected

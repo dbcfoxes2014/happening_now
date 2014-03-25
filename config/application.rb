@@ -3,6 +3,8 @@ require File.expand_path('../boot', __FILE__)
 require 'rails/all'
 require 'json'
 require 'open-uri'
+require 'eventbrite-client'
+# require 'eventbright'
 
 # Require the gems listed in Gemfile, including any gems
 # you've limited to :test, :development, or :production.
@@ -33,3 +35,4 @@ module FreeCandy
     end
   end
 end
+

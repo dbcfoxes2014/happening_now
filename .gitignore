@@ -22,6 +22,10 @@
 #Ignore Secret keys
 instagram.yml
 
+
+#Ignore Secret keys
+eventbrite.yml
+
 #Ignore repo_token
 .coveralls.yml
 
