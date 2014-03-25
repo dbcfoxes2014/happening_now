@@ -1,5 +1,48 @@
-$(function(){
+function bindEvents() {
 	$("a[href$='.mp4'], a[href$='.jpg'],a[href$='.png'],a[href$='.gif']").attr('rel', 'gallery').fancybox();
+
+	$('.drowpdown-toggle').dropdown()
+
+	$(document).on('mouseenter', '.thumbnail_object', function(){
+		var link = $(this).find('.pic-username')
+		link.removeClass('hide-thumbnail')
+	});
+
+	$(document).on('mouseleave', '.thumbnail_object', function(){
+		$(this).find('.pic-username').addClass('hide-thumbnail')
+	});
+
+	$('.pick-username').on('click', function(e){
+		e.preventDefault;
+		console.log('yo');
+		// $(this).find('.pic-username').addClass('hide-thumbnail')
+		console.log($('pic-username').attr('id'));
+	});	
+
+	$('.more_user_results').on('click',function(e) {
+		e.preventDefault();
+		console.log( "here")
+		route = 'event_media_pagination';
+
+		var user_id = 1;
+		var page = 1;
+
+		$.ajax({
+	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+	        url: route,
+	        data: {'user_id' : user_id, 'page' : page},
+    		type: "post",
+			dataType: "json",
+		    type: "get",
+
+	        success: function(serverResponse){
+	        	console.log(serverResponse);
+	        	$(".display_results").html(serverResponse);
+	        	$(document).unbind(); // for all events
+	        	bindEvents();
+	    	}
+		});
+	});
 
 	$('.video_thumbnail').on('click', function(){
 	  var save_url = $(this).attr('id');
@@ -33,6 +76,27 @@ $(function(){
 		}
 	});
 
+
+	$('.more_results').on('click',function(e) {
+		e.preventDefault();
+		route = 'more_results';
+
+		$.ajax({
+	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+	        url: route,
+		    type: "get",
+
+	        success: function(serverResponse){
+	        	console.log(serverResponse);
+	        	$(".display_results").html(serverResponse);
+	        	// $(".search_header").html(header);
+	        	bindEvents();
+
+	    	}
+		});
+	});
+
+
 	$('.selection_checkbox').on('click',function() {
 		route = undefined;
 		if($(this).is(':checked')){
@@ -61,8 +125,8 @@ $(function(){
 		$.ajax({
 	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
 	        url: route,
-					data: {'media' : save_url,
-	  						 'media_thumbnail' : thumbnail },
+				data: {'media' : save_url,
+  						 'media_thumbnail' : thumbnail },
 		    	type: "post",
 					dataType: "json",
 
@@ -70,4 +134,8 @@ $(function(){
 	        }
 		});
 	});
+}
+
+$(function(){
+	bindEvents();
 });
