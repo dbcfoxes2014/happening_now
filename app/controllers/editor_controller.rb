@@ -34,22 +34,18 @@ class EditorController < ApplicationController
     if(params[:command])
       case params[:command]
         when 'grabVideos'
-          p params[:urls]
-          grabVidURLs(params[:urls])
-          response.merge!({status: 'videosDownloaded'})
+          response.merge!({status: grabVidURLs(params[:urls]) ? 'videosDownloaded' : 'downloadFailed'})
         when 'grabPhotos'
-          p params[:urls]
-          grabPicURLs(params[:urls])
-          response.merge!({status: 'photosDownloaded'})
+          response.merge!({status: grabVidURLs(params[:urls]) ? 'photosDownloaded' : 'downloadFailed'})
         when 'startVideoRender'
           response.merge!({status: 'renderVideoStart',job_id: rand(200)})
-          job_id = RenderWorker.perform_async(session[:videos],'movie')
+          job_id = RenderWorker.perform_async(current_user.id,session[:videos],'movie')
           RenderQueue.create(user_id: current_user.id, job_id: job_id)
           puts "Starting Render on job_id: #{job_id}"
           response.merge!({status: 'renderVideoFinished',job_id: job_id})
         when 'startPhotoRender'
           response.merge!({status: 'renderPhotoStart',job_id: rand(200)})
-          job_id = RenderWorker.perform_async(session[:photos],'slideshow')
+          job_id = RenderWorker.perform_async(current_user.id,session[:photos],'slideshow')
           RenderQueue.create(user_id: current_user.id, job_id: job_id)
           puts "Starting Render on job_id: #{job_id}"
           response.merge!({status: 'renderPhotoFinished',job_id: job_id})
@@ -77,6 +73,7 @@ class EditorController < ApplicationController
 private
 
   def grabVidURLs(urls)
+    return false if (urls.nil? || urls.empty?)
     movie_files = Array.new
     urls.map do |url|
       movie_files << url[-12..-1]
@@ -86,9 +83,11 @@ private
       end
     end
     session[:videos] = movie_files
+    return true
   end
 
   def grabPicURLs(urls)
+    return false if (urls.nil? || urls.empty?)
     photo_files = Array.new
     urls.map do |url|
       photo_files << url[-12..-1]
@@ -98,6 +97,7 @@ private
       end
     end
     session[:photos] = photo_files
+    return true
   end
 
   def returnUserJobs(user)
