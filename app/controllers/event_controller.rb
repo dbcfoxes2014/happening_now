@@ -4,16 +4,17 @@ class EventController < ApplicationController
 
 
 	def popular_events
-	response = $eb_client.event_search("Last Week")		
-	@e = JSON.parse(response.body)
-	@e["events"].delete_at(0)
+		response = $eb_client.event_search("Last Week")		
+		@e = JSON.parse(response.body)
+		@e["events"].delete_at(0)
 
-	render :events
+		render :events
+
 	end 
 
 	def find_location
 		@event = $eb_client.event_get(id: params[:id])
-		if @event['event']['venue']
+		if @event['event']['venue']['latitude']
 			venue_chars = @event['event']['venue']['name'].split('').sort.join('')
 			lat = @event['event']['venue']['latitude']
 			long = @event['event']['venue']['longitude']			
@@ -29,7 +30,7 @@ class EventController < ApplicationController
 			@media = grab_all_media(values)
 		end
 
-		render partial: 'media/display'
+		render :events
 	end
 end
 

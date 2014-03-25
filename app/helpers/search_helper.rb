@@ -80,7 +80,7 @@ module SearchHelper
 			media << item
 		end
 		media
-	rescue URI::InvalidURIError => e
+	rescue URI::InvalidURIError
 		media
 	end
 
@@ -92,7 +92,7 @@ module SearchHelper
 			end
 		end
 		nil
-	rescue Instagram::InternalServerError => e
+	rescue Instagram::InternalServerError
 		nil
 	end
 

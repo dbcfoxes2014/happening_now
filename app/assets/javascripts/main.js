@@ -126,12 +126,11 @@ function bindEvents() {
 				data: {'media' : save_url,
   						 'media_thumbnail' : thumbnail },
 		    	type: "post",
-					dataType: "json",
-							})
+					dataType: "json"
 
 		})
 			.always(function(serverResponse){
-			$(".view-selected-button").html("View Selected Media (" + serverResponse.count + ")")
+			$(".view-selected-button").html("View Selected Media (" + serverResponse.count + ")");
 			})
 	});
 }
