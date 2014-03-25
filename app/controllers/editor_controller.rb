@@ -1,13 +1,16 @@
 class EditorController < ApplicationController
+
+  before_filter :authenticate_user!
+
   def video
     if(current_user)
-        @session_table = FlaggedContent.where(user_id: current_user.id)
+        @session_table = FlaggedContent.where(user_id: current_user.id, extension: 'mp4')
     end
   end
 
   def photo
     if(current_user)
-        @session_table = FlaggedContent.where(user_id: current_user.id)
+        @session_table = FlaggedContent.where(user_id: current_user.id, extension: 'jpg')
     end
   end
 
