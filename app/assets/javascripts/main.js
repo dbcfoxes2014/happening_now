@@ -134,7 +134,9 @@ function bindEvents() {
 			});
 
 	});
+
 }
+
 
 //on document load, make sure everything is bound
 $(function(){

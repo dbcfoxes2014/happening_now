@@ -16,6 +16,7 @@
 
   match 'search', to: 'media#search', via: :get
   match 'popular', to: 'media#popular', via: :get
+  match 'update_popular', to: 'media#update_popular', via: :get
   match 'display', to: 'media#display', via: :get
 
   match 'find_location', to: 'event#find_location', via: :get
@@ -33,7 +34,7 @@
   post "/remove_media_from_session" => "media#remove_media", :as => :remove_media_from_session
 
   get "/debug_grab_test_urls" => "home#debug_grab_test_urls", :as => :debug_grab_test_urls
-  
+
   get "/users/:id" => 'users#show', as: :user_home
 
 end
