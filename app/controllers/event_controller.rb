@@ -8,7 +8,7 @@ class EventController < ApplicationController
 		@e = JSON.parse(response.body)
 		@e["events"].delete_at(0)
 
-		render :events
+		render :popular
 
 	end 
 

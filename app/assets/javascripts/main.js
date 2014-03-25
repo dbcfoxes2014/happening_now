@@ -130,10 +130,10 @@ function bindEvents() {
 
 		})
 			.always(function(serverResponse){
-			$(".view-selected-button").html("View Selected Media (" + serverResponse.count + ")");
-			})
-		});
-	}
+				$(".view-selected-button").html("View Selected Media (" + serverResponse.count + ")");
+			});
+
+	});
 }
 
 //on document load, make sure everything is bound
