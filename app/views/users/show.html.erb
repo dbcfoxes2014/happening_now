@@ -6,6 +6,7 @@
 	<div class="slideshows">
 		<% @user.slide_shows.each do |slide_show| %>
 			<a href="<%=slide_show.title%>"><img class="fancybox search_result" src="<%=slide_show.file_path%>" height="240" width="240"></a>
+			<a class="download_link" href="<%=slide_show.file_path%>" download>Download file</a>
 		<% end %>
 	</div>
 </div>
@@ -17,6 +18,7 @@
 	<div class="videos">
 		<% @user.videos.each do |video| %>
 			<img id="/<%=video.file_path%>" src="/assets/play_icon.png" class="video_thumbnail search_result" width="240" height="240" border="0" style="background:URL(/<%= video.thumbnail_path %>) center center black; background-size: 100%" />
+			<a class="download_link" href="<%=video.file_path%>" download>Download file</a>
 		<% end %>
 	</div>
 </div

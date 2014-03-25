@@ -7,6 +7,12 @@ respond_to :json
     @message = "Popular Media"
   end
 
+  def update_popular
+    @media = grab_popular_media
+
+    render partial: "display_results"    
+  end
+
   def search
     if params[:search_data] == ""
       flash[:alert] = "Enter something to search"
@@ -63,27 +69,32 @@ respond_to :json
 
   def recent_media
     @media = Video.all.limit(20)
-    #@slideshows = SlideShow.all
+    # @slideshows = SlideShow.all
   end
 
   def selected_media
     @media = FlaggedContent.where(user_id: current_user.id)
   end
 
-  def event_media   
-    # if params[]
-    # binding.pry
+  def event_media
+    session[:next_user_max_id] = nil
     @username =  Instagram.user(params[:user_id]).username
     @id = params[:user_id]
     @media = find_user_media(params[:user_id])
   end
 
   def event_media_pagination
-    # if params[]
-    # binding.pry
-    # @username =  Instagram.user(params[:user_id]).username
-    # @id = params[:user_id]
-    # @media = find_user_media(params[:user_id])
-    render partial :display_results
+    if !session[:next_user_max_id]
+      session[:next_user_max_id] = Instagram.user_recent_media(params[:user_id]).pagination.next_max_id
+    else
+      session[:next_user_max_id] = Instagram.user_recent_media(params[:user_id], :max_id => session[:next_user_max_id]).pagination.next_max_id
+    end
+
+    @media = []
+    for item in Instagram.user_recent_media(params[:user_id], :max_id => session[:next_user_max_id])
+      @media << item
+    end
+
+    render partial: "display_results"
   end
 end
