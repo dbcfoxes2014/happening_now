@@ -59,11 +59,11 @@
 }
 
 .timelineVideoClip,
-.timelinePhotoClip{background:#1581AC;width:100px;position:absolute !important;}
+.timelinePhotoClip{width:100px;position:absolute !important;background: red;}
 .timelineVideoClip{height:66px;}
 .timelinePhotoClip{height:100px;}
 
-.clipCrop{border: rgb(55,170,212) 1px solid;}
+.clipCrop{background:#1581AC;border: rgb(55,170,212) 1px solid;}
 .timelineVideoClip .clipCrop{height:66px;}
 .timelinePhotoClip .clipCrop{height:100px;}
 
@@ -77,11 +77,11 @@
 }
 .timelineVideoClip .clipThumb{max-width: 55px;height: 55px;}
 .timelinePhotoClip .clipThumb{max-width: 90px;height: 90px;}
-
-#timelineGraph{
-  width: 100%;
-  height: 50px;
-  background:#272822;
+.trackPhotoSnap{
+  display: block;
+  height:100px;
+  -webkit-box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.45),inset 0px 0px 12px 0px rgba(55,170,212,1),inset 1px 0px 0px 0px rgba(255, 255, 255, 0.25),inset -1px 0px 0px 0px rgba(255, 255, 255, 0.25);
+  box-shadow: 0px 1px 0px 0px rgba(255, 255, 255, 0.45),inset 0px 0px 12px 0px rgba(55,170,212,1),inset 1px 0px 0px 0px rgba(255, 255, 255, 0.25),inset -1px 0px 0px 0px rgba(255, 255, 255, 0.25);
 }
 #editorTimeSlider{
   width:20px;
@@ -90,7 +90,6 @@
   left:190px;
   top:30px;
   background: #40C8FA;
-  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7eea19', endColorstr='#53ad00',GradientType=0 );
   -webkit-box-shadow: 0px 0px 12px 0px rgba(55,170,212,1),inset 0px 1px 0px 0px rgba(255, 255, 255, 0.45),inset 1px 0px 0px 0px rgba(255, 255, 255, 0.25),inset -1px 0px 0px 0px rgba(255, 255, 255, 0.25);
   box-shadow: 0px 0px 12px 0px rgba(55,170,212,1),inset 0px 1px 0px 0px rgba(255, 255, 255, 0.45),inset 1px 0px 0px 0px rgba(255, 255, 255, 0.25),inset -1px 0px 0px 0px rgba(255, 255, 255, 0.25);
 }
@@ -107,33 +106,44 @@
   width: 100%;
   height: 30px;
   background: #1C1B1B;
-  margin-left: 200px;
   padding-top: 10px;
+}
+#editorTimeRulerTrack{
+  width: 100%;
+  height: 20px;
 }
 .timelineTickTall{
   display:inline-block;
   height: 15px;
   border-left: 1px solid #FFF;
-  /*margin-right: 2px;*/
+  position:relative;
+  /*margin-right: 0.25%;*/
 }
 .timelineTickShort{
   display:inline-block;
   height: 5px;
   border-left: 1px solid #40C8FA;
-  /*margin-right: 2px;*/
+  position: relative;
+  /*margin-right: 0.25%;*/
 }
-#editorTimeRulerHeader{
+#timelineGraph{
   width: 100%;
-  height: 20px;
+  height: 50px;
+  background:#272822;
 }
 #editorTimeCurrent{
+  width:200px;
+  height:50px;
+  background: #272822;
+  padding: 5px 0 0 10px;
+  text-align: center;
+}
+#editorTimeCurrent span{
+  display: block;
+  background: #1C1B1B;
   width:132px;
   height:30px;
-  float:left;
-  background: #1C1B1B;
-  padding: 5px 0 0 10px;
-  margin: 10px 0 0 10px;
-  text-align: center;
+  padding: 7px;
 }
 #moviePallet{
   width:250px;

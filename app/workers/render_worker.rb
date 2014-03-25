@@ -3,7 +3,6 @@ class RenderWorker
   sidekiq_options retry: false
 
   def perform(user_id,clips,type)
-    puts "starting job #{type}"
     if(type == 'movie')
       renderMovies(user_id,clips)
     elsif(type == 'slideshow')
@@ -45,12 +44,12 @@ class RenderWorker
   end
 
   def renderPhotos(user_id,slides)
+    #puts "JID #{jid} - TID #{Thread.current.object_id.to_s}"
     photo_ffmpeg = Array.new
     #concate movies via transcoding
     slides.map do |pic|
       photo_ffmpeg << FFMPEG::Movie.new("public/data/*.jpg")
     end
-    args = photo_ffmpeg[1..-1].map{ |pic| "-i " + pic.path }.join(" ")
     #if(movie_ffmpeg.empty?)
 
     slideshow_name = nil
@@ -61,17 +60,17 @@ class RenderWorker
       slideshow_name = "data/img#{Video.last.id + 1}.mp4"
       thumbnail_name = "data/thumb#{Video.last.id + 1}.jpg"
     end
-    puts "Command: #{args} -filter_complex concat=n=#{photo_ffmpeg.size}:v=1:a=0 -r 1/5"
     #works on terminal
     #ffmpeg -r 1/5 -pattern_type glob -i 'public/data/*.jpg' -c:v libx264 public/data/out.mp4
     #ffmpeg -i 'public/data/img2cd06c_8.jpg' -i public/data/img670ba3_8.jpg -filter_complex concat=n=2:v=1:a=0 -r 1/5 -c:v libx264 public/data/out.mp4
     photo_ffmpeg[0].transcode(
         "public/#{slideshow_name}",
-        "#{args} -filter_complex concat=n=#{photo_ffmpeg.size}:v=1:a=0 -r 1/5",
         'slideshow'
 
     )
-    #RenderQueue.where(job_id: )
+
+    RenderQueue.where(job_id: jid).first.destroy;
+    puts "Removed Job #{jid} from queue table!"
     #photo_ffmpeg[0].screenshot("public/#{thumbnail_name}", seek_time: 5, resolution: '256x256')
 
     Video.create(user_id: user_id, title: "we shouldnt have a title", file_path: "#{slideshow_name}", thumbnail_path: "#{thumbnail_name}").save
