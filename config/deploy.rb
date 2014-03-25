@@ -3,7 +3,7 @@ set :deploy_user, 'deployer'
 
 # setup repo details
 set :scm, :git
-set :repo_url, 'git@github.com:username/repo.git'
+set :repo_url, 'git@github.com:dbcfoxes2014/free_candy.git'
 
 # setup rvm.
 set :rbenv_type, :system
