@@ -106,7 +106,7 @@ function bindEvents() {
 			$(this).find('input').removeClass('hide-thumbnail');
 		}
 		else {
-		    route = 'remove_media_from_session';
+		  route = 'remove_media_from_session';
 			$(this).find('input').removeClass('show-check-thumbnail');
 			$(this).find('input').removeClass('hide-thumbnail');
 			$(this).find('input').addClass('show-thumbnail');
@@ -119,9 +119,7 @@ function bindEvents() {
 		else
 			thumbnail = thumbnail.slice(4, -1);
 
-		// console.log(thumbnail)
-		// console.log(save_url)
-		// debugger
+
 		$.ajax({
 	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
 	        url: route,
@@ -129,13 +127,12 @@ function bindEvents() {
   						 'media_thumbnail' : thumbnail },
 		    	type: "post",
 					dataType: "json",
-
+							})
 
 		})
-	        .always(function(serverResponse){
-	        	
-	        	
-	        });
+			.always(function(serverResponse){
+			$(".view-selected-button").html("View Selected Media (" + serverResponse.count + ")")
+			})
 	});
 }
 

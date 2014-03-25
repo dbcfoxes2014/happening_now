@@ -55,7 +55,6 @@ gem 'similar_text', '~> 0.0.4'
 
 gem 'json'
 
-
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
@@ -81,7 +80,15 @@ end
 
 gem 'rails_12factor', group: :production
 
-# Use Capistrano for deployment
-group :development do
-  gem 'capistrano'
-end
+gem 'unicorn'
+
+gem 'capistrano', '~> 3.0.1'
+
+# rails specific capistrano funcitons
+gem 'capistrano-rails', '~> 1.1.0'
+
+# integrate bundler with capistrano
+gem 'capistrano-bundler'
+
+# if you are using RBENV
+gem 'capistrano-rbenv', "~> 2.0" 
