@@ -2,18 +2,18 @@ class RenderWorker
   include Sidekiq::Worker
   sidekiq_options retry: false
 
-  def perform(clips,type)
+  def perform(user_id,clips,type)
     puts "starting job #{type}"
     if(type == 'movie')
-      renderMovies(clips)
+      renderMovies(user_id,clips)
     elsif(type == 'slideshow')
-      renderPhotos(clips)
+      renderPhotos(user_id,clips)
     end
   end
 
   private
 
-  def renderMovies(videos)
+  def renderMovies(user_id,videos)
     movie_ffmpeg = Array.new
     #concate movies via transcoding
     videos.map do |mov|
@@ -31,20 +31,20 @@ class RenderWorker
       movie_name = "data/#{Video.last.id + 1}.mp4"
       screenshot_name = "data/#{Video.last.id + 1}.jpg"
     end
-    puts "rendering movie"
+
     movie_ffmpeg[0].transcode(
         "public/#{movie_name}",
         "#{args} -s 640x640 -filter_complex concat=n=#{movie_ffmpeg.size}:v=1:a=1 -threads 4 -strict -2",
         'movie'
-    )
+    ){ |progress| puts "RENDERING://///#{progress}//////" }
 
     movie_ffmpeg[0].screenshot("public/#{screenshot_name}", seek_time: 5, resolution: '256x256')
 
 
-    #Video.create(user_id: current_user.id, title: "we shouldnt have a title", file_path: "#{movie_name}", thumbnail_path: "#{screenshot_name}").save
+    Video.create(user_id: user_id, title: "we shouldnt have a title", file_path: "#{movie_name}", thumbnail_path: "#{screenshot_name}").save
   end
 
-  def renderPhotos(slides)
+  def renderPhotos(user_id,slides)
     photo_ffmpeg = Array.new
     #concate movies via transcoding
     slides.map do |pic|
@@ -74,6 +74,6 @@ class RenderWorker
     #RenderQueue.where(job_id: )
     #photo_ffmpeg[0].screenshot("public/#{thumbnail_name}", seek_time: 5, resolution: '256x256')
 
-    #Video.create(user_id: , title: "we shouldnt have a title", file_path: "#{slideshow_name}", thumbnail_path: "#{thumbnail_name}").save
+    Video.create(user_id: user_id, title: "we shouldnt have a title", file_path: "#{slideshow_name}", thumbnail_path: "#{thumbnail_name}").save
   end
 end
