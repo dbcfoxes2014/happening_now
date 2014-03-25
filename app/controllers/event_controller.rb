@@ -14,7 +14,7 @@ class EventController < ApplicationController
 
 	def find_location
 		@event = $eb_client.event_get(id: params[:id])
-		if @event['event']['venue']['latitude']
+		if @event['event']['venue']['latitude'] > 0
 			venue_chars = @event['event']['venue']['name'].split('').sort.join('').strip
 			lat = @event['event']['venue']['latitude']
 			long = @event['event']['venue']['longitude']			

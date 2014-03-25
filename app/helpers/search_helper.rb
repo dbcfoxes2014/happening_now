@@ -84,8 +84,7 @@ module SearchHelper
 		media
 	end
 
-	def find_id_by_location(lat, long, venue)
-		binding.pry
+	def find_id_by_location(lat, long, venue)		
 		search = Instagram.location_search(lat, long)
 		for item in search
 			if item['name'].split('').sort.join('').strip.similar(venue) > 90
