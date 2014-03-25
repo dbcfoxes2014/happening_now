@@ -1,5 +1,0 @@
-{
-  "description": "A positive number",
-  "type":"integer",
-  "minimum": 0
-}
