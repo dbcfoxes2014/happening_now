@@ -16,6 +16,7 @@
 
   match 'search', to: 'media#search', via: :get
   match 'popular', to: 'media#popular', via: :get
+  match 'update_popular', :to => 'media#update_popular', via: :get
   match 'display', to: 'media#display', via: :get
 
   #match 'events', to: 'home#events', via: :get
