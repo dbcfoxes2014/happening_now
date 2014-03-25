@@ -30,7 +30,7 @@ function bindEvents() {
 		$.ajax({
 	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
 	        url: route,
-	        data: {'user_id' : user_id, 'page' : page },
+	        data: {'user_id' : user_id, 'page' : page},
     		type: "post",
 			dataType: "json",
 		    type: "get",
@@ -38,15 +38,11 @@ function bindEvents() {
 	        success: function(serverResponse){
 	        	console.log(serverResponse);
 	        	$(".display_results").html(serverResponse);
+	        	$(document).unbind(); // for all events
 	        	bindEvents();
 	    	}
 		});
 	});
-
-
-
-
-
 
 	$('.video_thumbnail').on('click', function(){
 	  var save_url = $(this).attr('id');
