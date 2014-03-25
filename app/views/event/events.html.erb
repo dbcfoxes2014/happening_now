@@ -3,9 +3,6 @@
 	<div class="popular_media">
 	<p>Events Go Here</p>
 		<% @e["events"].each_with_index do |event, index| %>
-			<p><%= event["event"]["title"] %></p>
+			<p><%= link_to "#{event['event']['title']}", find_location_path(id: "#{event['event']['id']}") %></p>	
 		<% end %>
-
-
-
 </div>

@@ -1,7 +1,7 @@
 module SearchHelper
 
 	def seperate_values(string, delim)
-		string.delete!("#")
+		string.gsub!(/\W/, " ")
 		string.split(delim)
 	end
 
@@ -47,7 +47,7 @@ module SearchHelper
 		media
 	end
 
-	def grab_popular_media	
+	def grab_popular_media
 	    session[:next_max_id] = []
 	    session[:search_terms] = []
 
@@ -66,5 +66,12 @@ module SearchHelper
 		media
 	end
 
+	def find_media_by_location(lat, long)
+		media = []
+		for item in Instagram.media_search(lat, long)
+			media << item
+		end
+		media
+	end
 end
 	
