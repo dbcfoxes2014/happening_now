@@ -38,7 +38,7 @@ RSpec.configure do |config|
     DatabaseCleaner.clean
   end
 
-  SafeYAML::OPTIONS[:default_mode] = :safe
+  config.include SafeYAML::OPTIONS[:default_mode] = :safe
 
   # Include Factory Girl syntax to simplify calls to factories 
   config.include FactoryGirl::Syntax::Methods

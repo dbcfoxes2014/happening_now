@@ -104,7 +104,8 @@ private
 
     movie_ffmpeg[0].transcode(
         "public/#{movie_name}",
-        "#{args} -s 640x640 -filter_complex concat=n=#{movie_ffmpeg.size}:v=1:a=1 -threads 4 -strict -2"
+        "#{args} -s 640x640 -filter_complex concat=n=#{movie_ffmpeg.size}:v=1:a=1 -threads 4 -strict -2",
+        'movie'
     )
 
     movie_ffmpeg[0].screenshot("public/#{screenshot_name}", seek_time: 5, resolution: '256x256')
@@ -128,7 +129,7 @@ private
     photo_ffmpeg = Array.new
     #concate movies via transcoding
     session[:photos].map do |pic|
-      photo_ffmpeg << FFMPEG::Movie.new("public/data/img#{pic}")
+      photo_ffmpeg << FFMPEG::Movie.new("public/data/*.jpg")
     end
     args = photo_ffmpeg[1..-1].map{ |pic| "-i " + pic.path }.join(" ")
     #if(movie_ffmpeg.empty?)
@@ -147,10 +148,12 @@ private
     #ffmpeg -i 'public/data/img2cd06c_8.jpg' -i public/data/img670ba3_8.jpg -filter_complex concat=n=2:v=1:a=0 -r 1/5 -c:v libx264 public/data/out.mp4
     photo_ffmpeg[0].transcode(
         "public/#{slideshow_name}",
-        "#{args} -filter_complex concat=n=#{photo_ffmpeg.size}:v=1:a=0 -r 1/5"
+        "#{args} -filter_complex concat=n=#{photo_ffmpeg.size}:v=1:a=0 -r 1/5",
+        'slideshow'
+
     )
 
-    photo_ffmpeg[0].screenshot("public/#{thumbnail_name}", seek_time: 5, resolution: '256x256')
+    #photo_ffmpeg[0].screenshot("public/#{thumbnail_name}", seek_time: 5, resolution: '256x256')
 
     Video.create(user_id: current_user.id, title: "we shouldnt have a title", file_path: "#{slideshow_name}", thumbnail_path: "#{thumbnail_name}").save
   end
