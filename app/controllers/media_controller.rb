@@ -7,6 +7,12 @@ respond_to :json
     @message = "Popular Media"
   end
 
+  def update_popular
+    @media = grab_popular_media
+
+    render partial: "display_results"    
+  end
+
   def search
     if params[:search_data] == ""
       flash[:alert] = "Enter something to search"
@@ -63,16 +69,14 @@ respond_to :json
 
   def recent_media
     @media = Video.all.limit(20)
-    #@slideshows = SlideShow.all
+    # @slideshows = SlideShow.all
   end
 
   def selected_media
     @media = FlaggedContent.where(user_id: current_user.id)
   end
 
-  def event_media   
-    # if params[]
-    # binding.pry
+  def event_media
     session[:next_user_max_id] = nil
     @username =  Instagram.user(params[:user_id]).username
     @id = params[:user_id]
