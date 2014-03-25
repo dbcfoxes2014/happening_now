@@ -7,6 +7,11 @@ respond_to :json
     @message = "Popular Media"
   end
 
+  def update_popular
+    @media = grab_popular_media
+    render partial: "display_results"
+  end
+
   def search
     if params[:search_data] == ""
       flash[:alert] = "Enter something to search"
