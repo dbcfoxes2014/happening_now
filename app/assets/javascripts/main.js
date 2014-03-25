@@ -75,21 +75,17 @@ function bindEvents() {
 	$('.more_user_results').on('click',function(e) {
 		e.preventDefault();
 		route = 'event_media_pagination';
-		
 		var user_id = $(this).attr('id');
+		// var page = 
 
 		$.ajax({
 	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
 	        url: route,
 	        data: {'user_id' : user_id},
-    		type: "post",
-			dataType: "json",
 		    type: "get",
 
 	        success: function(serverResponse){
-				// $('.more_user_results').hide();
-	        	$(".display_results").append(serverResponse);
-	        	console.log("skess");
+	        	$(".display_results").html(serverResponse);
 	        	bindEvents();
 	    	}
 		});
