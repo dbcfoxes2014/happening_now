@@ -5,7 +5,7 @@
 ## Collaborators
 - [Jack Dubnicek](https://github.com/jdubnicek)
 - [Chris Prater](https://github.com/cprater)
-- [Dan Peterson](https://github.com/DanJP-)
+- [Daniel Petersen](https://github.com/DanJP-)
 - [Tom W.](https://github.com/To-mos)
 - [Joe Wilmoth](http://github.com/jbwilmoth)
 
@@ -27,7 +27,7 @@
 
 * Start Redis: ```redis-server /usr/local/etc/redis.conf```
 
-* Start Sidekiq: ```bundle exec sidekiq``` 
+* Start Sidekiq: ```bundle exec sidekiq```
 
 * Run ```rails s``` and type ```localhost:3000``` in your browser to launch the Rails server.
 
