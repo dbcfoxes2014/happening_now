@@ -2,8 +2,6 @@ class MediaController < ApplicationController
 include SearchHelper
 respond_to :json
 
-
-
 	def popular
     @media = grab_popular_media
     @message = "Popular Media"
