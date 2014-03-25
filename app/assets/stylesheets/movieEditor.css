@@ -3,6 +3,12 @@
   padding:0;
   margin:0;
 }
+#renderStatus{
+  width: 590px;
+  display: block;
+  height: 91px;
+  margin: auto;
+}
 #editorTimeline{
   font-family: 'Aldrich', sans-serif;
   width: 100%;
@@ -57,7 +63,7 @@
 .timelineVideoClip{height:66px;}
 .timelinePhotoClip{height:100px;}
 
-.clipCrop{border: #194C60 1px solid;}
+.clipCrop{border: rgb(55,170,212) 1px solid;}
 .timelineVideoClip .clipCrop{height:66px;}
 .timelinePhotoClip .clipCrop{height:100px;}
 
@@ -65,6 +71,9 @@
   display: block;
   background-size: cover !important;
   margin: 4px auto;
+  border: rgb(55,170,212) 1px solid;
+  -webkit-box-shadow: 0px 0px 12px 0px rgba(55,170,212,1),inset 0px 1px 0px 0px rgba(255, 255, 255, 0.45),inset 1px 0px 0px 0px rgba(255, 255, 255, 0.25),inset -1px 0px 0px 0px rgba(255, 255, 255, 0.25);
+  box-shadow: 0px 0px 12px 0px rgba(55,170,212,1),inset 0px 1px 0px 0px rgba(255, 255, 255, 0.45),inset 1px 0px 0px 0px rgba(255, 255, 255, 0.25),inset -1px 0px 0px 0px rgba(255, 255, 255, 0.25);
 }
 .timelineVideoClip .clipThumb{max-width: 55px;height: 55px;}
 .timelinePhotoClip .clipThumb{max-width: 90px;height: 90px;}
@@ -80,7 +89,10 @@
   position:absolute;
   left:190px;
   top:30px;
-  background: #9A9693;
+  background: #40C8FA;
+  filter: progid:DXImageTransform.Microsoft.gradient( startColorstr='#7eea19', endColorstr='#53ad00',GradientType=0 );
+  -webkit-box-shadow: 0px 0px 12px 0px rgba(55,170,212,1),inset 0px 1px 0px 0px rgba(255, 255, 255, 0.45),inset 1px 0px 0px 0px rgba(255, 255, 255, 0.25),inset -1px 0px 0px 0px rgba(255, 255, 255, 0.25);
+  box-shadow: 0px 0px 12px 0px rgba(55,170,212,1),inset 0px 1px 0px 0px rgba(255, 255, 255, 0.45),inset 1px 0px 0px 0px rgba(255, 255, 255, 0.25),inset -1px 0px 0px 0px rgba(255, 255, 255, 0.25);
 }
 #editorTimeBar{
   width:11px;
@@ -89,7 +101,7 @@
   left:190px;
   top:50px;
   z-index:400;
-  border-right:1px solid #9A9693;
+  border-right:1px solid #FFF;
 }
 #editorTimeRuler{
   width: 100%;
@@ -115,12 +127,13 @@
   height: 20px;
 }
 #editorTimeCurrent{
-  width:100px;
+  width:132px;
   height:30px;
   float:left;
   background: #1C1B1B;
   padding: 5px 0 0 10px;
   margin: 10px 0 0 10px;
+  text-align: center;
 }
 #moviePallet{
   width:250px;
@@ -149,7 +162,7 @@
 }
 #editorTools{
   font-family: 'Aldrich', sans-serif;
-  position:absolute;
+  position:fixed;
   bottom:170px;
   left:10px;
   width: 150px;

@@ -1,22 +1,20 @@
 .progressbar{
-    position:relative;
     display:block;
     width:560px;
     height:20px;
-    padding:10px 20px;
+    padding:2px 2px;
     border-bottom:1px solid rgba(255,255,255,0.25);
-    margin:40px auto;
+    background: #3E3E3E;
     -webkit-box-shadow: 0px 4px 4px -4px rgba(255, 255, 255, 0.4),0px -3px 3px -3px rgba(255, 255, 255, 0.25),inset 0px 0px 12px 0px rgba(0, 0, 0, 0.5);
     box-shadow: 0px 4px 4px -4px rgba(255, 255, 255, 0.4),0px -3px 3px -3px rgba(255, 255, 255, 0.25),inset 0px 0px 12px 0px rgba(0, 0, 0, 0.5);
 }
 .progressbar .bar {
-  position:absolute;
   display:block;
   width:0px;
   height:16px;
   top:2px;
   left:2px;
-  background: rgb(126,234,25);
+  background: rgb(64,200,250);
   background: -moz-linear-gradient(top,  rgba(64,200,250,1) 0%, rgba(42,131,163,1) 100%);
   background: -webkit-gradient(linear, left top, left bottom, color-stop(0%,rgba(64,200,250,1)), color-stop(100%,rgba(42,131,163,1)));
   background: -webkit-linear-gradient(top,  rgba(64,200,250,1) 0%,rgba(42,131,163,1) 100%);
@@ -29,13 +27,11 @@
   overflow:hidden;
 }
 .progressbar .bar span {
-  position:absolute;
   display:block;
   width:100%;
   height:64px;
   top:0;
   left:0;
-  background: url('/assets/aurora.png');
   -webkit-animation: sparkle 1500ms linear infinite;
      -moz-animation: sparkle 1500ms linear infinite;
        -o-animation: sparkle 1500ms linear infinite;
@@ -44,12 +40,12 @@
 }
 .progressbar .label {
   font-family: 'Aldrich', sans-serif;
-  position:absolute;
+  position:relative;
   display:block;
   width:40px;
   height:30px;
   line-height:30px;
-  top:26px;
+  top:8px;
   left:0px;
   background: rgb(76,76,76);
   background: -moz-linear-gradient(top,  rgba(76,76,76,1) 0%, rgba(38,38,38,1) 100%);
@@ -103,20 +99,4 @@
        -o-transform:rotate(45deg);
       -ms-transform:rotate(45deg);
           transform:rotate(45deg);
-}
-@-webkit-keyframes sparkle {
-  from {background-position: 0 0;}
-  to {background-position: -275px 0;}
-}
-@-moz-keyframes sparkle {
-  from {background-position: 0 0;}
-  to {background-position: -275px 0;}
-}
-@-o-keyframes sparkle {
-  from {background-position: 0 0;}
-  to {background-position: -275px 0;}
-}
-@keyframes sparkle {
-  from {background-position: 0 0;}
-  to {background-position: -275px 0;}
 }
