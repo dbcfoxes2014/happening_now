@@ -1,7 +1,5 @@
 <div class="container">
-	<h3>Popular Events</h3>
-
-  <%= link_to "More Results", paginate_results_path, {class: "more_event_results"}  %>
+	<h3><%= @event_message %></h3>
 
   <div class="display_results">
   	<%= render 'media/display_results' %>

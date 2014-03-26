@@ -55,6 +55,8 @@ gem 'similar_text', '~> 0.0.4'
 
 gem 'json'
 
+gem 'geocoder'
+
 group :doc do
   # bundle exec rake doc:rails generates the API under doc/api.
   gem 'sdoc', require: false
