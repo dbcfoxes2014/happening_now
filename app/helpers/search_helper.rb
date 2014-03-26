@@ -15,7 +15,8 @@ module SearchHelper
 	end
 
 	def seperate_values(string)
-		
+		string.gsub!(/\W/, " ")
+		string.split(" ")
 	end
 
 	def find_similar_tags(value)
