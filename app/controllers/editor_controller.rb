@@ -42,7 +42,7 @@ class EditorController < ApplicationController
           else
             response.merge!({status: 'grabVideosStarted',job_id: rand(200)})
             job_id = RenderWorker.perform_async(current_user.id,params[:urls],'queueVideos')
-            RenderQueue.create(user_id: current_user.id, job_id: job_id, stage: 'copying_videos')
+            RenderQueue.create(user_id: current_user.id, title: params[:title], job_id: job_id, stage: 'copying_videos')
             puts "Starting To Collect Videos on job_id: #{job_id}"
           end
           #response.merge!({status: grabVidURLs(params[:urls]) ? 'videosDownloaded' : 'downloadFailed'})
@@ -52,7 +52,7 @@ class EditorController < ApplicationController
           else
             response.merge!({status: 'grabPhotosStarted',job_id: rand(200)})
             job_id = RenderWorker.perform_async(current_user.id,params[:urls],'queuePhotos')
-            RenderQueue.create(user_id: current_user.id, job_id: job_id, stage: 'copying_photos')
+            RenderQueue.create(user_id: current_user.id, title: params[:title], job_id: job_id, stage: 'copying_photos')
             puts "Starting To Collect Photos on job_id: #{job_id}"
           end
         when 'startVideoRender'
