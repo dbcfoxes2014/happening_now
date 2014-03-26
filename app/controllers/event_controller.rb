@@ -1,4 +1,5 @@
 class EventController < ApplicationController
+	include EventHelper
 	include SearchHelper
   respond_to :json
 
@@ -6,7 +7,6 @@ class EventController < ApplicationController
 		response = $eb_client.event_search(date: "Last Week")
 		@e = JSON.parse(response.body)
 		@e["events"].delete_at(0)
-		# binding.pry
 
 		render :popular
 	end

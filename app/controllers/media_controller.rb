@@ -6,6 +6,7 @@ require 'json'
 
 class MediaController < ApplicationController
 include SearchHelper
+include EventHelper
 include BannedWordsHelper
 respond_to :json
 before_filter :authenticate_user!, only: [:new]
@@ -29,8 +30,9 @@ before_filter :authenticate_user!, only: [:new]
 
     
 
-    # @media = EventController.search_for_event(params[:search_data]) and return
 
+    @media = search_for_location_media(params[:search_data])
+    binding.pry
     @search_content = join_values(params[:search_data])
     # binding.pry
     
