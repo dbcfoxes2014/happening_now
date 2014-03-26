@@ -3,7 +3,7 @@
 
 	<ul>
 		<%@e['events'].each do |event|%>
-			<li><%= link_to "#{event['event']['title']}", 	find_location_path(id: event['event']['id'])%></li>
+			<li><%= link_to "#{event['event']['title']}", 	find_event_media_path(id: event['event']['id'])%></li>
 		<%end%>
 	</ul>
 </div>
