@@ -37,33 +37,33 @@ class EditorController < ApplicationController
     if(params[:command])
       case params[:command]
         when 'grabVideos'
-          if params[:urls].empty?
-            responce = {status: 'emptyList'}
+          if params[:urls].nil? || params[:urls].empty?
+            response = {status: 'emptyList'}
           else
-            response.merge!({status: 'grabVideosStarted',job_id: rand(200)})
-            job_id = RenderWorker.perform_async(current_user.id,params[:urls],'queueVideos')
+            job_id = RenderWorker.perform_async(current_user.id,params[:urls],'movie')
+            response.merge!({status: 'grabVideosStarted',job_id: job_id})
             RenderQueue.create(user_id: current_user.id, title: params[:title], job_id: job_id, stage: 'copying_videos')
             puts "Starting To Collect Videos on job_id: #{job_id}"
           end
           #response.merge!({status: grabVidURLs(params[:urls]) ? 'videosDownloaded' : 'downloadFailed'})
         when 'grabPhotos'
-          if params[:urls].empty?
-            responce = {status: 'emptyList'}
+          if params[:urls].nil? || params[:urls].empty?
+            response = {status: 'emptyList'}
           else
-            response.merge!({status: 'grabPhotosStarted',job_id: rand(200)})
-            job_id = RenderWorker.perform_async(current_user.id,params[:urls],'queuePhotos')
+            job_id = RenderWorker.perform_async(current_user.id,params[:urls],'slideshow')
+            response.merge!({status: 'grabPhotosStarted',job_id: job_id})
             RenderQueue.create(user_id: current_user.id, title: params[:title], job_id: job_id, stage: 'copying_photos')
             puts "Starting To Collect Photos on job_id: #{job_id}"
           end
         when 'startVideoRender'
           response.merge!({status: 'renderVideoStart',job_id: rand(200)})
-          job_id = RenderWorker.perform_async(current_user.id,session[:videos],'movie')
-          RenderQueue.create(user_id: current_user.id, job_id: job_id)
+          # job_id = RenderWorker.perform_async(current_user.id,session[:videos],'movie')
+          # RenderQueue.create(user_id: current_user.id, job_id: job_id)
           puts "Starting Render on job_id: #{job_id}"
         when 'startPhotoRender'
           response.merge!({status: 'renderPhotoStart',job_id: rand(200)})
-          job_id = RenderWorker.perform_async(current_user.id,session[:photos],'slideshow')
-          RenderQueue.create(user_id: current_user.id, job_id: job_id)
+          # job_id = RenderWorker.perform_async(current_user.id,session[:photos],'slideshow')
+          # RenderQueue.create(user_id: current_user.id, job_id: job_id)
           puts "Starting Render on job_id: #{job_id}"
         when 'stopRender'
           puts "Stopping Render on job_id: #{params[:slot]}"

@@ -13,15 +13,16 @@ class RenderWorker
   private
 
   def grabVidURLs(user_id,urls)
+    puts "URLS: #{urls} User: #{user_id}"
     movie_files = Array.new
-    urls.map do |url|
-      movie_files << url[-12..-1]
+    urls.each_with_index.map do |url,index|
+      movie_files << "vid#{user_id}_#{index}.mp4"
       save_dir = "public/data/#{movie_files[-1]}";
       open(save_dir,"wb") do |file|
         file.write open(url).read
       end
     end
-    RenderQueue.where(user_id: user_id, job_id: jid).update_attributes({stage: 'rendering_video'})
+    RenderQueue.where(user_id: user_id, job_id: jid).first.update_attribute('stage', 'rendering_video')
     renderMovies(user_id,movie_files)
   end
 
@@ -29,13 +30,13 @@ class RenderWorker
     photo_files = Array.new
     urls.each_with_index.map do |url,index|
       index = "0#{index}" if index < 10
-      photo_files << "img#{current_user.id}_#{index}.jpg"
+      photo_files << "img#{user_id}_#{index}.jpg"
       save_dir = "public/data/#{photo_files[-1]}";
       open(save_dir,"wb") do |file|
         file.write open(url).read
       end
     end
-    RenderQueue.where(user_id: user_id, job_id: jid).update_attributes({stage: 'rendering_slideshow'})
+    RenderQueue.where(user_id: user_id, job_id: jid).first.update_attribute('stage', 'rendering_slideshow')
     renderPhotos(user_id,photo_files)
   end
 
