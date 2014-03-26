@@ -1,0 +1,15 @@
+FacebookOAuth_resource_files
+
+https://developers.facebook.com/docs/graph-api/quickstart/
+
+OAuth Repo
+https://github.com/intridea/omniauth
+
+Sample App w FB
+https://github.com/nov/fb_graph_sample/tree/master/config
+
+OAuth Testing
+https://github.com/intridea/omniauth/wiki/Integration-Testing
+
+
+

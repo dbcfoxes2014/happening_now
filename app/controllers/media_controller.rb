@@ -115,6 +115,7 @@ before_filter :authenticate_user!, only: [:new]
     @media = Video.all.limit(20)
     @media.reverse
     #@slideshows = SlideShow.all
+    @media.reverse
   end
 
   def selected_media

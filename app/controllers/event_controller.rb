@@ -2,6 +2,13 @@ class EventController < ApplicationController
 	include SearchHelper
   respond_to :json
 
+	eb_client = EventbriteClient.new(eb_auth_tokens)
+
+	# API Request
+	# initialize our http object, for contacting the API
+	http = Net::HTTP.new('www.eventbrite.com', 443)
+	http.use_ssl=true
+
 	def popular_events
 		response = $eb_client.event_search(date: "Last Week")
 		@e = JSON.parse(response.body)

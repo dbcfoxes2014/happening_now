@@ -49,6 +49,12 @@ gem 'eventfulapi'
 
 gem 'safe_yaml'
 
+gem 'omniauth-facebook'
+gem 'fb_graph'
+gem 'omniauth'
+gem 'oauth2'
+gem 'certified'
+
 gem 'eventbrite-client'
 
 gem 'similar_text', '~> 0.0.4'
