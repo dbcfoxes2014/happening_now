@@ -3,6 +3,7 @@ class RenderQueues < ActiveRecord::Migration
     create_table :render_queues do |t|
       t.string  :title
       t.string :job_id
+      t.string :status
       t.belongs_to :user
 
       t.timestamps
