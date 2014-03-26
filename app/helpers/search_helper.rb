@@ -28,6 +28,8 @@ module SearchHelper
 			end
 		end
 		media
+	rescue URI::InvalidURIError
+		media
 	end
 
 	def grab_select_media(values, wanted_type)
@@ -43,6 +45,8 @@ module SearchHelper
 				end
 			end
 		end
+		media
+	rescue URI::InvalidURIError
 		media
 	end
 
@@ -93,21 +97,6 @@ module SearchHelper
 		nil
 	rescue Instagram::InternalServerError
 		nil
-	end
-
-	def find_matching_event_names(list, event_name)
-		events = []
-		list.each do |event|
-			if event['event']['venue']
-				if event['event']['title'].split('').sort.join('').strip.similar(event_name) > 10
-					events << event['event']
-				elsif event['event']['venue']['name'].split('').sort.join('').strip.similar(event_name) > 10
-					events << event['event']
-				end
-			end
-		end
-		events.uniq
-
 	end
 
 	def get_instagram_user
