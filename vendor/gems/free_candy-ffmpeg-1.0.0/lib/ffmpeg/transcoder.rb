@@ -95,7 +95,7 @@ module FFMPEG
     # frame= 4855 fps= 46 q=31.0 size=   45306kB time=00:02:42.28 bitrate=2287.0kbits/
     def transcode_slideshow
       #ffmpeg -r 1/5 -pattern_type glob -i 'public/data/*.jpg' public/data/out12.mp4
-      @command = "#{FFMPEG.ffmpeg_binary} -r 1/5 -pattern_type glob -i #{Shellwords.escape(@movie.path)} #{Shellwords.escape(@output_file)}"
+      @command = "#{FFMPEG.ffmpeg_binary} -r 1/5 -i #{Shellwords.escape(@movie.path)} #{Shellwords.escape(@output_file)}"
       FFMPEG.logger.info("Running transcoding...\n#{@command}\n")
       @output = ""
       puts "TRANSCODING SHIT.////////////////"
