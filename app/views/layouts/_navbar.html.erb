@@ -1,9 +1,9 @@
 <nav class="navbar navbar-default navbar-fixed-top" role="navigation">
   <div class="container-fluid">
     <div class="navbar-header">
-      <%= link_to "Ventiview", root_path, :class => "navbar-brand" %>
+      <%= link_to "Happening Now", root_path, :class => "navbar-brand" %>
     </div>
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+    <div class="navbar-collapse collapse" id="bs-example-navbar-collapse-1">
       <ul class="nav navbar-nav">
         <li class="active">
           <li><%= link_to "Popular", popular_path, {class: "popular-button"} %></li>
@@ -17,10 +17,9 @@
           <%= f.submit class: "btn btn-primary", value: "Search" %>
         </div>
         <%= f.label "Search Images" %>
-        <%= f.check_box 'images', {checked: "checked"} %> 
+        <%= f.check_box 'images', {checked: "checked"}%> 
         <%= f.label "Search Videos" %> 
-        <%= f.check_box 'videos', {checked: "checked"} %> 
-        
+        <%= f.check_box 'videos', {checked: "checked" %> 
       <% end %>
 
       <ul class="nav navbar-nav navbar-right">
