@@ -1,6 +1,10 @@
 function bindEvents() {
 	//bind fancybox to images and videos
-	$("a[href$='.mp4'], a[href$='.jpg'],a[href$='.png'],a[href$='.gif']").attr('rel', 'gallery').fancybox();
+	$("a[href$='.mp4'], a[href$='.jpg'],a[href$='.png'],a[href$='.gif']").attr('rel', 'gallery').fancybox({
+		 beforeShow : function(){
+		 	this.title = $(this.element).data("caption");
+		}
+	});
 
 	//make the navbar dropdown work
 	$('.drowpdown-toggle').dropdown()
@@ -26,11 +30,15 @@ function bindEvents() {
 
 	//ensure that an images checkbox will always remain visible if checked,
 	//and appear on mouse over if unchecked / dissapear on mouseoff if unchecked
+	//also ensure that usernames/tags display over media when moused over
 	$('.thumbnail_object').on({
 		mouseover: function(){
 			var inputDiv = $(this).find('input');
 			//when you hover over a thumbnail, reveal the uploaders instagram username
 			$(this).find('.pic-username').removeClass('hide-thumbnail');
+
+			//when you hover over a thumbnail, reveal the tags associated with the image
+			$(this).find('.tags').removeClass('hide-thumbnail');
 
 			if (inputDiv.is(':checked') != true) {
 				inputDiv.addClass('show-thumbnail');
@@ -40,6 +48,9 @@ function bindEvents() {
 			var inputDiv = $(this).find('input');
 			//when you hover off of a thumbnail, hide the uploaders instagram username
 			$(this).find('.pic-username').addClass('hide-thumbnail');
+
+			//when you hover over a thumbnail, reveal the tags associated with the image
+			$(this).find('.tags').addClass('hide-thumbnail');
 
 			if (inputDiv.is(':checked') != true) {
 				inputDiv.removeClass('show-thumbnail');
@@ -134,7 +145,6 @@ function bindEvents() {
 		});
 	});
 };
-
 
 //on document load, make sure everything is bound
 $(function(){
