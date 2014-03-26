@@ -17,9 +17,7 @@
 </head>
 
 <body>
-
 <%= render 'layouts/navbar' %>
-
 	<!-- we can put this in a partial if we decide on doing a nav bar -->
 	<% flash.each do |name, msg| %>
 		<% if msg.is_a?(String) %>
@@ -30,7 +28,9 @@
 		<%end%>
 	<%end%>
 
-<%= yield %>
+  <div class="container">
+    <%= yield %>
+  </div>
 
 </body>
 </html>
