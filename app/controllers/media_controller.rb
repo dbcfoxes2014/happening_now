@@ -62,7 +62,8 @@ respond_to :json
   def save_media
     thumbnail_url = params[:media_thumbnail]
     media = params[:media]
-    current_user.flagged_contents << FlaggedContent.create(url: media, thumbnail: thumbnail_url)
+    extension = media.match(/\.([0-9a-z]+)(?:[\?#]|$)/i).captures[0]
+    current_user.flagged_contents << FlaggedContent.create(url: media, thumbnail: thumbnail_url, extension: extension)
     render :json => { count: current_user.flagged_contents.length}
   end
 

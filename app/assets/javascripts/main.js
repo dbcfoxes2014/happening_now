@@ -5,17 +5,6 @@ function bindEvents() {
 	//make the navbar dropdown work
 	$('.drowpdown-toggle').dropdown()
 
-	//when you hover over a thumbnail, reveal the uploaders instagram username
-	$(document).on('mouseenter', '.thumbnail_object', function(){
-		var link = $(this).find('.pic-username')
-		link.removeClass('hide-thumbnail')
-	});
-
-	//when you hover off of a thumbnail, hide the uploaders instagram username
-	$(document).on('mouseleave', '.thumbnail_object', function(){
-		$(this).find('.pic-username').addClass('hide-thumbnail')
-	});
-
 	//when you click a video thumbnail, make it appear in a lightbox
 	$('.video_thumbnail').on('click', function(){
 	  var save_url = $(this).attr('id');
@@ -39,15 +28,22 @@ function bindEvents() {
 	//and appear on mouse over if unchecked / dissapear on mouseoff if unchecked
 	$('.thumbnail_object').on({
 		mouseover: function(){
-			if ($(this).find('input').is(':checked') != true) {
-				$(this).find('input').addClass('show-thumbnail');
-				$(this).find('input').removeClass('hide-thumbnail');
+			var inputDiv = $(this).find('input');
+			//when you hover over a thumbnail, reveal the uploaders instagram username
+			$(this).find('.pic-username').removeClass('hide-thumbnail');
+
+			if (inputDiv.is(':checked') != true) {
+				inputDiv.addClass('show-thumbnail');
+				inputDiv.removeClass('hide-thumbnail');
 			}
-		},
-		mouseout: function(){
-			if ($(this).find('input').is(':checked') != true) {
-				$(this).find('input').removeClass('show-thumbnail');
-				$(this).find('input').addClass('hide-thumbnail');
+		},mouseout: function(){
+			var inputDiv = $(this).find('input');
+			//when you hover off of a thumbnail, hide the uploaders instagram username
+			$(this).find('.pic-username').addClass('hide-thumbnail');
+
+			if (inputDiv.is(':checked') != true) {
+				inputDiv.removeClass('show-thumbnail');
+				inputDiv.addClass('hide-thumbnail');
 			}
 		}
 	});
@@ -60,15 +56,15 @@ function bindEvents() {
 		route = 'more_results';
 
 		$.ajax({
-	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-	        url: route,
-		    type: "get",
+      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+      url: route,
+    	type: "get",
 
-	        success: function(serverResponse){
-	        	console.log(serverResponse);
-	        	$(".display_results").html(serverResponse);
-	        	bindEvents();
-	    	}
+      success: function(serverResponse){
+      	console.log(serverResponse);
+      	$(".display_results").html(serverResponse);
+      	bindEvents();
+	    }
 		});
 	});
 
@@ -102,18 +98,19 @@ function bindEvents() {
 	//if you're unchecking it.
 	//Then go to a ruby method which saves the selected media into the database
 	$('.selection_checkbox').on('click',function() {
+		var inputDiv = $(this).find('input');
 		route = undefined;
 		if($(this).is(':checked')){
 			route = 'save_media_to_session';
-			$(this).find('input').addClass('show-check-thumbnail');
-			$(this).find('input').removeClass('show-thumbnail');
-			$(this).find('input').removeClass('hide-thumbnail');
+			inputDiv.addClass('show-check-thumbnail');
+			inputDiv.removeClass('show-thumbnail');
+			inputDiv.removeClass('hide-thumbnail');
 		}
 		else {
 		  route = 'remove_media_from_session';
-			$(this).find('input').removeClass('show-check-thumbnail');
-			$(this).find('input').removeClass('hide-thumbnail');
-			$(this).find('input').addClass('show-thumbnail');
+			inputDiv.removeClass('show-check-thumbnail');
+			inputDiv.removeClass('hide-thumbnail');
+			inputDiv.addClass('show-thumbnail');
 		}
 
 		var save_url = $(this).attr('id');
@@ -125,21 +122,19 @@ function bindEvents() {
 
 
 		$.ajax({
-	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-	        url: route,
-				data: {'media' : save_url,
-  						 'media_thumbnail' : thumbnail },
-		    	type: "post",
-					dataType: "json"
-
-		})
-			.always(function(serverResponse){
-				$(".view-selected-button").html("View Selected Media (" + serverResponse.count + ")");
-			});
-
+      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+      url: route,
+			data: {
+				'media' : save_url,
+				'media_thumbnail' : thumbnail
+			},
+    	type: "post",
+			dataType: "json"
+		}).always(function(serverResponse){
+			$(".view-selected-button").html("View Selected Media (" + serverResponse.count + ")");
+		});
 	});
-
-}
+};
 
 
 //on document load, make sure everything is bound
