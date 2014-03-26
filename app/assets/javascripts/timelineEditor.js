@@ -85,7 +85,8 @@ var renderVideo = function(movie_array){
           command: 'startVideoRender'
         }
       }).done(function(responce){
-        //tell the user the render is done (we need background jobs)
+        //tell the user the render is starting and ping it
+        job_id = responce.job_id;
         statusDiv.html(
           '<div class="progressbar" data-perc="100">'+
             '<div class="bar"><span></span></div>'+
@@ -97,16 +98,18 @@ var renderVideo = function(movie_array){
             type: "get",
             url: "/editor/renderIO",
             data: {
-              command: 'renderTime',
-              job_id: '12'
+              query: 'renderTime',
+              job_id: job_id
             }
           }).done(function(responce){
+            console.log("Ping responce: "+responce.status);
             drawProgressBar(100);
             if(responce.status == 'done'){
-              $('#renderStatus p').html("Render Complete!");
+              $('#renderStatus').html("<p>Render Complete!</p>");
+              clearInterval(intervalID);
             }
           });
-        }, 1500);
+        }, 3000);
       });
     });
     console.log("AJAX responce done: "+responce.status+responce.slot);
@@ -160,16 +163,18 @@ var RenderSlideshow = function(movie_array){
             type: "get",
             url: "/editor/renderIO",
             data: {
-              command: 'renderTime',
-              job_id: '12'
+              query: 'renderTime',
+              job_id: job_id
             }
           }).done(function(responce){
+            console.log("Ping responce: "+responce.status);
             drawProgressBar(100);
             if(responce.status == 'done'){
-              $('#renderStatus p').html("Render Complete!");
+              $('#renderStatus').html("<p>Render Complete!</p>");
+              clearInterval(intervalID);
             }
           });
-        }, 1500);
+        }, 3000);
       });
     });
     console.log("AJAX responce done: "+responce.status+responce.slot);
