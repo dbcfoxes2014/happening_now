@@ -18,6 +18,8 @@
 
 <body>
 <%= render 'layouts/navbar' %>
+  <% session[:next_urls] ||= [] %>
+
 	<!-- we can put this in a partial if we decide on doing a nav bar -->
 	<% flash.each do |name, msg| %>
 		<% if msg.is_a?(String) %>
