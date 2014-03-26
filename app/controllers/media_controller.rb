@@ -27,13 +27,13 @@ before_filter :authenticate_user!, only: [:new]
       redirect_to :root and return
     end
 
-    
+
 
     # @media = EventController.search_for_event(params[:search_data]) and return
 
     @search_content = join_values(params[:search_data])
     # binding.pry
-    
+
     check_search_content_keywords(@search_content)
 
     similar_tags = find_similar_tags(@search_content)
@@ -73,6 +73,10 @@ before_filter :authenticate_user!, only: [:new]
     end
 
     @media = temp_media[0]["data"]
+
+    if current_user
+      @flagged_media = FlaggedContent.where(user_id: current_user.id).pluck(:url)
+    end
 
     render partial: "display_results"
   end
