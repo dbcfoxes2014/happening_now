@@ -13,7 +13,7 @@ module SearchHelper
 	end
 
 	def grab_all_media(values)
-		session[:next_max_id] = []
+		session[:next_urls] = []
 		session[:search_terms] = values
 		media = []
 		if values.class == String
