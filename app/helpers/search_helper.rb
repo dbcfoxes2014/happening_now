@@ -1,11 +1,20 @@
 module SearchHelper
 
+	def fetch(url, response = '')
+	  begin
+	    open(url) { |f| f.each_line {|line| response += line } }
+	    return JSON.parse(response)
+	  rescue OpenURI::HTTPError
+	    nil
+	  end
+	end
+
+
 	def join_values(string)
 		return string.gsub(/\W/, "")
 	end
 
 	def find_similar_tags(value)
-		# binding.pry
 		similar_media = []
 			for item in Instagram.tag_search(value, {count: 4})
 				similar_media << item.name
@@ -34,7 +43,6 @@ module SearchHelper
 
 	def grab_select_media(values, wanted_type)
 		session[:next_urls] = []
-
 		media = []
 
 		values.each do |value|
