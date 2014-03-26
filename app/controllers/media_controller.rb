@@ -60,31 +60,26 @@ before_filter :authenticate_user!, only: [:new]
         session[:next_urls].push(temp_media[index]["pagination"]["next_url"])
     end
 
-    #marvel at the stream of madness that they've handed over to us.
-    #then build an object which will spit it out in a format that our
-    #current display method will accept
+    @media = temp_media[0]["data"]
+
+    render partial: "display_results"
+  end
+
+  def event_media_pagination
+    if !session[:next_user_max_id]
+      session[:next_user_max_id] = Instagram.user_recent_media(params[:user_id]).pagination.next_max_id
+    else
+      session[:next_user_max_id] = Instagram.user_recent_media(params[:user_id], :max_id => session[:next_user_max_id]).pagination.next_max_id
+    end
+
     @media = []
-    temp_media[0]["data"].each_with_index do |content, index|
-      @media << {}
-      @media[index]["user"] = { "username" => "temp" }
-      if content["videos"]
-        @media[index]["type"] = "video"
-        @media[index]["videos"] = {}
-        @media[index]["videos"]["standard_resolution"] = {}
-        @media[index]["videos"]["standard_resolution"]["url"] = content["videos"]["standard_resolution"]["url"]
-        @media[index]["images"] = { "standard_resolution" => { "url" => "#"} }
-        p @media[index]["videos"]["standard_resolution"]["url"]
-      else
-        @media[index]["type"] = "image"
-        @media[index]["images"] = {}
-        @media[index]["images"]["standard_resolution"] = {}
-        @media[index]["images"]["standard_resolution"]["url"] = content["images"]["standard_resolution"]["url"]
-      end
-      @media[index]["link"] = "to do -- figure out how to set this"
+    for item in Instagram.user_recent_media(params[:user_id], :max_id => session[:next_user_max_id])
+      @media << item
     end
 
     render partial: "display_results"
   end
+
 
   def save_media
     thumbnail_url = params[:media_thumbnail]

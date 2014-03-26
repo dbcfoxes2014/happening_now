@@ -52,6 +52,29 @@ function bindEvents() {
 		}
 	});
 
+	//on the page where you view the users instagram media
+	//when you click on the more results function, go to a route to grab the next set
+	//of images, and then replace the search_results content with the updated media set
+	$('.more_user_results').on('click',function(e) {
+		e.preventDefault();
+		console.log('he');
+		route = 'event_media_pagination';
+		var user_id = $(this).attr('id');
+
+		$.ajax({
+	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+	        url: route,
+	        data: {'user_id' : user_id},
+		    type: "get",
+
+	        success: function(serverResponse){
+	        	$(".display_results").html(serverResponse);
+	        	bindEvents();
+	    	}
+		});
+	});
+
+	//on any page with pagination with the exception of the user pagination results
 	//when you click on the more results function (this link is on many pages...), go to a route to grab the next set
 	//of images, and then replace the search_results content with the updated media set
 	$('.more_results').on('click',function(e) {
@@ -65,9 +88,8 @@ function bindEvents() {
 		    	type: "get",
 
 	        success: function(serverResponse){
-	        	$('.container').append(serverResponse);
+	        	$('.display_results').html(serverResponse);
 	        	bindEvents();
-	        	// console.log(serverResponse)
 	    	}
 		});
 	});
@@ -75,8 +97,7 @@ function bindEvents() {
 	//when you check an image to be saved,
 	//update its class to ensure that it won't
 	//become hidden when you mouse off of the thumbnail.
-	//Alternatively, ensure that it doesn't hvae this class
-	//if you're unchecking it.
+	//Alternatively, ensure that it doesn't hvae this class if you're unchecking it.
 	//Then go to a ruby method which saves the selected media into the database
 	$('.selection_checkbox').on('click',function() {
 		var route = undefined;
