@@ -1,6 +1,6 @@
 class EditorController < ApplicationController
-
   before_filter :authenticate_user!
+  include RenderHelper
 
   def video
     if(current_user)
@@ -29,6 +29,7 @@ class EditorController < ApplicationController
     else
       response = {status: 'Query is empty'}
     end
+    puts response
     render json: response
   end
 
