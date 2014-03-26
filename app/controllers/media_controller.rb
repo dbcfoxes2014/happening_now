@@ -6,6 +6,7 @@ require 'json'
 
 class MediaController < ApplicationController
 include SearchHelper
+include EventHelper
 include BannedWordsHelper
 respond_to :json
 before_filter :authenticate_user!, only: [:new]
@@ -25,6 +26,7 @@ before_filter :authenticate_user!, only: [:new]
     if params[:search_data] == ""
       flash[:alert] = "Enter something to search"
       redirect_to :root and return
+
     elsif params[:search_data].first[0] == "@" #an @ at the beginning designates a search for an instagram user
       session[:next_user_max_id] = nil
       params[:search_data] = params[:search_data][1..-1]
@@ -54,6 +56,7 @@ before_filter :authenticate_user!, only: [:new]
       if current_user
         @flagged_media = FlaggedContent.where(user_id: current_user.id).pluck(:url)
       end
+
     end
   end
 
