@@ -39,7 +39,7 @@ class EditorController < ApplicationController
         when 'grabVideos'
           response.merge!({status: grabVidURLs(params[:urls]) ? 'videosDownloaded' : 'downloadFailed'})
         when 'grabPhotos'
-          response.merge!({status: grabVidURLs(params[:urls]) ? 'photosDownloaded' : 'downloadFailed'})
+          response.merge!({status: grabPicURLs(params[:urls]) ? 'photosDownloaded' : 'downloadFailed'})
         when 'startVideoRender'
           response.merge!({status: 'renderVideoStart',job_id: rand(200)})
           job_id = RenderWorker.perform_async(current_user.id,session[:videos],'movie')
@@ -55,15 +55,6 @@ class EditorController < ApplicationController
         when 'stopRender'
           puts "Stopping Render on job_id: #{params[:slot]}"
           response.merge!({status: 'renderStop',job_id: rand(200)})
-        when 'verbocity'
-          dir = params[:direction]
-          if dir == "+"
-            puts "Increasing Verbocity"
-            response.merge!({status: 'verbChange',level: 0})
-          elsif dir == "-"
-            puts "Decreasing Verbocity"
-            response.merge!({status: 'verbChange',level: 0})
-          end
         else
           response = {status: 'Command Not Recognized'}
         end
@@ -92,9 +83,11 @@ private
   def grabPicURLs(urls)
     return false if (urls.nil? || urls.empty?)
     photo_files = Array.new
-    urls.map do |url|
-      photo_files << url[-12..-1]
-      save_dir = "public/data/img#{photo_files[-1]}";
+    urls.each_with_index.map do |url,index|
+      index = "0#{index}" if index < 10
+      photo_files << "img#{current_user.id}_#{index}.jpg"
+      save_dir = "public/data/#{photo_files[-1]}";
+      p "URL Files: #{url}"
       open(save_dir,"wb") do |file|
         file.write open(url).read
       end
