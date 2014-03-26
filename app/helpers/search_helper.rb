@@ -1,5 +1,15 @@
 module SearchHelper
 
+	def fetch(url, response = '')
+	  begin
+	    open(url) { |f| f.each_line {|line| response += line } }
+	    return JSON.parse(response)
+	  rescue OpenURI::HTTPError
+	    nil
+	  end
+	end
+
+
 	def join_values(string)
 		return string.gsub(/\W/, "")
 	end
@@ -37,7 +47,6 @@ module SearchHelper
 
 	def grab_select_media(values, wanted_type)
 		session[:next_urls] = []
-
 		media = []
 
 		values.each do |value|
