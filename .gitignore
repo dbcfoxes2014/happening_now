@@ -17,7 +17,8 @@
 /log/*.log
 /tmp
 
-
+#Facebook Secret Keys
+facebook.yml
 
 #Ignore Secret keys
 instagram.yml
