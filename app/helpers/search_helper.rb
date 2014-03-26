@@ -14,6 +14,11 @@ module SearchHelper
 		return string.gsub(/\W/, "")
 	end
 
+	def seperate_values(string)
+		string.gsub!(/\W/, " ")
+		string.split(" ")
+	end
+
 	def find_similar_tags(value)
 		similar_media = []
 			for item in Instagram.tag_search(value, {count: 4})
