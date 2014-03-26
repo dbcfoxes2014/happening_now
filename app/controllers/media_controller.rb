@@ -27,11 +27,13 @@ before_filter :authenticate_user!, only: [:new]
       redirect_to :root and return
     end
 
-    # binding.pry
+    
 
     # @media = EventController.search_for_event(params[:search_data]) and return
-    @search_content = seperate_values(params[:search_data], ' ')
 
+    @search_content = join_values(params[:search_data])
+    # binding.pry
+    
     check_search_content_keywords(@search_content)
 
     similar_tags = find_similar_tags(@search_content)
@@ -43,7 +45,6 @@ before_filter :authenticate_user!, only: [:new]
     elsif params[:search][:images] == "1" && params[:search][:videos] == "1"
       @similar_media = grab_all_media(similar_tags).sample(4)
       @media = grab_all_media(@search_content)
-      binding.pry
     elsif params[:search][:images] == "1"
       @similar_media = grab_select_media(similar_tags, "image").sample(4)
       @media = grab_select_media(@search_content, "image")
