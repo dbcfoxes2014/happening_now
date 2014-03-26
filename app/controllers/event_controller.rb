@@ -49,7 +49,8 @@ class EventController < ApplicationController
 			end
 		else
 			@event_message = "No event media found, here is some media from that area!"
-			values = seperate_values(event['event']['title'], ' ')
+			# values = seperate_values(event['event']['title'], ' ')
+			# values = join_values(event['event']['title'])
 			@media = grab_all_media(values)
 		end
 		render :events
