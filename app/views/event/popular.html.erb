@@ -1,9 +1,14 @@
 <div class="container">
 	<h1>Popular Events</h1>
 
+			<p> event count : <%= @e['events'].length %> </p>
 	<ul>
 		<%@e['events'].each do |event|%>
-			<li><%= link_to "#{event['event']['title']}", 	find_event_media_path(id: event['event']['id'])%></li>
+			<% if event['event']['venue'] %>
+				<% if event['event']['venue']['latitude'] > 0.0 %>
+					<li><%= link_to "#{event['event']['title']}", 	find_event_media_path(id: event['event']['id'])%></li>
+					<%end%>
+				<%end%>
 		<%end%>
 	</ul>
 </div>
