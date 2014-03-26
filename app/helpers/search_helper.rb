@@ -112,5 +112,5 @@ module SearchHelper
 	end
 
 end
-	
-	
+
+

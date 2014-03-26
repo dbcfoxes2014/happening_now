@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require bootstrap.min
+ *= require main.css
  *= require_self
  *= require fancybox
  *= require video-js

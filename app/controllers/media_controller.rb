@@ -1,5 +1,6 @@
 class MediaController < ApplicationController
 include SearchHelper
+include BannedWordsHelper
 respond_to :json
 
   def popular
@@ -23,6 +24,9 @@ respond_to :json
 
     # @media = EventController.search_for_event(params[:search_data]) and return
     @search_content = seperate_values(params[:search_data], ' ')
+    
+    check_search_content_keywords(@search_content)
+
     similar_tags = find_similar_tags(@search_content)
     @message = "Search Results for #{@search_content}"
 
@@ -66,7 +70,8 @@ respond_to :json
   def save_media
     thumbnail_url = params[:media_thumbnail]
     media = params[:media]
-    current_user.flagged_contents << FlaggedContent.create(url: media, thumbnail: thumbnail_url)
+    extension = media.match(/\.([0-9a-z]+)(?:[\?#]|$)/i).captures[0]
+    current_user.flagged_contents << FlaggedContent.create(url: media, thumbnail: thumbnail_url, extension: extension)
     render :json => { count: current_user.flagged_contents.length}
   end
 
