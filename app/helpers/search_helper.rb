@@ -32,7 +32,7 @@ module SearchHelper
 
 	def grab_select_media(values, wanted_type)
 		session[:next_urls] = []
-		
+
 		media = []
 
 		values.each do |value|
@@ -107,9 +107,12 @@ module SearchHelper
 			end
 		end
 		events.uniq
-		
+
 	end
 
+	def get_instagram_user
+		Instagram.user_search(params[:username])
+	end
 end
-	
-	
+
+
