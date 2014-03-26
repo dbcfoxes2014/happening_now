@@ -72,5 +72,12 @@ display:inline-block;
 position: relative;
 top: 110px;
 left: -240px;
+}
 
+.tags {
+  z-index: 5;
+  overflow: hidden;
+  display:inline-block;
+  position:absolute;
+  background-color: black;
 }
