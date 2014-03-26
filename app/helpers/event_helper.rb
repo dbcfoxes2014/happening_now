@@ -7,7 +7,6 @@ include SearchHelper
 			if events['events'][1]['event']['venue']['name'].similar(location) > 60
 					lat = events['events'][1]['event']['venue']['latitude']
 					long = events['events'][1]['event']['venue']['longitude']
-					binding.pry
 					media = find_media_by_location(lat, long)
 			end
 		end
