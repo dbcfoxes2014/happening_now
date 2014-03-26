@@ -1,10 +1,11 @@
 module SearchHelper
 
 	def join_values(string)
-		string.gsub!(/\W/, "")
+		return string.gsub(/\W/, "")
 	end
 
 	def find_similar_tags(value)
+		# binding.pry
 		similar_media = []
 			for item in Instagram.tag_search(value, {count: 4})
 				similar_media << item.name
@@ -14,14 +15,14 @@ module SearchHelper
 
 	def grab_all_media(values)
 		session[:next_urls] = []
-		session[:search_terms] = values
 		media = []
+
 		if values.class == String
 			values = values.split()
 		end
 
 		values.each do |value|
-			session[:next_max_id] << Instagram.tag_recent_media(value).pagination.next_max_id
+			session[:next_urls] << Instagram.tag_recent_media(value).pagination.next_url
 			for item in Instagram.tag_recent_media(value)
 				media << item
 			end
@@ -30,12 +31,12 @@ module SearchHelper
 	end
 
 	def grab_select_media(values, wanted_type)
-		session[:next_max_id] = []
-		session[:search_terms] = values
+		session[:next_urls] = []
+		
 		media = []
 
 		values.each do |value|
-			session[:next_max_id] << Instagram.tag_recent_media(value).pagination.next_max_id
+			session[:next_urls] << Instagram.tag_recent_media(value).pagination.next_url
 			for item in Instagram.tag_recent_media(value)
 				if item.type == wanted_type
 					media << item
@@ -46,8 +47,7 @@ module SearchHelper
 	end
 
 	def grab_popular_media
-	    session[:next_max_id] = []
-	    session[:search_terms] = []
+	  session[:next_url] = []
 
 		media = []
 		for item in Instagram.media_popular

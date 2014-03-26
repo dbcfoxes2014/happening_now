@@ -27,11 +27,12 @@ before_filter :authenticate_user!, only: [:new]
       redirect_to :root and return
     end
 
-    # binding.pry
+    
 
     # @media = EventController.search_for_event(params[:search_data]) and return
 
     @search_content = join_values(params[:search_data])
+    # binding.pry
     
     check_search_content_keywords(@search_content)
 
