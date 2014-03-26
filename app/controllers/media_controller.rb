@@ -71,6 +71,7 @@ respond_to :json
   def recent_media
     @media = Video.all.limit(20)
     #@slideshows = SlideShow.all
+    @media.reverse
   end
 
   def selected_media
