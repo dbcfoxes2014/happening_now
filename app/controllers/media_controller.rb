@@ -1,7 +1,14 @@
+require 'open-uri'
+require 'uri'
+require 'net/http'
+require 'net/https'
+require 'json'
+
 class MediaController < ApplicationController
 include SearchHelper
 include BannedWordsHelper
 respond_to :json
+before_filter :authenticate_user!, only: [:new]
 
   def popular
     @media = grab_popular_media
@@ -23,6 +30,7 @@ respond_to :json
     # binding.pry
 
     # @media = EventController.search_for_event(params[:search_data]) and return
+
     @search_content = join_values(params[:search_data])
     
     check_search_content_keywords(@search_content)
@@ -51,19 +59,38 @@ respond_to :json
     end
   end
 
-  def more_results
-    @media = []
-    current_max_ids = session[:next_max_id]
-    session[:next_max_id] = []
+  def paginate_results
+    #save current next_urls and then reset them
+    current_urls = session[:next_urls]
+    session[:next_urls] = []
 
-    session[:search_terms].each_with_index do |value, index|
-      session[:next_max_id] << Instagram.tag_recent_media(value, :max_id => current_max_ids[index]).pagination.next_max_id
-      for item in Instagram.tag_recent_media(value)
-        @media << item
-      end
+    #fetch the next set of data from instagram.
+    temp_media = []
+    current_urls.each_with_index do |url, index|
+        temp_media << (fetch(url))
+        session[:next_urls].push(temp_media[index]["pagination"]["next_url"])
     end
+
+    @media = temp_media[0]["data"]
+
     render partial: "display_results"
   end
+
+  def event_media_pagination
+    if !session[:next_user_max_id]
+      session[:next_user_max_id] = Instagram.user_recent_media(params[:user_id]).pagination.next_max_id
+    else
+      session[:next_user_max_id] = Instagram.user_recent_media(params[:user_id], :max_id => session[:next_user_max_id]).pagination.next_max_id
+    end
+
+    @media = []
+    for item in Instagram.user_recent_media(params[:user_id], :max_id => session[:next_user_max_id])
+      @media << item
+    end
+
+    render partial: "display_results"
+  end
+
 
   def save_media
     thumbnail_url = params[:media_thumbnail]
@@ -93,20 +120,5 @@ respond_to :json
     @username =  Instagram.user(params[:user_id]).username
     @id = params[:user_id]
     @media = find_user_media(params[:user_id])
-  end
-
-  def event_media_pagination
-    if !session[:next_user_max_id]
-      session[:next_user_max_id] = Instagram.user_recent_media(params[:user_id]).pagination.next_max_id
-    else
-      session[:next_user_max_id] = Instagram.user_recent_media(params[:user_id], :max_id => session[:next_user_max_id]).pagination.next_max_id
-    end
-
-    @media = []
-    for item in Instagram.user_recent_media(params[:user_id], :max_id => session[:next_user_max_id])
-      @media << item
-    end
-
-    render partial: "display_results"
   end
 end

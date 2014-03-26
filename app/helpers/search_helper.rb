@@ -4,13 +4,11 @@ module SearchHelper
 		string.gsub!(/\W/, "")
 	end
 
-	def find_similar_tags(search_content)
+	def find_similar_tags(value)
 		similar_media = []
-		# values.each do |value|
-			for item in Instagram.tag_search(search_content, {count: 4})
+			for item in Instagram.tag_search(value, {count: 4})
 				similar_media << item.name
 			end
-		# end
 		similar_media.sample(5)
 	end
 
@@ -18,6 +16,9 @@ module SearchHelper
 		session[:next_max_id] = []
 		session[:search_terms] = values
 		media = []
+		if values.class == String
+			values = values.split()
+		end
 
 		values.each do |value|
 			session[:next_max_id] << Instagram.tag_recent_media(value).pagination.next_max_id
@@ -35,7 +36,6 @@ module SearchHelper
 
 		values.each do |value|
 			session[:next_max_id] << Instagram.tag_recent_media(value).pagination.next_max_id
-
 			for item in Instagram.tag_recent_media(value)
 				if item.type == wanted_type
 					media << item
@@ -111,5 +111,5 @@ module SearchHelper
 	end
 
 end
-
-
+	
+	

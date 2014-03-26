@@ -2,22 +2,21 @@ class EventController < ApplicationController
 	include SearchHelper
   respond_to :json
 
-
 	def popular_events
-		response = $eb_client.event_search(date: "Last Week")	
+		response = $eb_client.event_search(date: "Last Week")
 		@e = JSON.parse(response.body)
 		@e["events"].delete_at(0)
 		# binding.pry
 
 		render :popular
-	end 
+	end
 
 	def find_venue_location(event)
 		event = event['event']
 		if event['venue']['latitude'] > 0
 			venue_chars = event['venue']['name'].split('').sort.join('').strip
 			lat = event['venue']['latitude']
-			long = event['venue']['longitude']			
+			long = event['venue']['longitude']
 			start = event['start_date']
 			media = find_id_by_location(lat, long, venue_chars)
 		else
@@ -33,7 +32,7 @@ class EventController < ApplicationController
 				@media = find_media_by_location(event['event']['venue']['latitude'], event['event']['venue']['longitude'], event['event']['start_date'])
 			else
 				@media = find_media_by_venue(venue_id)
-			end			
+			end
 		else
 			values = seperate_values(event['event']['title'], ' ')
 			@media = grab_all_media(values)
