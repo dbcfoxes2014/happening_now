@@ -4,6 +4,7 @@ class CreateFlaggedContents < ActiveRecord::Migration
       t.belongs_to :user
       t.string :url
       t.string :thumbnail
+      t.string :extension
 
       t.timestamps
     end

@@ -106,6 +106,21 @@ module SearchHelper
 		nil
 	end
 
+	def find_matching_event_names(list, event_name)
+		events = []
+		list.each do |event|
+			if event['event']['venue']
+				if event['event']['title'].split('').sort.join('').strip.similar(event_name) > 10
+					events << event['event']
+				elsif event['event']['venue']['name'].split('').sort.join('').strip.similar(event_name) > 10
+					events << event['event']
+				end
+			end
+		end
+		events.uniq
+		
+	end
+
 end
 
 

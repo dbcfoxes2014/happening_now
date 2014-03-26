@@ -6,6 +6,7 @@ require 'json'
 
 class MediaController < ApplicationController
 include SearchHelper
+include BannedWordsHelper
 respond_to :json
 before_filter :authenticate_user!, only: [:new]
 
@@ -20,12 +21,19 @@ before_filter :authenticate_user!, only: [:new]
   end
 
   def search
+    @media = []
     if params[:search_data] == ""
       flash[:alert] = "Enter something to search"
       redirect_to :root and return
     end
 
+    # binding.pry
+
+    # @media = EventController.search_for_event(params[:search_data]) and return
     @search_content = seperate_values(params[:search_data], ' ')
+
+    check_search_content_keywords(@search_content)
+
     similar_tags = find_similar_tags(@search_content)
     @message = "Search Results for #{@search_content}"
 
@@ -35,6 +43,7 @@ before_filter :authenticate_user!, only: [:new]
     elsif params[:search][:images] == "1" && params[:search][:videos] == "1"
       @similar_media = grab_all_media(similar_tags).sample(4)
       @media = grab_all_media(@search_content)
+      binding.pry
     elsif params[:search][:images] == "1"
       @similar_media = grab_select_media(similar_tags, "image").sample(4)
       @media = grab_select_media(@search_content, "image")
@@ -42,6 +51,8 @@ before_filter :authenticate_user!, only: [:new]
       @similar_media = grab_select_media(similar_tags, "video").sample(4)
       @media = grab_select_media(@search_content, "video")
     end
+
+    # @media.flatten!
 
     if current_user
       @flagged_media = FlaggedContent.where(user_id: current_user.id).pluck(:url)
@@ -84,7 +95,9 @@ before_filter :authenticate_user!, only: [:new]
   def save_media
     thumbnail_url = params[:media_thumbnail]
     media = params[:media]
-    current_user.flagged_contents << FlaggedContent.create(url: media, thumbnail: thumbnail_url)
+    extension = media.match(/\.([0-9a-z]+)(?:[\?#]|$)/i).captures[0]
+    current_user.flagged_contents << FlaggedContent.create(url: media, thumbnail: thumbnail_url, extension: extension)
+    p "-------------------sadfjadsjfasdfjasjfasdfj"
     render :json => { count: current_user.flagged_contents.length}
   end
 

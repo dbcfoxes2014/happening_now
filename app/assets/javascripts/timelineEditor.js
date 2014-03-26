@@ -2,7 +2,32 @@ var trackPallet = new Array();
 var clipID = 0;
 var timelineLength = 60.0;
 
-var DrawProgressBar = function(dataperc){
+var drawTimeIncriments = function(containerDiv,timeRange){
+  var headerWidth = containerDiv.width();
+
+
+  var tickLargeCount = timeRange;
+  //break the smaller ticks up into sets of 4 between the main ticks
+  var tickSmallCount = tickLargeCount*5.0;
+  var totalTicks = tickLargeCount + tickSmallCount;
+
+  var margin = (headerWidth/totalTicks);
+
+  //var margin = (totalTicks/headerWidth);
+
+  for(var i=0;i<totalTicks;++i){
+    if(i % 6 == 0)//every 6th tick
+      $('<span class="timelineTickTall"></span>').css({
+        left: ((i/totalTicks)*headerWidth)-1+'px'
+      }).appendTo(containerDiv);
+    else
+      $('<span class="timelineTickShort"></span>').css({
+        left: ((i/totalTicks)*headerWidth)-1+'px'
+      }).appendTo(containerDiv);
+  }
+}
+
+var drawProgressBar = function(dataperc){
   $('.progressbar').each(function(){
     var t = $(this),
       barperc = Math.round(dataperc*5.56);
@@ -16,7 +41,7 @@ var DrawProgressBar = function(dataperc){
   });
 };
 
-var RenderTime = function(currentTime){
+var renderTime = function(currentTime){
     var miliSec = String(currentTime - Math.floor(currentTime)).slice(2,5);
     var totalSec = Math.round(currentTime);
     var minutes = parseInt( totalSec / 60 ) % 60;
@@ -25,7 +50,7 @@ var RenderTime = function(currentTime){
     return (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds)+":"+miliSec;
 };
 
-var RenderVideo = function(movie_array){
+var renderVideo = function(movie_array){
   var statusDiv = $('#renderStatus');
   console.log("sending ajax request on render");
   //ask for a slot to render in
@@ -61,7 +86,7 @@ var RenderVideo = function(movie_array){
         }
       }).done(function(responce){
         //tell the user the render is done (we need background jobs)
-        $('#renderStatus').html(
+        statusDiv.html(
           '<div class="progressbar" data-perc="100">'+
             '<div class="bar"><span></span></div>'+
             '<div class="label"><span></span></div>'+
@@ -76,7 +101,7 @@ var RenderVideo = function(movie_array){
               job_id: '12'
             }
           }).done(function(responce){
-            DrawProgressBar(100);
+            drawProgressBar(100);
             if(responce.status == 'done'){
               $('#renderStatus p').html("Render Complete!");
             }
@@ -95,12 +120,9 @@ var RenderSlideshow = function(movie_array){
   $.ajax({
     type: "GET",
     url: "/editor/renderIO",
-    //context: document.body,
     data: {query: 'slotAvaliable'}
   }).done(function(responce) {
-    // console.log("Mapping: "+movie_array[0].url+" to: "+$.map(movie_array, function(clip) {
-    //     return clip.url
-    // }));
+
     //tell the avaliable slot what urls we need to copy
     statusDiv.html('<p>Copying files to server please wait...</p>');
     $.ajax({
@@ -113,6 +135,10 @@ var RenderSlideshow = function(movie_array){
         })
       }
     }).done(function(responce){
+      if(responce.status == 'downloadFailed'){
+        statusDiv.html('<p>OHHHHH, NOW YOU FUCKED UP...NOW YOU FUCKED UP...YOU HAVE FUCKED UP NOW!</p>');
+        return;
+      }
       statusDiv.html('<p>Done copying, starting render...</p>');
       //tell the slot to start the render now the URL's are copied
       $.ajax({
@@ -129,7 +155,21 @@ var RenderSlideshow = function(movie_array){
             '<div class="label"><span></span></div>'+
           '</div>'
         );
-        DrawProgressBar();
+        var intervalID = setInterval(function() {
+          $.ajax({
+            type: "get",
+            url: "/editor/renderIO",
+            data: {
+              command: 'renderTime',
+              job_id: '12'
+            }
+          }).done(function(responce){
+            drawProgressBar(100);
+            if(responce.status == 'done'){
+              $('#renderStatus p').html("Render Complete!");
+            }
+          });
+        }, 1500);
       });
     });
     console.log("AJAX responce done: "+responce.status+responce.slot);
@@ -140,23 +180,23 @@ var Track = function(e){
   this.clips = new Array();
 };
 
-var Clip = function(url,thumb,start,stop){
+var Clip = function(url,thumb,start,stop,cropFront,cropEnd){
   this.url  = url; this.thumb = thumb;
   this.start=start;this.stop  = stop;
+  this.cropFront=cropFront;
+  this.cropEnd  =cropEnd;
 
   //console.log(this.url+this.thumb+this.start+this.stop);
 };
 ////////////////////////////////////////MOVIE STUDIO////////////////////////////////////////
-var MovieStudio = function(){
-  var trackOffset= $('#TrackWrapper').offset().left;
-  var trackWidth = $('#TrackWrapper').width();
+var MovieStudio = function(trackDiv){
+  var trackOffset= trackDiv.offset().left;
+  var trackWidth = trackDiv.width();
   //start the tracks up
   var TrackMain = new Track();
-  // var TrackMain1 = new Track();
-  // var TrackMain2 = new Track();
-  // var TrackMerged= new Array;
   //resize handeling
-  $(window).bind('resize', function () { trackWidth = $('#TrackWrapper').width(); });
+  $(window).bind('resize', function () { trackWidth = trackDiv.width(); });
+  drawTimeIncriments($('#editorTimeRulerTrack'),60.0);
   //debug load the movie pallet
   // $('#moviePallet div').load('/debug_grab_test_urls', function(){
   //   $('.palletThumb').each(function(){
@@ -237,14 +277,16 @@ var MovieStudio = function(){
       //$( this ).html( "Dropped!" );
       ui.draggable.remove();
 
-      var clip_width= trackWidth * (15.0/timelineLength);
-      var clip_leftX = event.pageX - trackOffset;
+      var clip_width = trackWidth * (15.0/timelineLength);
+      var clip_leftX = event.pageX - clip_width*0.5;
       var clip_rightX= clip_leftX+15.0;
       var clipObj = new Clip(
         ui.draggable.data('url'),
         ui.draggable.data('thumbnail'),
         (clip_leftX/trackWidth)*timelineLength,
-        (clip_rightX/trackWidth)*timelineLength
+        (clip_rightX/trackWidth)*timelineLength,
+        0.0,
+        0.0
       );
 
       $clip = $( "<div id='"+ui.draggable.attr('id')+"' class='timelineVideoClip'></div>" );
@@ -254,18 +296,26 @@ var MovieStudio = function(){
           "<div class='clipThumb' style='background: url("+clipObj.thumb+")'></div>"+
         "</div>"
       );
-      $clip.draggable({//FIXME: make clips snap to each other
-        snap: "#trackVideo2, #trackVideo1, #trackVideo0, "+$clip.id,
+      $clip.draggable({//FIXME: make clips snap to each other, will write custom jquery method
+        snap: "#trackVideo2, #trackVideo1, #trackVideo0, .timelineVideoClip",
         snapMode: 'inner',
         stop: function(event, ui) {
-          var clip_width= trackWidth * ($(this).width()/timelineLength);
-          var clip_leftX = $(this).position().left - trackOffset;
-          var clip_rightX= clip_leftX+$(this).width();
+          clip_leftX = $(this).position().left - trackOffset;
+          clip_rightX= clip_leftX+$(this).width();
           clipObj.start = (clip_leftX/trackWidth)*timelineLength;
           clipObj.stop = (clip_rightX/trackWidth)*timelineLength;
+          //var clipTimeLength = clipObj.stop-clipObj.start;
+          clip_width = $(this).width();
         }
-      }).resizable({
-        handles:'e, w'
+      }).find('.clipCrop').resizable({
+        handles:'e, w',
+        stop: function(event,ui){
+          var left_offset = $(this).position().left;
+          //convert the offset to milliseconds
+          clipObj.cropFront = (left_offset/trackWidth)*timelineLength;
+          clipObj.cropEnd   = ((clip_width-$(this).width())/trackWidth)*timelineLength;
+          console.log(clipObj.cropFront +" /// "+clipObj.cropEnd);
+        }
       });
       $clip.css({//mousePos - offset of time headers
         'left': clip_leftX + 'px',
@@ -285,13 +335,13 @@ var MovieStudio = function(){
       {
         //alert('Return back');
         $("#editorTimeSlider,#editorTimeBar").animate({"left": "190px"}, 600);
-        $('#editorTimeCurrent').text(RenderTime(0.0)+"000ms");
+        $('#editorTimeCurrent span').text(renderTime(0.0)+"000ms");
       }
       else if(ui.position.left>trackWidth-10.0)
       {
           $("#editorTimeSlider,#editorTimeBar").animate({"left": trackOffset+trackWidth-10.0+"px"}, 600);
           var currentTime=((ui.position.left-trackOffset)/trackWidth) * timelineLength;
-          $('#editorTimeCurrent').text(RenderTime(currentTime)+"ms");
+          $('#editorTimeCurrent span').text(renderTime(currentTime)+"ms");
       }
     },
     drag: function(event,ui){
@@ -299,7 +349,7 @@ var MovieStudio = function(){
         top: 50.0, left: ui.position.left
       });
       var currentTime=((ui.position.left-trackOffset)/trackWidth) * timelineLength;
-      $('#editorTimeCurrent').text(RenderTime(currentTime)+"ms");
+      $('#editorTimeCurrent span').text(renderTime(currentTime)+"ms");
     }
   });
 
@@ -307,7 +357,7 @@ var MovieStudio = function(){
     //alert('Rendering that shit!');
     switch(e.target.id){
       case 'UI_render':
-        RenderVideo(TrackMain.clips.sort(function(a,b){return a.start-b.start}));
+        renderVideo(TrackMain.clips.sort(function(a,b){return a.start-b.start}));
         break;
       case 'UI_test':
         console.log(TrackMain.clips[0].stop);
@@ -326,16 +376,25 @@ var MovieStudio = function(){
             'bottom': '-=70px'
             }, "medium"
         );
-    });
+  });
 };
 ////////////////////////////////////////PHOTO STUDIO////////////////////////////////////////
-var PhotoStudio = function(){
-  var trackOffset= $('#TrackWrapper').offset().left;
-  var trackWidth = $('#TrackWrapper').width();
+var PhotoStudio = function(trackDiv){
+  var trackOffset= trackDiv.offset().left;
+  var trackWidth = trackDiv.width();
   //start the tracks up
   var TrackMain = new Track();
   //resize handeling
-  $(window).bind('resize', function () { trackWidth = $('#TrackWrapper').width(); });
+  $(window).bind('resize', function () { trackWidth = trackDiv.width(); });
+  drawTimeIncriments($('#editorTimeRulerTrack'),60.0);
+
+  var snapWidth = trackWidth * (5.0/timelineLength)-0.2;
+  for(var i=0;i<(trackWidth/snapWidth)-1;++i){
+    $('<div class="trackPhotoSnap"></div>').css({
+      width: snapWidth+'px',
+      float: 'left'
+    }).appendTo('#trackPhotos');
+  }
 
   $('#moviePallet .palletOverflow div').each(function(){
     //add id to pallet clips
@@ -368,13 +427,13 @@ var PhotoStudio = function(){
       ui.draggable.remove();
 
       var clip_width= trackWidth * (5.0/timelineLength);
-      var clip_leftX = event.pageX - trackOffset;
+      var clip_leftX = event.pageX - clip_width*0.5;
       var clip_rightX= clip_leftX+5.0;
       var clipObj = new Clip(
         ui.draggable.data('url'),
         ui.draggable.data('thumbnail'),
         (clip_leftX/trackWidth)*timelineLength,
-        (clip_rightX/trackWidth)*timelineLength
+        0.0,0.0,0.0
       );
 
       $clip = $( "<div id='"+ui.draggable.attr('id')+"' class='timelinePhotoClip'></div>" );
@@ -385,7 +444,7 @@ var PhotoStudio = function(){
         "</div>"
       );
       $clip.draggable({
-        snap: "#trackPhotos",
+        snap: ".trackPhotoSnap",
         snapMode: 'inner',
         stop: function(event, ui) {
           var clip_width= trackWidth * ($(this).width()/timelineLength);
@@ -413,13 +472,13 @@ var PhotoStudio = function(){
       {
         //alert('Return back');
         $("#editorTimeSlider,#editorTimeBar").animate({"left": "190px"}, 600);
-        $('#editorTimeCurrent').text(RenderTime(0.0)+"000ms");
+        $('#editorTimeCurrent span').text(renderTime(0.0)+"000ms");
       }
       else if(ui.position.left>trackWidth-10.0)
       {
           $("#editorTimeSlider,#editorTimeBar").animate({"left": trackOffset+trackWidth-10.0+"px"}, 600);
           var currentTime=((ui.position.left-trackOffset)/trackWidth) * timelineLength;
-          $('#editorTimeCurrent').text(RenderTime(currentTime)+"ms");
+          $('#editorTimeCurrent span').text(renderTime(currentTime)+"ms");
       }
     },
     drag: function(event,ui){
@@ -427,7 +486,7 @@ var PhotoStudio = function(){
         top: 50.0, left: ui.position.left
       });
       var currentTime=((ui.position.left-trackOffset)/trackWidth) * timelineLength;
-      $('#editorTimeCurrent').text(RenderTime(currentTime)+"ms");
+      $('#editorTimeCurrent span').text(renderTime(currentTime)+"ms");
     }
   });
 
