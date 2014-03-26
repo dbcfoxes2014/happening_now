@@ -5,7 +5,6 @@ module SearchHelper
 	end
 
 	def find_similar_tags(value)
-		# binding.pry
 		similar_media = []
 			for item in Instagram.tag_search(value, {count: 4})
 				similar_media << item.name

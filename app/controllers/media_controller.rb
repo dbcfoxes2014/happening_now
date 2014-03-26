@@ -52,7 +52,6 @@ before_filter :authenticate_user!, only: [:new]
         @similar_media = grab_select_media(similar_tags, "video").sample(4)
         @media = grab_select_media(@search_content, "video")
       end
-      # @media.flatten!
 
       if current_user
         @flagged_media = FlaggedContent.where(user_id: current_user.id).pluck(:url)
