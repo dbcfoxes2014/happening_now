@@ -1,6 +1,6 @@
 module BannedWordsHelper
 
-	def check_search_content_keywords(array)
+	def check_search_content_keywords(search_content)
 
 		banned_words = [ "17bitch",
 									"adiosbitchachos",
@@ -208,13 +208,13 @@ module BannedWordsHelper
 									"winterfuckoff",
 									"xxx"]
 
-		@search_content.each do |word|
-			if banned_words.include?(word)
+		# @search_content.each do |word|
+			if banned_words.include?(search_content)
 				flash[:alert] = "One or more of the search words you entered violate Instagram's Terms of Use. Please enter a new search."
 				redirect_to :root and return
-			else
+			# else
 
-			end
+			# end
 		end
 	end
 	

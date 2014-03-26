@@ -23,7 +23,7 @@ respond_to :json
     # binding.pry
 
     # @media = EventController.search_for_event(params[:search_data]) and return
-    @search_content = seperate_values(params[:search_data], ' ')
+    @search_content = join_values(params[:search_data])
     
     check_search_content_keywords(@search_content)
 
@@ -36,7 +36,6 @@ respond_to :json
     elsif params[:search][:images] == "1" && params[:search][:videos] == "1"
       @similar_media = grab_all_media(similar_tags).sample(4)
       @media = grab_all_media(@search_content)
-      binding.pry
     elsif params[:search][:images] == "1"
       @similar_media = grab_select_media(similar_tags, "image").sample(4)
       @media = grab_select_media(@search_content, "image")
@@ -45,7 +44,6 @@ respond_to :json
       @media = grab_select_media(@search_content, "video")
     end
 
-    binding.pry
     # @media.flatten!
 
     if current_user

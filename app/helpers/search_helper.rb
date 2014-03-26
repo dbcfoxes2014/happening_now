@@ -1,17 +1,16 @@
 module SearchHelper
 
-	def seperate_values(string, delim)
-		string.gsub!(/\W/, " ")
-		string.split(delim)
+	def join_values(string)
+		string.gsub!(/\W/, "")
 	end
 
-	def find_similar_tags(values)
+	def find_similar_tags(search_content)
 		similar_media = []
-		values.each do |value|
-			for item in Instagram.tag_search(value, {count: 4})
+		# values.each do |value|
+			for item in Instagram.tag_search(search_content, {count: 4})
 				similar_media << item.name
 			end
-		end
+		# end
 		similar_media.sample(5)
 	end
 
