@@ -25,38 +25,36 @@ before_filter :authenticate_user!, only: [:new]
     if params[:search_data] == ""
       flash[:alert] = "Enter something to search"
       redirect_to :root and return
-    end
+    elsif params[:search_data].first[0] == "@" #an @ at the beginning designates a search for an instagram user
+      session[:next_user_max_id] = nil
+      params[:search_data] = params[:search_data][1..-1]
+      user_id = Instagram.user_search(params[:search_data])
+      if user_id.first
+        redirect_to :controller => 'media', :action => 'event_media', :user_id => user_id[0].id
+      end
+    else
+      @search_content = join_values(params[:search_data])
+      check_search_content_keywords(@search_content)
+      similar_tags = find_similar_tags(@search_content)
+      @message = "Search Results for #{@search_content}"
+      if params[:search] == nil
+        @similar_media = grab_all_media(similar_tags).sample(4)
+        @media = grab_all_media(@search_content)
+      elsif params[:search][:images] == "1" && params[:search][:videos] == "1"
+        @similar_media = grab_all_media(similar_tags).sample(4)
+        @media = grab_all_media(@search_content)
+      elsif params[:search][:images] == "1"
+        @similar_media = grab_select_media(similar_tags, "image").sample(4)
+        @media = grab_select_media(@search_content, "image")
+      elsif params[:search][:videos] == "1"
+        @similar_media = grab_select_media(similar_tags, "video").sample(4)
+        @media = grab_select_media(@search_content, "video")
+      end
+      # @media.flatten!
 
-
-
-    # @media = EventController.search_for_event(params[:search_data]) and return
-
-    @search_content = join_values(params[:search_data])
-    # binding.pry
-
-    check_search_content_keywords(@search_content)
-
-    similar_tags = find_similar_tags(@search_content)
-    @message = "Search Results for #{@search_content}"
-
-    if params[:search] == nil
-      @similar_media = grab_all_media(similar_tags).sample(4)
-      @media = grab_all_media(@search_content)
-    elsif params[:search][:images] == "1" && params[:search][:videos] == "1"
-      @similar_media = grab_all_media(similar_tags).sample(4)
-      @media = grab_all_media(@search_content)
-    elsif params[:search][:images] == "1"
-      @similar_media = grab_select_media(similar_tags, "image").sample(4)
-      @media = grab_select_media(@search_content, "image")
-    elsif params[:search][:videos] == "1"
-      @similar_media = grab_select_media(similar_tags, "video").sample(4)
-      @media = grab_select_media(@search_content, "video")
-    end
-
-    # @media.flatten!
-
-    if current_user
-      @flagged_media = FlaggedContent.where(user_id: current_user.id).pluck(:url)
+      if current_user
+        @flagged_media = FlaggedContent.where(user_id: current_user.id).pluck(:url)
+      end
     end
   end
 
