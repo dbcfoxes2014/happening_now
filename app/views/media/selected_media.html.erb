@@ -1,9 +1,11 @@
 <div class="container">
 	<h1> Selected Media</h1>
+	<a href="javascript:history.go(0)">Update Page</a><br>
+
 	<% @media.each_with_index do |media, index| %>
 	<div class="thumbnail_object">
-		<input class="selection_checkbox show-check-thumbnail" type="checkbox" id="<%=media.url%>" checked>
 
+		<input class="selection_checkbox show-check-thumbnail" type="checkbox" id="<%=media.url%>" checked>
 		<% if media.url[-4..-1] == ".jpg" %>
 			<a href="<%=media.url%>"><img class="fancybox search_result" src="<%=media.url%>" height="240" width="240"></a>
 		<% else %>

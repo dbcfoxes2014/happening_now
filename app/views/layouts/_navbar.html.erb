@@ -1,46 +1,46 @@
 <nav class="navbar navbar-default" role="navigation">
-  <div class="container-fluid">
+  <div class="col-md-12">
     <div class="navbar-header">
-      <%= link_to "Ventiview", root_path, :class => "navbar-brand" %>
+      <%= link_to "Happening Now", root_path, :class => "navbar-brand" %>
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+        <i class="glyphicon glyphicon-search"></i>
+      </button>
     </div>
-
-    <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
-      <ul class="nav navbar-nav">
-        <li class="active">
-          <li><%= link_to "Popular", popular_path, {class: "popular-button"}  %></li>
-          <li><%= link_to "Recently Created Media", recently_created_media_path, {class: "recent-media-button"}%></li>
-      </ul>
-
-      <%= form_for :search, url: search_path, html: {class: "navbar-form navbar-left search-form", role: "search", method: :get} do |f| %>
-        <div class="form-group">
-          <%= f.search_field :search, name: "search_data", placeholder: "Search by tag or keyword", class: "form-control" %>
-          <%= f.submit class: "btn btn-primary", value: "Search" %>
-        </div>
-        <%= f.label "Search Images" %>
-        <%= f.check_box 'images', {checked: "checked"} %> 
-        <%= f.label "Search Videos" %> 
-        <%= f.check_box 'videos', {checked: "checked"} %> 
-        
+    <div class="navbar-collapse collapse" id="navbar-collapse1">
+      <div class="navbar-left">
+      <%= form_for :search, url: search_path, html: {class: "navbar-form search-form", role: "search", method: :get} do |f| %>
+          <%= f.search_field :search, name: "search_data", placeholder: "Tag or Keyword", class: "form-control" %>
+          <%= f.submit class: "btn btn-default btn-primary", value: "Search" %>
+        <%= f.label "Images" %>
+        <%= f.check_box 'images', { checked: "checked" } %>
+        <%= f.label "Videos" %>
+        <%= f.check_box 'videos', { checked: "checked" } %>
       <% end %>
-
+      </div>
       <ul class="nav navbar-nav navbar-right">
+          <li><%= link_to "Popular", popular_path, {class: "popular-button" } %></li>
+          <li><%= link_to "Recently Created", recently_created_media_path, { class: "recent-media-button" } %></li>
         <% if user_signed_in? %>
           <li><%= link_to "Your Projects", user_path(current_user.id) %></li>
-
-          <li><a href="#" class="dropdown-toggle" data-toggle="dropdown">Go To Editor</a>
+          <li>
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown">Media Editor</a>
             <ul class="dropdown-menu">
-              <li><%= link_to "Slide Show", editor_photo_path %></li>
-              <li><%= link_to "Video", editor_video_path %></li>
+              <li><%= link_to "Slide Show", editor_photo_path, { class: "pull-right" } %></li>
+              <li><%= link_to "Video", editor_video_path, { class: "pull-right" } %></li>
             </ul>
           </li>
-
-          <li><%= link_to "View Selected Media (#{current_user.flagged_contents.length})", selected_media_path, { class: "view-selected-button"} %></li>
+          <li><%= link_to "View Selection (#{current_user.flagged_contents.length})", selected_media_path, { class: "view-selected-button"} %></li>
           <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
+        </ul>
         <% else %>
-          <li><%= link_to "Sign Up", new_user_registration_path %></li>
-          <li><%= link_to "Sign In", new_user_session_path %></li>
-        <% end %>
+          <a href="#" class="dropdown-toggle pull-right" data-toggle="dropdown">Already a Member?</a>
+          <ul class="dropdown-menu">
+            <li><%= link_to "Sign Up", new_user_registration_path %></li>
+            <li><%= link_to "Sign In", new_user_session_path %></li>
+          <% end %>
+        </ul>
       </ul>
     </div>
   </div>
 </nav>
+

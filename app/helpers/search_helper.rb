@@ -1,27 +1,28 @@
 module SearchHelper
 
-	def seperate_values(string, delim)
-		string.delete!("#")
-		string.split(delim)
+	def join_values(string)
+		return string.gsub(/\W/, "")
 	end
 
-	def find_similar_tags(values)
+	def find_similar_tags(value)
+		# binding.pry
 		similar_media = []
-		values.each do |value|
 			for item in Instagram.tag_search(value, {count: 4})
 				similar_media << item.name
 			end
-		end
 		similar_media.sample(5)
 	end
 
 	def grab_all_media(values)
-		session[:next_max_id] = []
-		session[:search_terms] = values
+		session[:next_urls] = []
 		media = []
 
+		if values.class == String
+			values = values.split()
+		end
+
 		values.each do |value|
-			session[:next_max_id] << Instagram.tag_recent_media(value).pagination.next_max_id
+			session[:next_urls] << Instagram.tag_recent_media(value).pagination.next_url
 			for item in Instagram.tag_recent_media(value)
 				media << item
 			end
@@ -30,26 +31,23 @@ module SearchHelper
 	end
 
 	def grab_select_media(values, wanted_type)
-		session[:next_max_id] = []
-		session[:search_terms] = values
+		session[:next_urls] = []
+		
 		media = []
 
 		values.each do |value|
-			session[:next_max_id] << Instagram.tag_recent_media(value).pagination.next_max_id
-
+			session[:next_urls] << Instagram.tag_recent_media(value).pagination.next_url
 			for item in Instagram.tag_recent_media(value)
 				if item.type == wanted_type
 					media << item
 				end
 			end
 		end
-
 		media
 	end
 
-	def grab_popular_media	
-	    session[:next_max_id] = []
-	    session[:search_terms] = []
+	def grab_popular_media
+	  session[:next_url] = []
 
 		media = []
 		for item in Instagram.media_popular
@@ -66,5 +64,52 @@ module SearchHelper
 		media
 	end
 
+	def find_media_by_location(lat, long, start)
+		media = []
+		for item in Instagram.media_search(lat, long, MIN_TIMESTAMP: start, DISTANCE: 1)
+			media << item
+		end
+		media
+	end
+
+	def find_media_by_venue(id)
+		venue_search = Instagram.location_recent_media(id)
+		media = []
+		for item in venue_search
+			media << item
+		end
+		media
+	rescue URI::InvalidURIError
+		media
+	end
+
+	def find_id_by_location(lat, long, venue)
+		search = Instagram.location_search(lat, long)
+		for item in search
+			if item['name'].split('').sort.join('').strip.similar(venue) > 90
+				return item['id']
+			end
+		end
+		nil
+	rescue Instagram::InternalServerError
+		nil
+	end
+
+	def find_matching_event_names(list, event_name)
+		events = []
+		list.each do |event|
+			if event['event']['venue']
+				if event['event']['title'].split('').sort.join('').strip.similar(event_name) > 10
+					events << event['event']
+				elsif event['event']['venue']['name'].split('').sort.join('').strip.similar(event_name) > 10
+					events << event['event']
+				end
+			end
+		end
+		events.uniq
+		
+	end
+
 end
+	
 	

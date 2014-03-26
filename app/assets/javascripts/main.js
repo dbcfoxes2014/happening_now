@@ -1,51 +1,17 @@
 function bindEvents() {
+	//bind fancybox to images and videos
 	$("a[href$='.mp4'], a[href$='.jpg'],a[href$='.png'],a[href$='.gif']").attr('rel', 'gallery').fancybox();
 
+	//make the navbar dropdown work
 	$('.drowpdown-toggle').dropdown()
 
-	$(document).on('mouseenter', '.thumbnail_object', function(){
-		var link = $(this).find('.pic-username')
-		link.removeClass('hide-thumbnail')
-	});
-
-	$(document).on('mouseleave', '.thumbnail_object', function(){
-		$(this).find('.pic-username').addClass('hide-thumbnail')
-	});
-
-	$('.pick-username').on('click', function(e){
-		e.preventDefault;
-		console.log('yo');
-		// $(this).find('.pic-username').addClass('hide-thumbnail')
-		console.log($('pic-username').attr('id'));
-	});	
-
-	$('.more_user_results').on('click',function(e) {
-		e.preventDefault();
-		console.log( "here")
-		route = 'event_media_pagination';
-
-		var user_id = 1;
-		var page = 1;
-
-		$.ajax({
-	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-	        url: route,
-	        data: {'user_id' : user_id, 'page' : page},
-    		type: "post",
-			dataType: "json",
-		    type: "get",
-
-	        success: function(serverResponse){
-	        	console.log(serverResponse);
-	        	$(".display_results").html(serverResponse);
-	        	$(document).unbind(); // for all events
-	        	bindEvents();
-	    	}
-		});
-	});
-
+	//when you click a video thumbnail, make it appear in a lightbox
 	$('.video_thumbnail').on('click', function(){
 	  var save_url = $(this).attr('id');
+
+	  //make the video x% of the window width and height
+	  var width = (50 / 100) * $(window).width();
+	  var height = (50 / 100) * $(window).height();
 			$.fancybox({
 			    'width'        : '75%',
 			    'height'       : '75%',
@@ -54,62 +20,96 @@ function bindEvents() {
 			    'transitionOut': 'none',
 			    'type'         : 'iframe',
 			    'href'         : 'this.href',
-			    'content'			 : "<video autoplay id=\"example_video_1\" class=\"video-js vjs-default-skin\" controls preload=\"none\" width=\"640\" height=\"264\" data-setup='{'autoplay': true}'><source src=\" " + save_url + "\" type='video/mp4' /><track kind=\"captions\" src=\"demo.captions.vtt\" srclang=\"en\" label=\"English\"></track><!-- Tracks need an ending tag thanks to IE9 --><track kind=\"subtitles\" src=\"demo.captions.vtt\" srclang=\"en\" label=\"English\"></track><!-- Tracks need an ending tag thanks to IE9 --></video>"
+			    'content'	   : "<video autoplay id=\"example_video_1\" class=\"video-js vjs-default-skin\" controls preload=\"none\" width=\"" + width + "\" height=\"" + height + "\" data-setup='{'autoplay': true}'><source src=\" " + save_url + "\" type='video/mp4' /><track kind=\"captions\" src=\"demo.captions.vtt\" srclang=\"en\" label=\"English\"></track><!-- Tracks need an ending tag thanks to IE9 --><track kind=\"subtitles\" src=\"demo.captions.vtt\" srclang=\"en\" label=\"English\"></track><!-- Tracks need an ending tag thanks to IE9 --></video>"
 		    });
 	});
 
-	//the next three functions ensure that an images checkbox will
-	//always remain visible if checked, and appear on mouse over if
-	//unchecked / dissapear on mouseoff if unchecked
+	//ensure that an images checkbox will always remain visible if checked,
+	//and appear on mouse over if unchecked / dissapear on mouseoff if unchecked
 	$('.thumbnail_object').on({
 		mouseover: function(){
-			if ($(this).find('input').is(':checked') != true) {
-				$(this).find('input').addClass('show-thumbnail');
-				$(this).find('input').removeClass('hide-thumbnail');
+			var inputDiv = $(this).find('input');
+			//when you hover over a thumbnail, reveal the uploaders instagram username
+			$(this).find('.pic-username').removeClass('hide-thumbnail');
+
+			if (inputDiv.is(':checked') != true) {
+				inputDiv.addClass('show-thumbnail');
+				inputDiv.removeClass('hide-thumbnail');
 			}
-		},
-		mouseout: function(){
-			if ($(this).find('input').is(':checked') != true) {
-				$(this).find('input').removeClass('show-thumbnail');
-				$(this).find('input').addClass('hide-thumbnail');
+		},mouseout: function(){
+			var inputDiv = $(this).find('input');
+			//when you hover off of a thumbnail, hide the uploaders instagram username
+			$(this).find('.pic-username').addClass('hide-thumbnail');
+
+			if (inputDiv.is(':checked') != true) {
+				inputDiv.removeClass('show-thumbnail');
+				inputDiv.addClass('hide-thumbnail');
 			}
 		}
 	});
 
-
-	$('.more_results').on('click',function(e) {
+	//on the page where you view the users instagram media
+	//when you click on the more results function, go to a route to grab the next set
+	//of images, and then replace the search_results content with the updated media set
+	$('.more_user_results').on('click',function(e) {
 		e.preventDefault();
-		route = 'more_results';
+		console.log('he');
+		route = 'event_media_pagination';
+		var user_id = $(this).attr('id');
 
 		$.ajax({
 	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
 	        url: route,
+	        data: {'user_id' : user_id},
 		    type: "get",
 
 	        success: function(serverResponse){
-	        	console.log(serverResponse);
 	        	$(".display_results").html(serverResponse);
-	        	// $(".search_header").html(header);
 	        	bindEvents();
-
 	    	}
 		});
 	});
 
+	//on any page with pagination with the exception of the user pagination results
+	//when you click on the more results function (this link is on many pages...), go to a route to grab the next set
+	//of images, and then replace the search_results content with the updated media set
+	$('.more_results').on('click',function(e) {
+		e.preventDefault();
+		console.log("click");
+		var route = 'paginate_results';
 
+		$.ajax({
+	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+	        url: route,
+		    	type: "get",
+
+	        success: function(serverResponse){
+	        	$('.display_results').html(serverResponse);
+	        	bindEvents();
+	    	}
+		});
+	});
+
+	//when you check an image to be saved,
+	//update its class to ensure that it won't
+	//become hidden when you mouse off of the thumbnail.
+	//Alternatively, ensure that it doesn't hvae this class if you're unchecking it.
+	//Then go to a ruby method which saves the selected media into the database
 	$('.selection_checkbox').on('click',function() {
+		var route = undefined;
+		var inputDiv = $(this).find('input');
 		route = undefined;
 		if($(this).is(':checked')){
 			route = 'save_media_to_session';
-			$(this).find('input').addClass('show-check-thumbnail');
-			$(this).find('input').removeClass('show-thumbnail');
-			$(this).find('input').removeClass('hide-thumbnail');
+			inputDiv.addClass('show-check-thumbnail');
+			inputDiv.removeClass('show-thumbnail');
+			inputDiv.removeClass('hide-thumbnail');
 		}
 		else {
 		  route = 'remove_media_from_session';
-			$(this).find('input').removeClass('show-check-thumbnail');
-			$(this).find('input').removeClass('hide-thumbnail');
-			$(this).find('input').addClass('show-thumbnail');
+			inputDiv.removeClass('show-check-thumbnail');
+			inputDiv.removeClass('hide-thumbnail');
+			inputDiv.addClass('show-thumbnail');
 		}
 
 		var save_url = $(this).attr('id');
@@ -120,20 +120,23 @@ function bindEvents() {
 			thumbnail = thumbnail.slice(4, -1);
 
 		$.ajax({
-	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-	        url: route,
-				data: {'media' : save_url,
-  						 'media_thumbnail' : thumbnail },
-		    	type: "post",
-					dataType: "json",
-							})
-
-			.always(function(serverResponse){
-			$(".view-selected-button").html("View Selected Media (" + serverResponse.count + ")")
-			})
+      beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
+      url: route,
+			data: {
+				'media' : save_url,
+				'media_thumbnail' : thumbnail
+			},
+    	type: "post",
+			dataType: "json"
+		}).always(function(serverResponse){
+			console.log(serverResponse)
+			$(".view-selected-button").html("View Selected Media (" + serverResponse.count + ")");
+		});
 	});
-}
+};
 
+
+//on document load, make sure everything is bound
 $(function(){
 	bindEvents();
 });

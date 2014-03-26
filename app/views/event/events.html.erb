@@ -1,11 +1,7 @@
 <div class="container">
 	<h3>Popular Events</h3>
-	<div class="popular_media">
-	<p>Events Go Here</p>
-		<% @e["events"].each_with_index do |event, index| %>
-			<p><%= event["event"]["title"] %></p>
-		<% end %>
 
-
-
+  <div class="display_results">
+  	<%= render 'media/display_results' %>
+  </div>
 </div>

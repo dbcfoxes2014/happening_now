@@ -9,6 +9,7 @@
  * compiled file, but it's generally better to create a new file per style scope.
  *
  *= require bootstrap.min
+ *= require main.css
  *= require_self
  *= require fancybox
  *= require video-js
@@ -41,7 +42,7 @@
 	display: inline-block;
     float: left;
     width: 240px;
-    height: 240px;    
+    height: 240px;
 }
 
 .show-thumbnail {
@@ -64,4 +65,12 @@
 	top: 30px;
 	background-color: black;
 	width: 100%;
+}
+
+.download_link {
+display:inline-block;
+position: relative;
+top: 110px;
+left: -240px;
+
 }

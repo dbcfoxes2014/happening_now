@@ -1,8 +1,20 @@
 <script type="text/javascript">
   $(function() {
-      var slideshowProject = new PhotoStudio();
+      var slideshowProject = new PhotoStudio($('#TrackWrapper'));
   });
 </script>
+<div id="renderStatus">
+  <% jobs = RenderQueue.where(user_id: current_user.id) %>
+  <% unless jobs.empty? %>
+    <% jobs.all.each do |job|%>
+      <p>Rendering Movie <span><%= job.title %></span></p>
+      <div class="progressbar" data-job="<%= job.job_id %>">
+        <div class="bar"><span></span></div>
+        <div class="label"><span></span><div class="perc"></div></div>
+      </div>
+    <% end %>
+  <% end %>
+</div>
 <div id="moviePallet">
   <div class="palletOverflow">
     <% if @session_table.empty? %>
@@ -31,29 +43,19 @@
 <div id="editorTimeline">
   <div id="editorTimeSlider"></div>
   <div id="editorTimeBar"></div>
-  <div id="timelineGraph">
+  <div id="THeaderWrapper">
     <div id="editorTimeCurrent">
       <span>00:00:000ms</span>
     </div>
-    <div id="editorTimeRuler">
-      <div id="editorTimeRulerHeader">
-        <span class="timelineTickTall"></span>
-        <span class="timelineTickShort"></span>
-        <span class="timelineTickShort"></span>
-        <span class="timelineTickShort"></span>
-        <span class="timelineTickShort"></span>
-        <span class="timelineTickShort"></span>
-        <span class="timelineTickShort"></span>
-        <span class="timelineTickShort"></span>
-        <span class="timelineTickShort"></span>
-        <span class="timelineTickShort"></span>
-      </div>
-    </div>
-  </div>
-  <div id="THeaderWrapper">
     <div id="trackPhotosHeader">SlideShow</div>
   </div>
   <div id="TrackWrapper">
+    <div id="timelineGraph">
+      <div id="editorTimeRuler">
+        <div id="editorTimeRulerTrack">
+        </div>
+      </div>
+    </div>
     <div id="trackPhotos"></div>
   </div>
 </div>
