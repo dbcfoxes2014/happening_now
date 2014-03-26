@@ -7,7 +7,8 @@
       </button>
     </div>
     <div class="navbar-collapse collapse" id="navbar-collapse1">
-      <%= form_for :search, url: search_path, html: {class: "navbar-form pull-left search-form", role: "search", method: :get} do |f| %>
+      <div class="navbar-left">
+      <%= form_for :search, url: search_path, html: {class: "navbar-form search-form", role: "search", method: :get} do |f| %>
           <%= f.search_field :search, name: "search_data", placeholder: "Tag or Keyword", class: "form-control" %>
           <%= f.submit class: "btn btn-default btn-primary", value: "Search" %>
         <%= f.label "Images" %>
@@ -15,6 +16,7 @@
         <%= f.label "Videos" %> 
         <%= f.check_box 'videos', { checked: "checked" } %> 
       <% end %>
+      </div>
       <ul class="nav navbar-nav navbar-right">
           <li><%= link_to "Popular", popular_path, {class: "popular-button" } %></li>
           <li><%= link_to "Recently Created", recently_created_media_path, { class: "recent-media-button" } %></li>
@@ -29,6 +31,7 @@
           </li>
           <li><%= link_to "View Selection (#{current_user.flagged_contents.length})", selected_media_path, { class: "view-selected-button"} %></li>
           <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
+        </ul>
         <% else %>
           <a href="#" class="dropdown-toggle pull-right" data-toggle="dropdown">Already a Member?</a>
           <ul class="dropdown-menu">
