@@ -1,13 +1,24 @@
+class Rack::Request 
+	def ip 
+		'184.154.83.119' 
+	end 
+end
+
+
 class EventController < ApplicationController
 	include EventHelper
 	include SearchHelper
   respond_to :json
 
+
+
 	def popular_events
-		response = $eb_client.event_search(date: "Last Week")
+		user_city = request.location.city
+	
+		response = $eb_client.event_search(city: user_city, date: "Past")		
+		
 		@e = JSON.parse(response.body)
 		@e["events"].delete_at(0)
-
 		render :popular
 	end
 

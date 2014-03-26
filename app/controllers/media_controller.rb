@@ -28,13 +28,7 @@ before_filter :authenticate_user!, only: [:new]
       redirect_to :root and return
     end
 
-
-
-
-    @media = search_for_location_media(params[:search_data])
-    binding.pry
     @search_content = join_values(params[:search_data])
-    # binding.pry
 
     check_search_content_keywords(@search_content)
 

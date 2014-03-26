@@ -64,9 +64,9 @@ module SearchHelper
 		media
 	end
 
-	def find_media_by_location(lat, long)
+	def find_media_by_location(lat, long, start)
 		media = []
-		for item in Instagram.media_search(lat, long)
+		for item in Instagram.media_search(lat, long, MIN_TIMESTAMP: start, DISTANCE: 1)
 			media << item
 		end
 		media
