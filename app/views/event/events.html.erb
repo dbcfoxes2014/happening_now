@@ -1,9 +1,7 @@
 <div class="container">
 	<h3>Popular Events</h3>
 
-  <% if session[:next_max_id].length > 0 %>
-    <%= link_to "More Results", more_event_results_path, {class: "more_event_results"}  %>
-  <% end %>
+  <%= link_to "More Results", more_event_results_path, {class: "more_event_results"}  %>
 
   <div class="display_results">
   	<%= render 'media/display_results' %>

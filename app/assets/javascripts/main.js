@@ -52,12 +52,12 @@ function bindEvents() {
 		}
 	});
 
-	//on the page you get to after searching
-	//when you click on the more results function, go to a route to grab the next set
+	//when you click on the more results function (this link is on many pages...), go to a route to grab the next set
 	//of images, and then replace the search_results content with the updated media set
 	$('.more_results').on('click',function(e) {
 		e.preventDefault();
-		var route = 'more_results';
+		console.log("click");
+		var route = 'paginate_results';
 
 		$.ajax({
 	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
@@ -65,53 +65,9 @@ function bindEvents() {
 		    	type: "get",
 
 	        success: function(serverResponse){
-	        	$('.display_results').html(serverResponse);
+	        	$('.container').append(serverResponse);
 	        	bindEvents();
-	    	}
-		});
-	});
-
-
-	//on the page where you view the users instagram media
-	//when you click on the more results function, go to a route to grab the next set
-	//of images, and then replace the search_results content with the updated media set
-	$('.more_user_results').on('click',function(e) {
-		e.preventDefault();
-		var route = 'event_media_pagination';
-		var user_id = $(this).attr('id');
-		// var page =
-
-		$.ajax({
-	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-	        url: route,
-	        data: {'user_id' : user_id},
-		    type: "get",
-
-	        success: function(serverResponse){
-	        	$(".display_results").html(serverResponse);
-	        	bindEvents();
-	    	}
-		});
-	});
-
-
-	//on the page where you view the event media
-	//when you click on the more results function, go to a route to grab the next set
-	//of images, and then replace the search_results content with the updated media set
-	$('.more_user_results').on('click',function(e) {
-		e.preventDefault();
-		var route = 'event_media_pagination';
-		var user_id = $(this).attr('id');
-
-		$.ajax({
-	        beforeSend: function(xhr) {xhr.setRequestHeader('X-CSRF-Token', $('meta[name="csrf-token"]').attr('content'))},
-	        url: route,
-	        data: {'user_id' : user_id},
-		    	type: "get",
-
-	        success: function(serverResponse){
-	        	$(".display_results").html(serverResponse);
-	        	bindEvents();
+	        	// console.log(serverResponse)
 	    	}
 		});
 	});

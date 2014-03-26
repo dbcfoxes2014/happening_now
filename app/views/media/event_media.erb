@@ -1,7 +1,7 @@
 <div class="container">
   <h1><%=@username%>'s other media</h1>
 
-    <%= link_to "More Results", event_media_pagination_path, {class: "more_user_results", :id => @id } %>
+    <%= link_to "More Results", {class: "more_user_results", :id => @id } %>
 
   <div class="display_results">
     <%= render 'media/display_results' %>

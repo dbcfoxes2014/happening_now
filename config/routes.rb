@@ -5,8 +5,7 @@
   resources :pictures, :only => :show
 
   root to: 'home#index'
-  get 'more_results', :to => 'media#more_results'
-  get 'event_media_pagination', :to => 'media#event_media_pagination'
+  get 'paginate_results', :to => 'media#paginate_results'
 
   get 'editor/video', :to => 'editor#video'
   get 'editor/photo', :to => 'editor#photo'
