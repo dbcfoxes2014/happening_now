@@ -1,9 +1,9 @@
 #####################TEST IP ADDRESS###################
-# class Rack::Request 
-# 	def ip 
-# 		'184.154.83.119' 
-# 	end 
-# end
+class Rack::Request
+	def ip
+		'184.154.83.119'
+	end
+end
 
 
 class EventController < ApplicationController
@@ -15,9 +15,9 @@ class EventController < ApplicationController
 
 	def popular_events
 		user_city = request.location.city
-	
-		response = $eb_client.event_search(city: user_city, date: "Past")		
-		
+
+		response = $eb_client.event_search(city: user_city, date: "Past")
+
 		@e = JSON.parse(response.body)
 		@e["events"].delete_at(0)
 		render :popular
@@ -61,7 +61,3 @@ class EventController < ApplicationController
 	end
 
 end
-
-
-
-

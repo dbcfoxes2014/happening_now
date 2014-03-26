@@ -43,7 +43,6 @@ module SearchHelper
 
 	def grab_select_media(values, wanted_type)
 		session[:next_urls] = []
-
 		media = []
 
 		values.each do |value|
