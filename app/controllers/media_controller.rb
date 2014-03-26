@@ -97,7 +97,6 @@ before_filter :authenticate_user!, only: [:new]
     media = params[:media]
     extension = media.match(/\.([0-9a-z]+)(?:[\?#]|$)/i).captures[0]
     current_user.flagged_contents << FlaggedContent.create(url: media, thumbnail: thumbnail_url, extension: extension)
-    p "-------------------sadfjadsjfasdfjasjfasdfj"
     render :json => { count: current_user.flagged_contents.length}
   end
 
@@ -109,6 +108,7 @@ before_filter :authenticate_user!, only: [:new]
 
   def recent_media
     @media = Video.all.limit(20)
+    @media.reverse
     #@slideshows = SlideShow.all
   end
 
