@@ -44,6 +44,7 @@ ActiveRecord::Schema.define(version: 20140324194633) do
   create_table "render_queues", force: true do |t|
     t.string   "title"
     t.string   "job_id"
+    t.string   "stage"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"

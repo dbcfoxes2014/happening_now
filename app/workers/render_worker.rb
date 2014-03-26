@@ -2,15 +2,43 @@ class RenderWorker
   include Sidekiq::Worker
   sidekiq_options retry: false
 
-  def perform(user_id,clips,type)
+  def perform(user_id,urls,type)
     if(type == 'movie')
-      renderMovies(user_id,clips)
+      grabVidURLs(user_id,urls)
     elsif(type == 'slideshow')
-      renderPhotos(user_id,clips)
+      grabPicURLs(user_id,urls)
     end
   end
 
   private
+
+  def grabVidURLs(user_id,urls)
+    puts "URLS: #{urls} User: #{user_id}"
+    movie_files = Array.new
+    urls.each_with_index.map do |url,index|
+      movie_files << "vid#{user_id}_#{index}.mp4"
+      save_dir = "public/data/#{movie_files[-1]}";
+      open(save_dir,"wb") do |file|
+        file.write open(url).read
+      end
+    end
+    RenderQueue.where(user_id: user_id, job_id: jid).first.update_attribute('stage', 'rendering_video')
+    renderMovies(user_id,movie_files)
+  end
+
+  def grabPicURLs(user_id,urls)
+    photo_files = Array.new
+    urls.each_with_index.map do |url,index|
+      index = "0#{index}" if index < 10
+      photo_files << "img#{user_id}_#{index}.jpg"
+      save_dir = "public/data/#{photo_files[-1]}";
+      open(save_dir,"wb") do |file|
+        file.write open(url).read
+      end
+    end
+    RenderQueue.where(user_id: user_id, job_id: jid).first.update_attribute('stage', 'rendering_slideshow')
+    renderPhotos(user_id,photo_files)
+  end
 
   def renderMovies(user_id,videos)
     movie_ffmpeg = Array.new

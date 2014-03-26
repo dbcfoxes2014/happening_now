@@ -58,9 +58,9 @@ var renderVideo = function(movie_array){
     type: "GET",
     url: "/editor/renderIO",
     data: {query: 'slotAvaliable'}
-  }).done(function(responce) {
+  }).done(function(response) {
+    console.log(response)
     //tell the avaliable slot what urls we need to copy
-    statusDiv.html('<p>Copying files to server please wait...</p>');
     $.ajax({
       type: "POST",
       url: "/editor/renderIO",
@@ -70,23 +70,25 @@ var renderVideo = function(movie_array){
             return clip.url
         })
       }
-    }).done(function(responce){
-      //check responce from server for download status
-      if(responce.status == 'downloadFailed'){
+    }).done(function(response){
+      console.log(response)
+      //check response from server for download status
+      if(response.status == 'emptyList'){
         statusDiv.html('<p>OHHHHH, NOW YOU FUCKED UP...NOW YOU FUCKED UP...YOU HAVE FUCKED UP NOW!</p>');
         return;
       }
+      statusDiv.html('<p>Copying files to server please wait...</p>');
       //tell the slot to start the render now the URL's are copied
-      statusDiv.html('<p>Done copying, starting render...</p>');
+      //statusDiv.html('<p>Done copying, starting render...</p>');
       $.ajax({
         type: "POST",
         url: "/editor/renderIO",
         data: {
           command: 'startVideoRender'
         }
-      }).done(function(responce){
+      }).done(function(response){
         //tell the user the render is starting and ping it
-        job_id = responce.job_id;
+        job_id = response.job_id;
         statusDiv.html(
           '<div class="progressbar" data-perc="100">'+
             '<div class="bar"><span></span></div>'+
@@ -101,10 +103,10 @@ var renderVideo = function(movie_array){
               query: 'renderTime',
               job_id: job_id
             }
-          }).done(function(responce){
-            console.log("Ping responce: "+responce.status);
+          }).done(function(response){
+            console.log("Ping response: "+response.status);
             drawProgressBar(100);
-            if(responce.status == 'done'){
+            if(response.status == 'done'){
               $('#renderStatus').html("<p>Render Complete!</p>");
               clearInterval(intervalID);
             }
@@ -112,7 +114,7 @@ var renderVideo = function(movie_array){
         }, 3000);
       });
     });
-    console.log("AJAX responce done: "+responce.status+responce.slot);
+    console.log("AJAX response done: "+response.status+response.slot);
   });
 };
 
@@ -124,10 +126,8 @@ var RenderSlideshow = function(movie_array){
     type: "GET",
     url: "/editor/renderIO",
     data: {query: 'slotAvaliable'}
-  }).done(function(responce) {
-
+  }).done(function(response) {
     //tell the avaliable slot what urls we need to copy
-    statusDiv.html('<p>Copying files to server please wait...</p>');
     $.ajax({
       type: "POST",
       url: "/editor/renderIO",
@@ -137,12 +137,12 @@ var RenderSlideshow = function(movie_array){
             return clip.url
         })
       }
-    }).done(function(responce){
-      if(responce.status == 'downloadFailed'){
+    }).done(function(response){
+      if(response.status == 'emptyList'){
         statusDiv.html('<p>OHHHHH, NOW YOU FUCKED UP...NOW YOU FUCKED UP...YOU HAVE FUCKED UP NOW!</p>');
         return;
       }
-      statusDiv.html('<p>Done copying, starting render...</p>');
+      statusDiv.html('<p>Copying files to server please wait...</p>');
       //tell the slot to start the render now the URL's are copied
       $.ajax({
         type: "POST",
@@ -150,8 +150,9 @@ var RenderSlideshow = function(movie_array){
         data: {
           command: 'startPhotoRender'
         }
-      }).done(function(responce){
+      }).done(function(response){
         //tell the user the render is done (we need background jobs)
+        job_id = response.job_id;
         statusDiv.html(
           '<div class="progressbar" data-job="">'+
             '<div class="bar"><span></span></div>'+
@@ -166,10 +167,10 @@ var RenderSlideshow = function(movie_array){
               query: 'renderTime',
               job_id: job_id
             }
-          }).done(function(responce){
-            console.log("Ping responce: "+responce.status);
+          }).done(function(response){
+            console.log("Ping response: "+response.status);
             drawProgressBar(100);
-            if(responce.status == 'done'){
+            if(response.status == 'done'){
               $('#renderStatus').html("<p>Render Complete!</p>");
               clearInterval(intervalID);
             }
@@ -177,7 +178,7 @@ var RenderSlideshow = function(movie_array){
         }, 3000);
       });
     });
-    console.log("AJAX responce done: "+responce.status+responce.slot);
+    console.log("AJAX response done: "+response.status+response.slot);
   });
 };
 
