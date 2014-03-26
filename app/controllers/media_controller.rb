@@ -43,7 +43,6 @@ before_filter :authenticate_user!, only: [:new]
     elsif params[:search][:images] == "1" && params[:search][:videos] == "1"
       @similar_media = grab_all_media(similar_tags).sample(4)
       @media = grab_all_media(@search_content)
-      binding.pry
     elsif params[:search][:images] == "1"
       @similar_media = grab_select_media(similar_tags, "image").sample(4)
       @media = grab_select_media(@search_content, "image")
