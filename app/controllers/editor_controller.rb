@@ -41,8 +41,9 @@ class EditorController < ApplicationController
             response = {status: 'emptyList'}
           else
             job_id = RenderWorker.perform_async(current_user.id,params[:urls],'movie')
+            project_title = params[:project_title]=="" ? "untitled project" : params[:project_title]
             response.merge!({status: 'grabVideosStarted',job_id: job_id})
-            RenderQueue.create(user_id: current_user.id, title: params[:title], job_id: job_id, stage: 'copying_videos')
+            RenderQueue.create(user_id: current_user.id, title: project_title, job_id: job_id, stage: 'copying_videos')
             puts "Starting To Collect Videos on job_id: #{job_id}"
           end
           #response.merge!({status: grabVidURLs(params[:urls]) ? 'videosDownloaded' : 'downloadFailed'})
@@ -51,8 +52,9 @@ class EditorController < ApplicationController
             response = {status: 'emptyList'}
           else
             job_id = RenderWorker.perform_async(current_user.id,params[:urls],'slideshow')
+            project_title = params[:project_title]=="" ? "untitled project" : params[:project_title]
             response.merge!({status: 'grabPhotosStarted',job_id: job_id})
-            RenderQueue.create(user_id: current_user.id, title: params[:title], job_id: job_id, stage: 'copying_photos')
+            RenderQueue.create(user_id: current_user.id, title: project_title, job_id: job_id, stage: 'copying_photos')
             puts "Starting To Collect Photos on job_id: #{job_id}"
           end
         when 'startVideoRender'
@@ -78,8 +80,6 @@ class EditorController < ApplicationController
   end
 
 private
-
-
 
   def returnUserJobs(user)
     user_found = RenderQueue.where(user_id: user).all

@@ -17,9 +17,9 @@
 </div>
 <div id="moviePallet">
   <div class="palletOverflow">
-    <% if @session_table.empty? %>
+    <% if @session_table.nil? || @session_table.empty? %>
       <div class="ohnoes">
-        There are no URL's in your pallet!
+        There are no Photos in your pallet!
       </div>
     <% else %>
       <% @session_table.each do |media|%>
@@ -29,18 +29,12 @@
     <% end %>
   </div>
 </div>
-<div id="editorTools">
-    <span>Project Tools</span>
-    <ul>
-      <li>
-        <span id="UI_render">Render Project</span>
-      </li>
-      <li>
-        <span id="UI_test">More stuff Woo</span>
-      </li>
-    </ul>
-  </div>
 <div id="editorTimeline">
+  <div id="editorTools">
+    <div>< Play ></div>
+    <div><span>Title: </span><input type='input' id='UI_movieTitle' placeholder='My First Movie'/></div>
+    <div><span id="UI_render">Render Project</span></div>
+  </div>
   <div id="editorTimeSlider"></div>
   <div id="editorTimeBar"></div>
   <div id="THeaderWrapper">
