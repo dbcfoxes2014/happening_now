@@ -1,6 +1,6 @@
 class RenderWorker
   include Sidekiq::Worker
-  sidekiq_options retry: false
+  sidekiq_options retry: 3
 
   def perform(user_id,urls,type)
     if(type == 'movie')

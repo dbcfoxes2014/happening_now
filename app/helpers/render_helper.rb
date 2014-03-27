@@ -12,8 +12,8 @@ module RenderHelper
       true
   end
 
-  def job_current_status(jid)
+  def job_current_state(jid)
     job = RenderQueue.where(job_id: jid).first
-    return job.nil? ? job.stage : 'not_found'
+    return job.nil? ? 'done' : job.stage
   end
 end

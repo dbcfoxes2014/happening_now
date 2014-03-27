@@ -19,9 +19,9 @@
   <% unless jobs.empty? %>
     <% jobs.all.each do |job|%>
       <p>Rendering Movie <span><%= job.title %></span></p>
-      <div class="progressbar" data-job="<%= job.job_id %>">
-        <div class="bar"><span></span></div>
-        <div class="label"><span></span><div class="perc"></div></div>
+      <div class="movingBallLine">
+        <div class="movingBallLineG"></div>
+        <div id="movingBallG_1" class="movingBallG"></div>
       </div>
     <% end %>
   <% end %>
