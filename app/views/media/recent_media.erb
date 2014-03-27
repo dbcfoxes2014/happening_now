@@ -1,3 +1,15 @@
+<% if !session[:tutorial_active].nil? %>
+<script src="/javascripts/tutorial.js"></script>
+  <div class='tutorial_overlay'>
+    <div id='tut_slide1' class='paragraph'>
+      You can also share your projects with your Facebook friends! Simply click on the "Share" link on your project, login into your Facebook account, and your video will be posted to your wall.
+      <span class='next next_slide'>Next!</span>
+    </div>
+    <div id='tut_slide2' class='paragraph' style='display:none;'>
+      Thank you for doing this awesome tutorial! Bye,Bye.<span class='next' id='tut_end'>Finish!</span>
+    </div>
+  </div>
+<% end %>
 <div class="container">
   <h1> <%= @message %> </h1>
   <% if @media %>
