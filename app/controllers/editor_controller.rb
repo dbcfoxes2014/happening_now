@@ -19,10 +19,11 @@ class EditorController < ApplicationController
     if(params[:query])
       case params[:query]
         when 'slotAvaliable'
-          response.merge!({status: 'renderReady',job_id: rand(200)})
-        when 'renderTime'
+          response.merge!({status: 'renderReady'})
+        when 'renderState'
+          p "RENDER STATE HIT "
           #respond with the job's current background status
-          response.merge!({status: job_is_complete(params[:job_id]) ? "done" : "working",time: 12})
+          response.merge!({status: job_current_state(params[:job_id])})
         else
           response = {status: 'Command Not Recognized'}
         end
@@ -57,16 +58,6 @@ class EditorController < ApplicationController
             RenderQueue.create(user_id: current_user.id, title: project_title, job_id: job_id, stage: 'copying_photos')
             puts "Starting To Collect Photos on job_id: #{job_id}"
           end
-        when 'startVideoRender'
-          response.merge!({status: 'renderVideoStart',job_id: rand(200)})
-          # job_id = RenderWorker.perform_async(current_user.id,session[:videos],'movie')
-          # RenderQueue.create(user_id: current_user.id, job_id: job_id)
-          puts "Starting Render on job_id: #{job_id}"
-        when 'startPhotoRender'
-          response.merge!({status: 'renderPhotoStart',job_id: rand(200)})
-          # job_id = RenderWorker.perform_async(current_user.id,session[:photos],'slideshow')
-          # RenderQueue.create(user_id: current_user.id, job_id: job_id)
-          puts "Starting Render on job_id: #{job_id}"
         when 'stopRender'
           puts "Stopping Render on job_id: #{params[:slot]}"
           response.merge!({status: 'renderStop',job_id: rand(200)})
