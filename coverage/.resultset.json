@@ -1,9 +1,13 @@
 {
   "RSpec": {
     "coverage": {
+<<<<<<< landing_page_copy
 
       "/Users/christoph/Documents/dbc/free_candy/app/models/user.rb": [
 
+=======
+      "/Users/jackdubnicek/Desktop/free_candy/app/models/user.rb": [
+>>>>>>> local
         1,
         null,
         null,
@@ -16,9 +20,13 @@
         1,
         null
       ],
+<<<<<<< landing_page_copy
 
       "/Users/christoph/Documents/dbc/free_candy/app/helpers/application_helper.rb": [
 
+=======
+      "/Users/jackdubnicek/Desktop/free_candy/app/helpers/application_helper.rb": [
+>>>>>>> local
         1,
         null,
         null,
@@ -27,9 +35,15 @@
         null,
         null
       ],
+<<<<<<< landing_page_copy
 
       "/Users/christoph/Documents/dbc/free_candy/app/helpers/search_helper.rb": [
 
+=======
+      "/Users/jackdubnicek/Desktop/free_candy/app/helpers/banned_words_helper.rb": [
+        1,
+        null,
+>>>>>>> local
         1,
         null,
         null,
@@ -52,20 +66,35 @@
         1,
         0,
         0,
+<<<<<<< landing_page_copy
         0,
         null,
         0,
+=======
+        null,
+        null,
+>>>>>>> local
         null,
         null,
         null,
         null
       ],
+<<<<<<< landing_page_copy
 
       "/Users/christoph/Documents/dbc/free_candy/app/controllers/home_controller.rb": [
+=======
+      "/Users/jackdubnicek/Desktop/free_candy/app/helpers/event_helper.rb": [
+>>>>>>> local
         1,
         1,
         1,
         null,
+<<<<<<< landing_page_copy
+=======
+        null
+      ],
+      "/Users/jackdubnicek/Desktop/free_candy/app/helpers/search_helper.rb": [
+>>>>>>> local
         1,
         3,
         null,
@@ -164,15 +193,28 @@
 
         null
       ],
+<<<<<<< landing_page_copy
       "/Users/christoph/Documents/dbc/free_candy/app/models/clip.rb": [
+=======
+      "/Users/jackdubnicek/Desktop/free_candy/app/helpers/render_helper.rb": [
+>>>>>>> local
         1,
         1,
         null,
         1,
+<<<<<<< landing_page_copy
         null
       ],
       "/Users/christoph/Documents/dbc/free_candy/app/models/pic.rb": [
         1,
+=======
+        0,
+        0,
+        null,
+        null
+      ],
+      "/Users/jackdubnicek/Desktop/free_candy/app/controllers/home_controller.rb": [
+>>>>>>> local
         1,
         null,
         1,
@@ -186,8 +228,12 @@
         1,
         null
       ],
+<<<<<<< landing_page_copy
       "/Users/christoph/Documents/dbc/free_candy/app/models/video.rb": [
         1,
+=======
+      "/Users/jackdubnicek/Desktop/free_candy/app/controllers/application_controller.rb": [
+>>>>>>> local
         1,
         1,
         null,
@@ -217,8 +263,12 @@
         null
       ]
     },
+<<<<<<< landing_page_copy
 
     "timestamp": 1395676144
 
+=======
+    "timestamp": 1395940112
+>>>>>>> local
   }
 }
