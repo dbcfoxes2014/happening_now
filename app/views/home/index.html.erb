@@ -2,13 +2,13 @@
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6">
-				<h1>Find out what's Happening Now.</h1><hr/>
+				<h1>Join The Fun<br />Happening Now</h1><hr />
 				<% if current_user %> 
 					<button type="submit" class="btn btn-warning btn-lg"><%= link_to "Events Near You", home_events_path %></button>					
 				<% else %>
 					<button type="submit" class="btn btn-warning btn-lg"><%= link_to "Sign Up",new_user_registration_path %></button> 
 				<%end%>
-				<button type="submit" class="btn btn-warning btn-lg"><%= link_to "How It Works",new_user_registration_path %></button> 
+				<button type="submit" class="btn btn-warning btn-lg"><%= link_to "Tutorial",new_user_registration_path %></button> 
 			</div>
 		</div>
 	</div>
