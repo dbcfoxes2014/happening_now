@@ -20,7 +20,7 @@
         <% if media["type"] == "image" %>
           <a href="<%=@url%>" data-caption="#<%= media["tags"].join(' #') %>"><img class="fancybox search_result" src="<%=@url%>" height="240" width="240"></a>
         <% else %>
-          <img id="<%=@url%>" src="/assets/play_icon.png" class="video_thumbnail search_result" width="240" height="240" border="0" style="background:URL(<%= @thumbnail %>) center center black; background-size: 100%" />
+          <img id="<%=@url%>" src="/assets/play_icon.png" class="video_thumbnail search_result" data-caption="#<%= media["tags"].join(' #') %>" width="240" height="240" border="0" style="background:URL(<%= @thumbnail %>) center center black; background-size: 100%" />
         <% end %>
         </div>
     <% end %>
