@@ -1,4 +1,18 @@
 function bindEvents() {
+	$('#UI_howItWorks').on('click',function(){
+		$.ajax({
+      type: "POST",
+      url: "/setTutorial",
+      data: {
+      	toggle:	"true"
+      }
+    }).done(function(response){
+    	console.log("response " +response.status);
+    	if(response.status == 'good')
+				$(location).attr('href','/');
+    });
+	});
+
 	//bind fancybox to images and videos
 	$("a[href$='.mp4'], a[href$='.jpg'],a[href$='.png'],a[href$='.gif']").attr('rel', 'gallery').fancybox({
 		 beforeShow : function(){
@@ -7,7 +21,7 @@ function bindEvents() {
 	});
 
 	//make the navbar dropdown work
-	$('.drowpdown-toggle').dropdown()
+	$('.drowpdown-toggle').dropdown();
 
 	//when you click a video thumbnail, make it appear in a lightbox
 	$('.video_thumbnail').on('click', function(){

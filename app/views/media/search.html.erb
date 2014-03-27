@@ -1,5 +1,4 @@
-<% tut_flag = current_user.tut_complete %>
-<% if tut_flag.nil? || tut_flag != 1 %>
+<% if !session[:tutorial_active].nil? %>
 <script src="/javascripts/tutorial.js"></script>
   <div class='tutorial_overlay'>
     <div id='tut_slide1' class='paragraph'>

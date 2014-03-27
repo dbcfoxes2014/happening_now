@@ -18,10 +18,12 @@ $(function(){
   $('#tut_end').on('click',function(){
     $.ajax({
       type: "POST",
-      url: "/user/tutToggle",
-      toggle: "true"
-    }).done(function(responce){
-      $('.tutorial_overlay').remove();
+      url: "/setTutorial",
+      data: {
+        toggle: "false"
+      }
+    }).done(function(response){
+      $(location).attr('href','/');
     });
   });
 });

@@ -1,5 +1,4 @@
-<% tut_flag = current_user.tut_complete %>
-<% if tut_flag.nil? || tut_flag != 1 %>
+<% if !session[:tutorial_active].nil? %>
 <script src="/javascripts/tutorial.js"></script>
 	<div class='tutorial_overlay'>
 		<div id='tut_slide1' class='paragraph'>
@@ -24,7 +23,7 @@
 				<% else %>
 					<button type="submit" class="btn btn-warning btn-lg"><%= link_to "Sign Up",new_user_registration_path %></button>
 				<%end%>
-				<button type="submit" class="btn btn-warning btn-lg"><%= link_to "How It Works",new_user_registration_path %></button>
+				<button type="submit" class="btn btn-warning btn-lg"><a id="UI_howItWorks" href="#">How it works</a></button>
 			</div>
 		</div>
 	</div>

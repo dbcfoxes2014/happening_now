@@ -3,9 +3,8 @@
       var movieProject = new MovieStudio($('#TrackWrapper'));
   });
 </script>
-<% tut_flag = current_user.tut_complete %>
+<% if !session[:tutorial_active].nil? %>
 <script src="/javascripts/tutorial.js"></script>
-<% if tut_flag.nil? || tut_flag != 1 %>
   <div class='tutorial_overlay'>
     <div id='tut_slide1' class='paragraph'>
       Select either the Slideshow or Video editor from the drop down menu. Your favorites will appear in the palette on the right. Click and drag them into the timeline in the order you want. Give your project a title and click the Compile button!
