@@ -50,7 +50,7 @@ var renderTime = function(currentTime){
     return (minutes < 10 ? "0" + minutes : minutes) + ":" + (seconds  < 10 ? "0" + seconds : seconds)+":"+miliSec;
 };
 
-var renderVideo = function(movie_array){
+var renderVideo = function(movie_array,title){
   var statusDiv = $('#renderStatus');
   console.log("sending ajax request on render");
   //ask for a slot to render in
@@ -68,7 +68,8 @@ var renderVideo = function(movie_array){
         command: 'grabVideos',
         urls: $.map(movie_array, function(clip) {
             return clip.url
-        })
+        }),
+        project_title: title
       }
     }).done(function(response){
       console.log(response)
@@ -118,7 +119,7 @@ var renderVideo = function(movie_array){
   });
 };
 
-var RenderSlideshow = function(movie_array){
+var RenderSlideshow = function(movie_array,title){
   var statusDiv = $('#renderStatus');
   console.log("sending ajax request on render");
   //ask for a slot to render in
@@ -135,7 +136,8 @@ var RenderSlideshow = function(movie_array){
         command: 'grabPhotos',
         urls: $.map(movie_array, function(clip) {
             return clip.url
-        })
+        }),
+        project_title: title
       }
     }).done(function(response){
       if(response.status == 'emptyList'){
@@ -352,36 +354,16 @@ var MovieStudio = function(trackDiv){
     },
     drag: function(event,ui){
       $('#editorTimeBar').css({
-        top: 50.0, left: ui.position.left
+        top: 80.0+'px', left: ui.position.left
       });
       var currentTime=((ui.position.left-trackOffset)/trackWidth) * timelineLength;
       $('#editorTimeCurrent span').text(renderTime(currentTime)+"ms");
     }
   });
 
-  $('#editorTools ul li span').on('click',function(e){
-    //alert('Rendering that shit!');
-    switch(e.target.id){
-      case 'UI_render':
-        renderVideo(TrackMain.clips.sort(function(a,b){return a.start-b.start}));
-        break;
-      case 'UI_test':
-        console.log(TrackMain.clips[0].stop);
-        break;
-    }
-  });
-  $('#editorTools').hover(function(){
-    //enter
-        $(this).animate({
-            'bottom': '+=70px'
-            }, "medium"
-        );
-    },function(){
-    //leave
-        $(this).animate({
-            'bottom': '-=70px'
-            }, "medium"
-        );
+  $('#UI_render').on('click',function(e){
+    var title = $('#UI_movieTitle').val();
+    renderVideo(TrackMain.clips.sort(function(a,b){return a.start-b.start}),title);
   });
 };
 ////////////////////////////////////////PHOTO STUDIO////////////////////////////////////////
@@ -489,37 +471,16 @@ var PhotoStudio = function(trackDiv){
     },
     drag: function(event,ui){
       $('#editorTimeBar').css({
-        top: 50.0, left: ui.position.left
+        top: 80.0+'px', left: ui.position.left
       });
       var currentTime=((ui.position.left-trackOffset)/trackWidth) * timelineLength;
       $('#editorTimeCurrent span').text(renderTime(currentTime)+"ms");
     }
   });
 
-  $('#editorTools ul li span').on('click',function(e){
-    //alert('Rendering that shit!');
-    switch(e.target.id){
-      case 'UI_render':
-        RenderSlideshow(TrackMain.clips.sort(function(a,b){return a.start-b.start}));
-        break;
-      case 'UI_test':
-        console.log(TrackMain.clips[0].stop);
-        break;
-    }
+  $('#UI_render').on('click',function(e){
+    var title = $('#UI_movieTitle').val();
+    RenderSlideshow(TrackMain.clips.sort(function(a,b){return a.start-b.start}),title);
   });
-
-  $('#editorTools').hover(function(){
-    //enter
-        $(this).animate({
-            'bottom': '+=70px'
-            }, "medium"
-        );
-    },function(){
-    //leave
-        $(this).animate({
-            'bottom': '-=70px'
-            }, "medium"
-        );
-    });
 };
 
