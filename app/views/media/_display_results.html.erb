@@ -10,16 +10,25 @@
 
       <div class="thumbnail_object">
         <%= link_to "#{media["user"]["username"]}", event_media_path(user_id: "#{media["user"]["id"]}", page: 1), {class: "pic-username hide-thumbnail"} %>
-
-        <% if @flagged_media != nil && @flagged_media.include?(@url) %>
-          <input class="selection_checkbox show-check-thumbnail" type="checkbox" id="<%=@url%>" checked>
-        <% else %>
-          <input class="selection_checkbox hide-thumbnail" type="checkbox" id="<%=@url%>">
-        <% end %>
+        <% if current_user %>
+          <% if @flagged_media != nil && @flagged_media.include?(@url) %>
+            <input class="selection_checkbox show-check-thumbnail" type="checkbox" id="<%=@url%>" checked>
+          <% else %>
+            <input class="selection_checkbox hide-thumbnail" type="checkbox" id="<%=@url%>">
+          <% end %>
+        <%end%>
         <% if media["type"] == "image" %>
-          <a href="<%=@url%>"><img class="fancybox search_result" src="<%=@url%>" height="240" width="240"></a>
+          <% if media["tags"].length > 1 %>
+            <a href="<%=@url%>" data-caption="#<%= media["tags"].join(' #') %>"><img class="fancybox search_result" src="<%=@url%>" height="240" width="240"></a>
+          <% else %>
+            <a href="<%=@url%>" data-caption=""><img class="fancybox search_result" src="<%=@url%>" height="240" width="240"></a>
+          <% end %>
         <% else %>
-          <img id="<%=@url%>" src="/assets/play_icon.png" class="video_thumbnail search_result" width="240" height="240" border="0" style="background:URL(<%= @thumbnail %>) center center black; background-size: 100%" />
+          <% if media["tags"].length > 1 %>
+            <img id="<%=@url%>" src="/assets/play_icon.png" class="video_thumbnail search_result" data-caption="#<%= media["tags"].join(' #') %>" width="240" height="240" border="0" style="background:URL(<%= @thumbnail %>) center center black; background-size: 100%" />
+            <% else %>
+              <img id="<%=@url%>" src="/assets/play_icon.png" class="video_thumbnail search_result" data-caption="" width="240" height="240" border="0" style="background:URL(<%= @thumbnail %>) center center black; background-size: 100%" />
+            <% end %>
         <% end %>
         </div>
     <% end %>

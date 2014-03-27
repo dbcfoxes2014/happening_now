@@ -38,4 +38,6 @@
 
   get "/users/:id" => 'users#show', as: :user_home
 
+  post '/setTutorial', :to => 'home#toggle_tutorial'
+
 end

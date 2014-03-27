@@ -12,7 +12,7 @@
 #editorTimeline{
   font-family: 'Aldrich', sans-serif;
   width: 100%;
-  height: 246px;
+  height: 276px;
   position: fixed;
   left: 0;
   bottom: 0;
@@ -88,7 +88,7 @@
   height:20px;
   position:absolute;
   left:190px;
-  top:30px;
+  top:60px;
   background: #40C8FA;
   -webkit-box-shadow: 0px 0px 12px 0px rgba(55,170,212,1),inset 0px 1px 0px 0px rgba(255, 255, 255, 0.45),inset 1px 0px 0px 0px rgba(255, 255, 255, 0.25),inset -1px 0px 0px 0px rgba(255, 255, 255, 0.25);
   box-shadow: 0px 0px 12px 0px rgba(55,170,212,1),inset 0px 1px 0px 0px rgba(255, 255, 255, 0.45),inset 1px 0px 0px 0px rgba(255, 255, 255, 0.25),inset -1px 0px 0px 0px rgba(255, 255, 255, 0.25);
@@ -98,7 +98,7 @@
   height:210px;
   position:absolute;
   left:190px;
-  top:50px;
+  top:80px;
   z-index:400;
   border-right:1px solid #FFF;
 }
@@ -172,17 +172,14 @@
 }
 #editorTools{
   font-family: 'Aldrich', sans-serif;
-  position:fixed;
-  bottom:170px;
-  left:10px;
-  width: 150px;
-  height: 100px;
+  width: 700px;
+  height: 30px;
   background: #505050;
 }
-#editorTools ul li:hover{
-  background-color: #1581AC;
-  cursor: pointer; cursor: hand;
-}
+#editorTools div{float:left;}
+#editorTools div input{color:#000;}
+#UI_render{display:block;height:30px;width:140px;}
+#UI_render:hover{background:#FFF;cursor:pointer;cursor:hand;}
 .palletLoader{
   display: block;
   width: 126px;

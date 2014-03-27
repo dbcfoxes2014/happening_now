@@ -1,13 +1,32 @@
 function bindEvents() {
+	$('#UI_howItWorks').on('click',function(){
+		$.ajax({
+      type: "POST",
+      url: "/setTutorial",
+      data: {
+      	toggle:	"true"
+      }
+    }).done(function(response){
+    	console.log("response " +response.status);
+    	if(response.status == 'good')
+				$(location).attr('href','/');
+    });
+	});
+
 	//bind fancybox to images and videos
-	$("a[href$='.mp4'], a[href$='.jpg'],a[href$='.png'],a[href$='.gif']").attr('rel', 'gallery').fancybox();
+	$("a[href$='.mp4'], a[href$='.jpg'],a[href$='.png'],a[href$='.gif']").attr('rel', 'gallery').fancybox({
+		 beforeShow : function(){
+		 	this.title = $(this.element).data("caption");
+		}
+	});
 
 	//make the navbar dropdown work
-	$('.drowpdown-toggle').dropdown()
+	$('.drowpdown-toggle').dropdown();
 
 	//when you click a video thumbnail, make it appear in a lightbox
 	$('.video_thumbnail').on('click', function(){
 	  var save_url = $(this).attr('id');
+	  var title = $(this).data("caption");
 
 	  //make the video x% of the window width and height
 	  var width = (50 / 100) * $(window).width();
@@ -20,17 +39,22 @@ function bindEvents() {
 			    'transitionOut': 'none',
 			    'type'         : 'iframe',
 			    'href'         : 'this.href',
+			    'title'		     :  title,
 			    'content'	   : "<video autoplay id=\"example_video_1\" class=\"video-js vjs-default-skin\" controls preload=\"none\" width=\"" + width + "\" height=\"" + height + "\" data-setup='{'autoplay': true}'><source src=\" " + save_url + "\" type='video/mp4' /><track kind=\"captions\" src=\"demo.captions.vtt\" srclang=\"en\" label=\"English\"></track><!-- Tracks need an ending tag thanks to IE9 --><track kind=\"subtitles\" src=\"demo.captions.vtt\" srclang=\"en\" label=\"English\"></track><!-- Tracks need an ending tag thanks to IE9 --></video>"
 		    });
 	});
 
 	//ensure that an images checkbox will always remain visible if checked,
 	//and appear on mouse over if unchecked / dissapear on mouseoff if unchecked
+	//also ensure that usernames/tags display over media when moused over
 	$('.thumbnail_object').on({
 		mouseover: function(){
 			var inputDiv = $(this).find('input');
 			//when you hover over a thumbnail, reveal the uploaders instagram username
 			$(this).find('.pic-username').removeClass('hide-thumbnail');
+
+			//when you hover over a thumbnail, reveal the tags associated with the image
+			$(this).find('.tags').removeClass('hide-thumbnail');
 
 			if (inputDiv.is(':checked') != true) {
 				inputDiv.addClass('show-thumbnail');
@@ -40,6 +64,9 @@ function bindEvents() {
 			var inputDiv = $(this).find('input');
 			//when you hover off of a thumbnail, hide the uploaders instagram username
 			$(this).find('.pic-username').addClass('hide-thumbnail');
+
+			//when you hover over a thumbnail, reveal the tags associated with the image
+			$(this).find('.tags').addClass('hide-thumbnail');
 
 			if (inputDiv.is(':checked') != true) {
 				inputDiv.removeClass('show-thumbnail');
@@ -134,7 +161,6 @@ function bindEvents() {
 		});
 	});
 };
-
 
 //on document load, make sure everything is bound
 $(function(){

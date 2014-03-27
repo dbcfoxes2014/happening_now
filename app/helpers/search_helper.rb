@@ -1,7 +1,22 @@
 module SearchHelper
 
+	def fetch(url, response = '')
+	  begin
+	    open(url) { |f| f.each_line {|line| response += line } }
+	    return JSON.parse(response)
+	  rescue OpenURI::HTTPError
+	    nil
+	  end
+	end
+
+
 	def join_values(string)
 		return string.gsub(/\W/, "")
+	end
+
+	def seperate_values(string)
+		string.gsub!(/\W/, " ")
+		string.split(" ")
 	end
 
 	def find_similar_tags(value)
@@ -33,8 +48,11 @@ module SearchHelper
 
 	def grab_select_media(values, wanted_type)
 		session[:next_urls] = []
-
 		media = []
+
+		if values.class == String
+			values = values.split()
+		end
 
 		values.each do |value|
 			session[:next_urls] << Instagram.tag_recent_media(value).pagination.next_url

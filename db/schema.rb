@@ -43,6 +43,7 @@ ActiveRecord::Schema.define(version: 20140326160914) do
   create_table "render_queues", force: true do |t|
     t.string   "title"
     t.string   "job_id"
+    t.string   "stage"
     t.integer  "user_id"
     t.datetime "created_at"
     t.datetime "updated_at"
@@ -73,6 +74,7 @@ ActiveRecord::Schema.define(version: 20140326160914) do
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
     t.string   "last_sign_in_ip"
+    t.integer  "tut_complete"
     t.datetime "created_at"
     t.datetime "updated_at"
     t.string   "provider"

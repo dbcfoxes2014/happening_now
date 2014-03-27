@@ -3,6 +3,17 @@
       var movieProject = new MovieStudio($('#TrackWrapper'));
   });
 </script>
+<% if !session[:tutorial_active].nil? %>
+<script src="/javascripts/tutorial.js"></script>
+  <div class='tutorial_overlay'>
+    <div id='tut_slide1' class='paragraph'>
+      Select either the Slideshow or Video editor from the drop down menu. Your favorites will appear in the palette on the right. Click and drag them into the timeline in the order you want. Give your project a title and click the Compile button!
+
+      In a few short moments you'll see "Your Project is Ready!". Select 'Projects' from the drop down menu and enjoy!
+      <a class='next' href='/recently_created_media'>Next!</a>
+    </div>
+  </div>
+<% end %>
 <div id="renderStatus">
   <% jobs = RenderQueue.where(user_id: current_user.id) %>
   <% unless jobs.empty? %>
@@ -17,9 +28,9 @@
 </div>
 <div id="moviePallet">
   <div class="palletOverflow">
-    <% if @session_table.empty? %>
+    <% if @session_table.nil? || @session_table.empty? %>
       <div class="ohnoes">
-        There are no clips in your pallet!
+        There are no Videos in your pallet!
       </div>
     <% else %>
       <% @session_table.each do |media|%>
@@ -29,18 +40,12 @@
     <% end %>
   </div>
 </div>
-<div id="editorTools">
-    <span>Project Tools</span>
-    <ul>
-      <li>
-        <span id="UI_render">Render Project</span>
-      </li>
-      <li>
-        <span id="UI_test">More stuff Woo</span>
-      </li>
-    </ul>
-  </div>
 <div id="editorTimeline">
+  <div id="editorTools">
+    <div>&#60; Play &#62;</div>
+    <div><span>Title: </span><input type='input' id='UI_movieTitle' placeholder='My First Movie'/></div>
+    <div><span id="UI_render">Render Project</span></div>
+  </div>
   <div id="editorTimeSlider"></div>
   <div id="editorTimeBar"></div>
   <div id="THeaderWrapper">

@@ -17,7 +17,6 @@
           <li><%= link_to "Popular", popular_path, {class: "popular-button" } %></li>
           <li><%= link_to "Recently Created", recently_created_media_path, { class: "recent-media-button" } %></li>
         <% if user_signed_in? %>
-          <li><%= link_to "Your Projects", user_path(current_user.id) %></li>
           <li>
             <a href="#" class="dropdown-toggle" data-toggle="dropdown">Media Editor</a>
             <ul class="dropdown-menu">
@@ -25,15 +24,18 @@
               <li><%= link_to "Video", editor_video_path, { class: "pull-right" } %></li>
             </ul>
           </li>
-          <li><%= link_to "View Selection (#{current_user.flagged_contents.length})", selected_media_path, { class: "view-selected-button"} %></li>
-          <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
-        </ul>
-        <% else %>
-          <a href="#" class="dropdown-toggle pull-right" data-toggle="dropdown">Already a Member?</a>
+          <li>
+          <a href="#" class="dropdown-toggle" data-toggle="dropdown">Hi, <%= current_user.first_name %></a>
           <ul class="dropdown-menu">
+            <li><%= link_to "View Selection (#{current_user.flagged_contents.length})", selected_media_path, { class: "view-selected-button pull-right"} %></li>
+            <li><%= link_to "My Projects", user_path(current_user.id) %></li>
+            <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
+          </li>
+        <% else %>
             <li><%= link_to "Sign Up", new_user_registration_path %></li>
             <li><%= link_to "Sign In", new_user_session_path %></li>
-          <% end %>
+        <% end %>
+          </ul>
         </ul>
       </ul>
     </div>

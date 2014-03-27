@@ -17,8 +17,6 @@
 </head>
 
 <body>
-<%= render 'layouts/navbar' %>
-	<!-- we can put this in a partial if we decide on doing a nav bar -->
 	<% flash.each do |name, msg| %>
 		<% if msg.is_a?(String) %>
 			<div class="alert alert-<%= name == :notice ? "success" : "danger" %>">
@@ -27,6 +25,17 @@
 			</div>
 		<%end%>
 	<%end%>
+<%= render 'layouts/navbar' %>
+  <% session[:next_urls] ||= [] %>
+
+	<!-- we can put this in a partial if we decide on doing a nav bar -->
     <%= yield %>
 </body>
+<footer>
+	  <div class="container">
+		<hr>
+				<p class="centered"><i class="glyphicon glyphicon-globe"></i> Created by Happening Now. Dev Bootcamp Foxes 2014.</p>
+	  </div>
+
+</footer>
 </html>

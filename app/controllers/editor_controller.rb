@@ -29,7 +29,6 @@ class EditorController < ApplicationController
     else
       response = {status: 'Query is empty'}
     end
-    puts response
     render json: response
   end
 
@@ -38,21 +37,36 @@ class EditorController < ApplicationController
     if(params[:command])
       case params[:command]
         when 'grabVideos'
-          response.merge!({status: grabVidURLs(params[:urls]) ? 'videosDownloaded' : 'downloadFailed'})
+          if params[:urls].nil? || params[:urls].empty?
+            response = {status: 'emptyList'}
+          else
+            job_id = RenderWorker.perform_async(current_user.id,params[:urls],'movie')
+            project_title = params[:project_title]=="" ? "untitled project" : params[:project_title]
+            response.merge!({status: 'grabVideosStarted',job_id: job_id})
+            RenderQueue.create(user_id: current_user.id, title: project_title, job_id: job_id, stage: 'copying_videos')
+            puts "Starting To Collect Videos on job_id: #{job_id}"
+          end
+          #response.merge!({status: grabVidURLs(params[:urls]) ? 'videosDownloaded' : 'downloadFailed'})
         when 'grabPhotos'
-          response.merge!({status: grabPicURLs(params[:urls]) ? 'photosDownloaded' : 'downloadFailed'})
+          if params[:urls].nil? || params[:urls].empty?
+            response = {status: 'emptyList'}
+          else
+            job_id = RenderWorker.perform_async(current_user.id,params[:urls],'slideshow')
+            project_title = params[:project_title]=="" ? "untitled project" : params[:project_title]
+            response.merge!({status: 'grabPhotosStarted',job_id: job_id})
+            RenderQueue.create(user_id: current_user.id, title: project_title, job_id: job_id, stage: 'copying_photos')
+            puts "Starting To Collect Photos on job_id: #{job_id}"
+          end
         when 'startVideoRender'
           response.merge!({status: 'renderVideoStart',job_id: rand(200)})
-          job_id = RenderWorker.perform_async(current_user.id,session[:videos],'movie')
-          RenderQueue.create(user_id: current_user.id, job_id: job_id)
+          # job_id = RenderWorker.perform_async(current_user.id,session[:videos],'movie')
+          # RenderQueue.create(user_id: current_user.id, job_id: job_id)
           puts "Starting Render on job_id: #{job_id}"
-          response.merge!({status: 'renderVideoFinished',job_id: job_id})
         when 'startPhotoRender'
           response.merge!({status: 'renderPhotoStart',job_id: rand(200)})
-          job_id = RenderWorker.perform_async(current_user.id,session[:photos],'slideshow')
-          RenderQueue.create(user_id: current_user.id, job_id: job_id)
+          # job_id = RenderWorker.perform_async(current_user.id,session[:photos],'slideshow')
+          # RenderQueue.create(user_id: current_user.id, job_id: job_id)
           puts "Starting Render on job_id: #{job_id}"
-          response.merge!({status: 'renderPhotoFinished',job_id: job_id})
         when 'stopRender'
           puts "Stopping Render on job_id: #{params[:slot]}"
           response.merge!({status: 'renderStop',job_id: rand(200)})
@@ -66,36 +80,6 @@ class EditorController < ApplicationController
   end
 
 private
-
-  def grabVidURLs(urls)
-    return false if (urls.nil? || urls.empty?)
-    movie_files = Array.new
-    urls.map do |url|
-      movie_files << url[-12..-1]
-      save_dir = "public/data/#{movie_files[-1]}";
-      open(save_dir,"wb") do |file|
-        file.write open(url).read
-      end
-    end
-    session[:videos] = movie_files
-    return true
-  end
-
-  def grabPicURLs(urls)
-    return false if (urls.nil? || urls.empty?)
-    photo_files = Array.new
-    urls.each_with_index.map do |url,index|
-      index = "0#{index}" if index < 10
-      photo_files << "img#{current_user.id}_#{index}.jpg"
-      save_dir = "public/data/#{photo_files[-1]}";
-      p "URL Files: #{url}"
-      open(save_dir,"wb") do |file|
-        file.write open(url).read
-      end
-    end
-    session[:photos] = photo_files
-    return true
-  end
 
   def returnUserJobs(user)
     user_found = RenderQueue.where(user_id: user).all

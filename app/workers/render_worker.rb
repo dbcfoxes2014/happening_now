@@ -2,15 +2,43 @@ class RenderWorker
   include Sidekiq::Worker
   sidekiq_options retry: false
 
-  def perform(user_id,clips,type)
+  def perform(user_id,urls,type)
     if(type == 'movie')
-      renderMovies(user_id,clips)
+      grabVidURLs(user_id,urls)
     elsif(type == 'slideshow')
-      renderPhotos(user_id,clips)
+      grabPicURLs(user_id,urls)
     end
   end
 
   private
+
+  def grabVidURLs(user_id,urls)
+    puts "URLS: #{urls} User: #{user_id}"
+    movie_files = Array.new
+    urls.each_with_index.map do |url,index|
+      movie_files << "vid#{user_id}_#{index}.mp4"
+      save_dir = "public/data/#{movie_files[-1]}";
+      open(save_dir,"wb") do |file|
+        file.write open(url).read
+      end
+    end
+    RenderQueue.where(user_id: user_id, job_id: jid).first.update_attribute('stage', 'rendering_video')
+    renderMovies(user_id,movie_files)
+  end
+
+  def grabPicURLs(user_id,urls)
+    photo_files = Array.new
+    urls.each_with_index.map do |url,index|
+      index = "0#{index}" if index < 10
+      photo_files << "img#{user_id}_#{index}.jpg"
+      save_dir = "public/data/#{photo_files[-1]}";
+      open(save_dir,"wb") do |file|
+        file.write open(url).read
+      end
+    end
+    RenderQueue.where(user_id: user_id, job_id: jid).first.update_attribute('stage', 'rendering_slideshow')
+    renderPhotos(user_id,photo_files)
+  end
 
   def renderMovies(user_id,videos)
     movie_ffmpeg = Array.new
@@ -24,11 +52,11 @@ class RenderWorker
 
     movie_name = nil
     if (Video.all.length == 0)
-      movie_name = "data/1.mp4"
-      screenshot_name = "data/1.jpg"
+      movie_name = "data/vid1.mp4"
+      screenshot_name = "data/vidThumb1.jpg"
     else
-      movie_name = "data/#{Video.last.id + 1}.mp4"
-      screenshot_name = "data/#{Video.last.id + 1}.jpg"
+      movie_name = "data/vid#{Video.last.id + 1}.mp4"
+      screenshot_name = "data/vidThumb#{Video.last.id + 1}.jpg"
     end
 
     movie_ffmpeg[0].transcode(
@@ -39,13 +67,15 @@ class RenderWorker
 
     movie_ffmpeg[0].screenshot("public/#{screenshot_name}", seek_time: 5, resolution: '256x256')
 
-    RenderQueue.where(job_id: jid).first.destroy;
+    job_record = RenderQueue.where(job_id: jid).first
+    puts "Title of Job WOO #{job_record.title}"
+    Video.create(user_id: user_id, title: job_record.title, file_path: "#{movie_name}", thumbnail_path: "#{screenshot_name}").save
+    job_record.destroy
     puts "Removed Job #{jid} from queue table!"
-
-    Video.create(user_id: user_id, title: "we shouldnt have a title", file_path: "#{movie_name}", thumbnail_path: "#{screenshot_name}").save
   end
 
   def renderPhotos(user_id,slides)
+    puts "Rendering Slideshow with slides #{slides}"
     #puts "JID #{jid} - TID #{Thread.current.object_id.to_s}"
     #concate movies via transcoding
     photo_ffmpeg = FFMPEG::Movie.new("public/data/img#{user_id}_%02d.jpg")
@@ -53,11 +83,12 @@ class RenderWorker
 
     slideshow_name = nil
     if (Video.all.length == 0)
-      slidheshow_name = "data/img1.mp4"
-      thumbnail_name  = "data/thumb1.jpg"
+      puts "Rendering first slideshow"
+      slideshow_name = "data/slideshow1.mp4"
+      thumbnail_name  = "data/imgThumb1.jpg"
     else
-      slideshow_name = "data/img#{Video.last.id + 1}.mp4"
-      thumbnail_name = "data/thumb#{Video.last.id + 1}.jpg"
+      slideshow_name = "data/slideshow#{Video.last.id + 1}.mp4"
+      thumbnail_name = "data/imgThumb#{Video.last.id + 1}.jpg"
     end
     #works on terminal
     #ffmpeg -r 1/5 -pattern_type glob -i 'public/data/*.jpg' -c:v libx264 public/data/out.mp4
@@ -67,10 +98,12 @@ class RenderWorker
         'slideshow'
     )
 
-    RenderQueue.where(job_id: jid).first.destroy;
-    puts "Removed Job #{jid} from queue table!"
-    #photo_ffmpeg[0].screenshot("public/#{thumbnail_name}", seek_time: 5, resolution: '256x256')
+    job_record = RenderQueue.where(job_id: jid).first
 
-    Video.create(user_id: user_id, title: "we shouldnt have a title", file_path: "#{slideshow_name}", thumbnail_path: "#{thumbnail_name}").save
+    FFMPEG::Movie.new("public/#{slideshow_name}").screenshot("public/#{thumbnail_name}", seek_time: 5, resolution: '256x256')
+
+    Video.create(user_id: user_id, title: job_record.title, file_path: "#{slideshow_name}", thumbnail_path: "#{thumbnail_name}").save
+    job_record.destroy
+    puts "Removed Job #{jid} from queue table!"
   end
 end
