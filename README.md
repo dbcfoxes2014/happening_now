@@ -1,13 +1,19 @@
-# VentiView Rails App
+# [Happening Now](http://happeningnow.today)
 
 [![Coverage Status](https://coveralls.io/repos/dbcfoxes2014/free_candy/badge.png)](https://coveralls.io/r/dbcfoxes2014/free_candy)
 
-## Collaborators
+### Collaborators (Foxes 2014)
 - [Jack Dubnicek](https://github.com/jdubnicek)
 - [Chris Prater](https://github.com/cprater)
 - [Daniel Petersen](https://github.com/DanJP-)
 - [Tom W.](https://github.com/To-mos)
 - [Joe Wilmoth](http://github.com/jbwilmoth)
+
+This application was made for our final project at Dev Bootcamp Chicago.
+
+
+
+
 
 ### Specs
 
