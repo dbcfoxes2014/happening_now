@@ -83,7 +83,8 @@ class RenderWorker
 
     slideshow_name = nil
     if (Video.all.length == 0)
-      slidheshow_name = "data/slideshow1.mp4"
+      puts "Rendering first slideshow"
+      slideshow_name = "data/slideshow1.mp4"
       thumbnail_name  = "data/imgThumb1.jpg"
     else
       slideshow_name = "data/slideshow#{Video.last.id + 1}.mp4"
@@ -93,7 +94,7 @@ class RenderWorker
     #ffmpeg -r 1/5 -pattern_type glob -i 'public/data/*.jpg' -c:v libx264 public/data/out.mp4
     #ffmpeg -i 'public/data/img2cd06c_8.jpg' -i public/data/img670ba3_8.jpg -filter_complex concat=n=2:v=1:a=0 -r 1/5 -c:v libx264 public/data/out.mp4
     photo_ffmpeg.transcode(
-        'public/#{slideshow_name}',
+        "public/#{slideshow_name}",
         'slideshow'
     )
 
