@@ -12,6 +12,7 @@ function bindEvents() {
 	//when you click a video thumbnail, make it appear in a lightbox
 	$('.video_thumbnail').on('click', function(){
 	  var save_url = $(this).attr('id');
+	  var title = $(this).data("caption");
 
 	  //make the video x% of the window width and height
 	  var width = (50 / 100) * $(window).width();
@@ -24,6 +25,7 @@ function bindEvents() {
 			    'transitionOut': 'none',
 			    'type'         : 'iframe',
 			    'href'         : 'this.href',
+			    'title'		     :  title,
 			    'content'	   : "<video autoplay id=\"example_video_1\" class=\"video-js vjs-default-skin\" controls preload=\"none\" width=\"" + width + "\" height=\"" + height + "\" data-setup='{'autoplay': true}'><source src=\" " + save_url + "\" type='video/mp4' /><track kind=\"captions\" src=\"demo.captions.vtt\" srclang=\"en\" label=\"English\"></track><!-- Tracks need an ending tag thanks to IE9 --><track kind=\"subtitles\" src=\"demo.captions.vtt\" srclang=\"en\" label=\"English\"></track><!-- Tracks need an ending tag thanks to IE9 --></video>"
 		    });
 	});
