@@ -85,13 +85,16 @@ a:after {
 }
 
 .navbar-default .navbar-brand {
-    font-size: 28px;
-	color: #F2F4EF;
+    font-size: 32px;
+    font-variant: small-caps;
+    letter-spacing: 1px
+	color: #585C65;
 }
 
 .navbar-default .navbar-nav > li > a {
     font-size: 20px;
-	color: #F2F4EF;
+    font-weight: 375;
+	color: #585C65;
 }
 
 /* Helpers */
@@ -102,7 +105,7 @@ a:after {
 }
 
 .form-control {
-	height: 38px;
+	height: 36px;
 	font-size: 16px;
 	width: 280px;
 }
@@ -115,9 +118,9 @@ i {
 
 /* HeaderWrap */
 #headerwrap {
-	background-color: #76D5DB;
+	background: url(/assets/lander.png) no-repeat center top;
 	margin-top: -20px;
-	padding-top:200px;
+	padding-top: 175px;
 	background-attachment: relative;
 	background-position: center center;
 	min-height: 650px;
@@ -138,7 +141,7 @@ i {
 	margin-top: 60px;
 	margin-bottom: 15px;
 	color: white;
-	font-size: 45px;
-	font-weight: 300;
-	letter-spacing: 1px;
+	font-size: 55px;
+	font-weight: 500;
+	letter-spacing: 1.5px;
 }
