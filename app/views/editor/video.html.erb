@@ -3,6 +3,18 @@
       var movieProject = new MovieStudio($('#TrackWrapper'));
   });
 </script>
+<% tut_flag = current_user.tut_complete %>
+<script src="/javascripts/tutorial.js"></script>
+<% if tut_flag.nil? || tut_flag != 1 %>
+  <div class='tutorial_overlay'>
+    <div id='tut_slide1' class='paragraph'>
+      Select either the Slideshow or Video editor from the drop down menu. Your favorites will appear in the palette on the right. Click and drag them into the timeline in the order you want. Give your project a title and click the Compile button!
+
+      In a few short moments you'll see "Your Project is Ready!". Select 'Projects' from the drop down menu and enjoy!
+      <a class='next' href='/recently_created_media'>Next!</a>
+    </div>
+  </div>
+<% end %>
 <div id="renderStatus">
   <% jobs = RenderQueue.where(user_id: current_user.id) %>
   <% unless jobs.empty? %>

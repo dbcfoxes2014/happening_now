@@ -1,9 +1,25 @@
+<% tut_flag = current_user.tut_complete %>
+<% if tut_flag.nil? || tut_flag != 1 %>
+<script src="/javascripts/tutorial.js"></script>
+	<div class='tutorial_overlay'>
+		<div id='tut_slide1' class='paragraph'>
+				Welcome to Happening Now, where you can easily create videos and slideshows of your favorite events in real time!
+
+				To begin, create a user login by clicking  'Sign Up' in the upper right corner.
+			<span class='next next_slide'>Next!</span>
+		</div>
+		<div id='tut_slide2' class='paragraph' style='display: none;'>
+			Find user uploaded clips or pics by clicking on 'Recent Events Near You' or by using the search bar at the top of the page.
+			<span class='next' id='tut_search'>Next!</span>
+		</div>
+	</div>
+<% end %>
 <div id="headerwrap">
 	<div class="container">
 		<div class="row">
 			<div class="col-lg-6">
 				<h1>Find out what's Happening Now.</h1><hr/>
-				<button type="submit" class="btn btn-warning btn-lg"><%= link_to "Get Started",new_user_registration_path %></button> 
+				<button type="submit" class="btn btn-warning btn-lg"><%= link_to "Get Started",new_user_registration_path %></button>
 			</div>
 		</div>
 	</div>
