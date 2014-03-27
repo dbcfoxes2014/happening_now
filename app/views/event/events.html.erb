@@ -1,6 +1,8 @@
 <div class="container">
 	<h3><%= @event_message %></h3>
 
+	<button type="submit" class="btn btn-warning btn-lg"><%= link_to "Back To Events", home_events_path %></button>					
+
   <div class="display_results">
   	<%= render 'media/display_results' %>
   </div>
