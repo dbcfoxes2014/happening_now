@@ -50,6 +50,10 @@ module SearchHelper
 		session[:next_urls] = []
 		media = []
 
+		if values.class == String
+			values = values.split()
+		end
+
 		values.each do |value|
 			session[:next_urls] << Instagram.tag_recent_media(value).pagination.next_url
 			for item in Instagram.tag_recent_media(value)
