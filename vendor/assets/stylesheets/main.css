@@ -115,7 +115,7 @@ i {
 
 /* HeaderWrap */
 #headerwrap {
-	background-color: #76D5DB;
+	background: url(/assets/lander.png) no-repeat center top;
 	margin-top: -20px;
 	padding-top:200px;
 	background-attachment: relative;
