@@ -14,18 +14,20 @@
     </div>
   </div>
 <% end %>
-<div id="renderStatus">
-  <% jobs = RenderQueue.where(user_id: current_user.id) %>
-  <% unless jobs.empty? %>
-    <% jobs.all.each do |job|%>
-      <p>Rendering Movie <span><%= job.title %></span></p>
-      <div class="movingBallLine">
-        <div class="movingBallLineG"></div>
-        <div id="movingBallG_1" class="movingBallG"></div>
-      </div>
+<% if !current_user.nil? %>
+  <div id="renderStatus">
+    <% jobs = RenderQueue.where(user_id: current_user.id) %>
+    <% unless jobs.empty? %>
+      <% jobs.all.each do |job|%>
+        <p>Rendering Movie <span><%= job.title %></span></p>
+        <div class="movingBallLine">
+          <div class="movingBallLineG"></div>
+          <div id="movingBallG_1" class="movingBallG"></div>
+        </div>
+      <% end %>
     <% end %>
-  <% end %>
-</div>
+  </div>
+<% end %>
 <div id="moviePallet">
   <div class="palletOverflow">
     <% if @session_table.nil? || @session_table.empty? %>
@@ -44,7 +46,9 @@
   <div id="editorTools">
     <div>&#60; Play &#62;</div>
     <div><span>Title: </span><input type='input' id='UI_movieTitle' placeholder='My First Movie'/></div>
-    <div><span id="UI_render">Render Project</span></div>
+    <% if !current_user.nil? %>
+      <div><span id="UI_render">Render Project</span></div>
+    <% end %>
   </div>
   <div id="editorTimeSlider"></div>
   <div id="editorTimeBar"></div>

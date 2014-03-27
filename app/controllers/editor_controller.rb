@@ -1,5 +1,4 @@
 class EditorController < ApplicationController
-  before_filter :authenticate_user!
   include RenderHelper
 
   def video
@@ -35,7 +34,7 @@ class EditorController < ApplicationController
 
   def renderCommand
     response = {}
-    if(params[:command])
+    if(params[:command] && !current_user.nil?)
       case params[:command]
         when 'grabVideos'
           if params[:urls].nil? || params[:urls].empty?
