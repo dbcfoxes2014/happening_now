@@ -36,7 +36,11 @@ before_filter :authenticate_user!, only: [:new]
       end
     else
       @search_content = join_values(params[:search_data])
-      check_search_content_keywords(@search_content)
+
+      if check_search_content_keywords(@search_content)
+        flash[:alert] = "One or more of the search words you entered violate Instagram's Terms of Use. Please enter a new search." and return
+      end
+
       similar_tags = find_similar_tags(@search_content)
       @message = "Search Results for #{@search_content}"
       if params[:search] == nil
