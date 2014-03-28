@@ -1,8 +1,5 @@
 <div class="container">
-
 	<h1>Media at <%=@event['event']['title']%>'s location</h1>
-
-
 
 	<%@media.each do |media|%>
 		<img src="<%=media.images.thumbnail.url%>">

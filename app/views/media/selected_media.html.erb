@@ -1,6 +1,8 @@
 <div class="container">
-	<h1> Selected Media</h1>
-	<a href="javascript:history.go(0)">Update Page</a><br>
+	<div class="row">
+	  <h1> Favorites </h1>
+	  <a class="icon icon-link" href="javascript:history.go(0)">Update Media</a><br />
+	</div>
 
 	<% @media.each_with_index do |media, index| %>
 	<div class="thumbnail_object">
@@ -14,3 +16,5 @@
 	</div>
 	<% end %>
 </div>
+</div><br /><br />
+<%= render 'layouts/footer' %>
