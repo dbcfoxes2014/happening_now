@@ -1,11 +1,11 @@
 <div class="container">
-  <h1><%=@username%>'s other media</h1>
-
+  <h1><%= @username %>'s other media</h1>
+  <div class="col-lg-6">
   <%= link_to "More Results", event_media_pagination_path, {class: "more_user_results", :id => @id } %>
-
+  </div>
 
   <div class="display_results">
     <%= render 'media/display_results' %>
   </div>
 </div>
-<%= render 'layouts/footer' %>
+

@@ -1,3 +1,4 @@
+<div class="container">
 <% if !session[:tutorial_active].nil? %>
 <script src="/javascripts/tutorial.js"></script>
   <div class='tutorial_overlay'>
@@ -9,8 +10,11 @@
 <% end %>
 <div class="container">
   <h1> <%= @message %> </h1>
-
-  <%= render "media/display" %>
+  <%= render "media/display" %><br /><br />
+ <% if session[:next_urls].length > 0 %>
+    <a href="#" class="more_results">More Results</a>
+    <% end %>
 </div>
+
 <%= render 'layouts/footer' %>
 

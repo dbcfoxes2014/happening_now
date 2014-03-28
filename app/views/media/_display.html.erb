@@ -1,9 +1,6 @@
+<div class="container">
 <div class="display">
   <div class="search_header" >
-
-    <% if session[:next_urls].length > 0 %>
-    <a href="#" class="more_results">More Results</a>
-    <% end %>
 
     <% if @similar_media %>
       <h2> Similar Media</h2>
@@ -16,4 +13,5 @@
   <div class="display_results">
     <%= render 'media/display_results' %>
   </div>
+</div>
 </div>
