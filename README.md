@@ -35,10 +35,6 @@ The application requires a postgreSQL database to be set up on your environment.
 
 The application requires you to have developer access tokens to the Instagram and EventBrite API's.
 
-## O-AUTH
-
-The application requires you to have a Facebook account to share media with your friends.
-
 ## Clone
 
 If you want to copy the repository to review our code, you'll need ```git``` installed on your environment.
