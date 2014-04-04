@@ -39,7 +39,7 @@ The application requires you to have developer access tokens to the Instagram an
 
 If you want to copy the repository to review our code, you'll need ```git``` installed on your environment.
 
-Open Terminal and type ```git clone https://github.com/dbcfoxes2014/free_candy``` to clone.
+Open Terminal and type ```git clone https://github.com/dbcfoxes2014/happening_now``` to clone.
 
 ## Generate
 
